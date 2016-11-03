@@ -1,0 +1,33 @@
+html {
+  display: table !important;
+  margin: auto;
+  height: 100%;
+}
+body{
+  display: table-cell !important;
+  vertical-align: middle !important;
+  height: 100%;
+}
+.login-form{
+  width: 280px;
+  .fa {
+    font-size: 1.3em !important;
+    line-height: 3em;
+  }
+  .row{
+    margin-bottom: 10px;
+  }
+  a.btn {
+    background: #ff4081
+  }
+
+}
+.profile-image-login{
+  width: 100px;
+  height: 100px !important;
+}
+.login-form-text{
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+}

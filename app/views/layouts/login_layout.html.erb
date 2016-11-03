@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LeaveManagementSystem</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <title>LeaveMgmtAppTheme</title>
+  <%= stylesheet_link_tag    'login_layout', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'login_layout', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+
 <body class="<%= 'cyan' if params[:action] == 'login'%>">
 <% if params[:action] != 'login'%>
   <%= render partial: 'layouts/header'%>
 <% end %>
+<%= yield %>
 
 </body>
 </html>
