@@ -15,8 +15,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'materialize-sass'
 gem "font-awesome-rails"
-gem "react_on_rails", "~> 6"
-
+gem 'react-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
