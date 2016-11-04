@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103113037) do
+ActiveRecord::Schema.define(version: 20161104041835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,13 @@ ActiveRecord::Schema.define(version: 20161103113037) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "leaves", force: :cascade do |t|
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sign_ins", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "leave_type_id"
     t.string   "half_full_leave"
@@ -59,12 +65,6 @@ ActiveRecord::Schema.define(version: 20161103113037) do
     t.string   "reason"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-  end
-
-  create_table "roles", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

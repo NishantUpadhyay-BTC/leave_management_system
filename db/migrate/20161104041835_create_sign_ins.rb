@@ -1,6 +1,6 @@
-class CreateLeaves < ActiveRecord::Migration
+class CreateSignIns < ActiveRecord::Migration
   def change
-    create_table :leaves do |t|
+    create_table :sign_ins do |t|
       t.integer :user_id
       t.integer :leave_type_id
       t.string :half_full_leave
