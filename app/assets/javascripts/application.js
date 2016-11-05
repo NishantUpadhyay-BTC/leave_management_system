@@ -1,3 +1,5 @@
+//= require webpack-bundle
+
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -15,7 +17,4 @@
 //= require materialize-sprockets
 //= require materialize
 //= require turbolinks
-//= require react
-//= require react_ujs
-//= require components
 //= require_tree .
