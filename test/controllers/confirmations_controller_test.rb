@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SignInTest < ActiveSupport::TestCase
+class ConfirmationsControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

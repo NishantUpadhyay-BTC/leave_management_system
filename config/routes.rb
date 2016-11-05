@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :users
+  get 'admin/index'
+  post 'admin/import'
+  devise_for :users, controllers: { confirmations: 'confirmations' }
+  root 'admin#index'
 
+  devise_scope :user do
+    resources :confirmations do
+      member do
+        patch "confirm_user"
+        get "confirmation"
+      end
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -4,8 +4,22 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+# one: {}
 # column: value
 #
-two: {}
+# two: {}
 #  column: value
+
+sign_one:
+  user_id: 1
+  leave_type: sick
+  date_from: 2016-12-10
+  date_to: 2016-12-12
+  half_full_leave: full
+
+sign_two:
+  user_id: 1
+  leave_type: sick
+  date_from: 2016-11-10
+  date_to: 2016-11-12
+  half_full_leave: full

@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104041835) do
+ActiveRecord::Schema.define(version: 20161105043804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.integer  "leave_id"
+    t.integer  "sign_off_id"
     t.integer  "user_id"
     t.integer  "sender_id"
     t.integer  "receiver_id"
@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(version: 20161104041835) do
   end
 
   create_table "leave_requesters", force: :cascade do |t|
-    t.integer  "leave_id"
+    t.integer  "sign_off_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "leave_types", force: :cascade do |t|
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20161104041835) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sign_ins", force: :cascade do |t|
+  create_table "sign_offs", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "leave_type_id"
     t.string   "half_full_leave"
@@ -87,8 +87,12 @@ ActiveRecord::Schema.define(version: 20161104041835) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
