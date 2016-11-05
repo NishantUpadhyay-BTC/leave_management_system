@@ -1,17 +1,15 @@
 import React, { PropTypes } from 'react';
 import MainWidget from '../components/MainWidget';
+import Chart from '../components/Chart'
 
-// Simple example of a React "smart" component
-export default class HelloWorld extends React.Component {
+export default class Main extends React.Component {
+
   static propTypes = {
-    name: PropTypes.string.isRequired, // this is passed from the Rails view
+    name: PropTypes.string.isRequired
   };
 
   constructor(props, context) {
     super(props, context);
-
-    // How to set initial state in ES6 class syntax
-    // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     this.state = { name: this.props.name };
   }
 
@@ -23,6 +21,7 @@ export default class HelloWorld extends React.Component {
     return (
       <div>
         <MainWidget name={this.state.name} updateName={e => this.updateName(e)} />
+        <Chart />
       </div>
     );
   }
