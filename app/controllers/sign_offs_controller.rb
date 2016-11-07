@@ -3,7 +3,7 @@ class SignOffsController < ApplicationController
   before_action :set_sign_off, only: [:edit, :update, :show, :destroy]
 
   def index
-    @sign_offs = SignOff.all
+    @sign_offs = SignOff.where({user_id: current_user.id})
   end
 
   def new
