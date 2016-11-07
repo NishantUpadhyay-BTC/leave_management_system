@@ -1,8 +1,0 @@
-<h4><%= @user.name %></h4>
-
-<h3>Import Employee</h3>
-
-<%= form_tag admin_import_path, multipart: true do %>
-  <%= file_field_tag :file%>
-  <%= submit_tag "Import CSV"%>
-<% end %>

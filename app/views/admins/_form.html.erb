@@ -1,0 +1,36 @@
+<%= form_for(@user, url: admins_path(@user), html: {method: :post}) do |f| %>
+  
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name%>
+  </div>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :designation %>
+    <%= f.text_field :designation %>
+  </div>
+  <div class="field">
+    <%= f.label :gender %>
+    <%= f.text_field :gender %>
+  </div>
+  <div class="field">
+    <%= f.label :date_of_joining %>
+    <%= f.text_field :date_of_joining %>
+  </div>
+  <div class="field">
+    <%= f.label :date_of_birth %>
+    <%= f.text_field :date_of_birth %>
+  </div>
+  <div class="field">
+    <%= f.label :role_id %>
+    <%= f.text_field :role_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

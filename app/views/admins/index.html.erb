@@ -1,0 +1,42 @@
+<br>
+<%= link_to "Check Holidays", holidays_path %>
+
+<% if can? :manage, User %>
+
+  <h3>Import Employee</h3>
+  <%= form_tag admins_import_user_path, multipart: true do %>
+    <%= file_field_tag :file%>
+    <%= submit_tag "Import CSV"%>
+  <% end %>
+  <br>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Designation</th>
+      <th>Gender</th>
+      <th>Date of Joining</th>
+      <th>Date of Birth</th>
+      <th>Role</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.designation %></td>
+        <td><%= user.gender %></td>
+        <td><%= user.date_of_joining %></td>
+        <td><%= user.date_of_birth %></td>
+        <td><%= user.role.name %></td>
+        <td><%= link_to 'show', admin_path(user) %></td>
+        <td><%= link_to 'Edit', edit_admin_path(user) %></td>
+        <td><%= link_to 'Destroy', admin_path(user) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </table>  
+  <br>
+  <%= link_to "Add User", new_admin_path %>
+<% end %>

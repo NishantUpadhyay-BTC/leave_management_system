@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :comments
   belongs_to :role
 
-  def self.import(file)
+  def self.import_user(file)
     CSV.foreach(file.path) do |row|
       next if row[0] == "email" || row[0].nil?
       ActiveRecord::Base.transaction do 
