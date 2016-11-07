@@ -8,6 +8,5 @@
 
 User.create(name: "prina", email: "prina.patel@botreetechnologies.com", designation: "developer", gender: "female", date_of_joining: Date.parse('2016-07-11'),date_of_birth: Date.parse('2016-08-12'), role_id: 1, password: "123456")
 
-Role.create(name: "admin")
-
-Role.create(name: "employee")
+ROLES = [{name: 'admin'}, {name: 'employee'}]
+ROLES.each{ |role| Role.find_or_create_by!(role) }

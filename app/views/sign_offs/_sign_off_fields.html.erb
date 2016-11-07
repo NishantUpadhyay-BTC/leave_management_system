@@ -1,0 +1,13 @@
+<%= f.label :leave_type_id, 'Leave Type' %>
+<%= f.select :leave_type_id, LeaveType.all.collect { |l| [ l.leave_type_name, l.id ] } %>
+<%= f.label :half_full_leave, 'Half or Full Leave' %>
+<%= f.radio_button :half_full_leave, 'half' %> Half Leave
+<%= f.radio_button :half_full_leave, 'full' %> Full Leave
+<%= f.label :date_from, 'From Date' %>
+<%= f.date_field :date_from %>
+<%= f.label :date_to, 'To Date' %>
+<%= f.date_field :date_to %>
+<%= f.label :leave_days, 'Leave Days' %>
+<%= f.text_field :leave_days %>
+<%= f.label :reason, 'Reason' %>
+<%= f.text_field :reason %>
