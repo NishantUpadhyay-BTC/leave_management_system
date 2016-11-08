@@ -15,26 +15,52 @@
     <%= f.label :designation %>
     <%= f.text_field :designation %>
   </div>
-  <div class="field">
-    <%= f.label :gender %>
-    <%= f.text_field :gender %>
+  <div class="field">    
+     <%= f.label :gender %>
+     Male<%= f.radio_button :gender, "male" %>
+     Female<%= f.radio_button :gender, "female" %>
   </div>
-  <div class="field">
-    <%= f.label :date_of_joining %>
-    <%= f.text_field :date_of_joining %>
-  </div>
+  <% if can? :edit, @user %>
+    <div class="field">
+      <%= f.label :date_of_joining %>
+      <%= f.text_field :date_of_joining %>
+    </div>
+  <% end %>
   <div class="field">
     <%= f.label :date_of_birth %>
     <%= f.text_field :date_of_birth %>
   </div>
-  <div class="field">
-    <%= f.label :role_id %>
-    <%= f.text_field :role_id, value: @user.role.name %>
-  </div>
-  
+
+  <% if can? :edit, @user %>
+    <div class="field">
+      <%= f.label :role_id %>
+      <%= f.text_field :role_id, value: @user.role.name %>
+    </div>
+  <% end %>
+
+  <% if current_user == @user %>
+    <div class="field">
+      <%= f.label :avatar, "Upload Profile Image" %>
+      <%= f.file_field :avatar %>
+    </div><br>
+    <div class="field">
+      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+      <%= f.password_field :password, autocomplete: "off" %>
+      <% if @minimum_password_length %>
+        <br />
+        <em><%= @minimum_password_length %> characters minimum</em>
+      <% end %>
+    </div>
+    <div class="field">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
+  
 <% end %>
 <br>
 <%= link_to "Back", admins_path%>

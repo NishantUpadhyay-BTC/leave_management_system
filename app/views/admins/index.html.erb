@@ -1,3 +1,4 @@
+<h3><%= link_to @user.name, edit_admin_path(@user) %><%= image_tag @user.avatar.url(:thumb) %></h3>
 <br>
 <%= link_to "Check Holidays", holidays_path %>
 
@@ -11,6 +12,7 @@
   <br>
   <table>
     <tr>
+      <th></th>
       <th>Name</th>
       <th>Email</th>
       <th>Designation</th>
@@ -24,6 +26,7 @@
     </tr>
     <% @users.each do |user| %>
       <tr>
+        <td><%= image_tag user.avatar.url(:thumb) %></td>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.designation %></td>

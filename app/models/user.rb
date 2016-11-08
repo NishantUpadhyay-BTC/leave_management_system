@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   has_many :comments
   belongs_to :role
 
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/missing.gif"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+
   def self.import_user(file)
     CSV.foreach(file.path) do |row|
       next if row[0] == "email" || row[0].nil?

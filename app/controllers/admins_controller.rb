@@ -1,9 +1,10 @@
 class AdminsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:update]
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
   def index
     @users = User.all
+    @user = User.find(current_user)
   end
 
   def new
@@ -29,12 +30,18 @@ class AdminsController < ApplicationController
 
   def update
     @role = Role.find_by_name(params[:user][:role_id])
-    params[:user][:role_id] = @role.id
+    params[:user][:role_id] = @role.id if params[:user][:role_id]
     respond_to do |format|
-      if @user.update(admin_params)
-        format.html { redirect_to admins_path, notice: 'successfully updated.' }
-      else
+      if params[:user][:password] != params[:user][:password_confirmation]
         format.html { render :edit }
+        flash[:notice] = "Password and confirmation Password does not match"
+      else
+        if @user.update(admin_params)
+          sign_in @user
+          format.html { redirect_to admins_path, notice: 'successfully updated.' }
+        else
+          format.html { render :edit }
+        end
       end
     end
   end
@@ -60,6 +67,6 @@ class AdminsController < ApplicationController
   end
 
   def admin_params
-    params.require(:user).permit(:name,:email,:designation,:gender,:date_of_joining,:date_of_birth,:role_id)
+    params.require(:user).permit(:name,:email,:designation,:gender,:date_of_joining,:date_of_birth,:role_id,:password,:avatar)
   end
 end

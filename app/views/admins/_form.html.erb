@@ -13,9 +13,10 @@
     <%= f.label :designation %>
     <%= f.text_field :designation %>
   </div>
-  <div class="field">
-    <%= f.label :gender %>
-    <%= f.text_field :gender %>
+  <div class="field">    
+     <%= f.label :gender %>
+     Male<%= f.radio_button :gender, "male" %>
+     Female<%= f.radio_button :gender, "female" %>
   </div>
   <div class="field">
     <%= f.label :date_of_joining %>
