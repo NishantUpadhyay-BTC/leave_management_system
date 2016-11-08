@@ -1,8 +1,8 @@
 class AdminController < ApplicationController
   before_action :authenticate_user!
+
   def index
-    @role = Role.find_by(name: "admin")
-    @user = User.find_by(id: current_user,role_id: @role)
+    @employees = User.joins(:role).where(roles: {name: 'employee'})
   end
 
   def import

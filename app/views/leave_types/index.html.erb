@@ -1,3 +1,16 @@
-<h1> Leave Types </h1>
-<%= link_to 'Add Leave Type', new_leave_type_path %>
-<%= render 'list_leave_types' %>
+<div class='whitebg'>
+  <div class='row'>
+    <div class='col m12'>
+      <h5 class='center-align'>Leave Types</h5>
+      <table class="responsive-table">
+        <thead>
+          <%= render 'leave_type_list_table_head' %>
+        </thead>
+        <tbody>
+          <%= render 'leave_type_list' %>
+        </tbody>
+      </table>
+      <%= link_to 'Add Leave Type', new_leave_type_path %>
+    </div>
+  </div>
+</div>

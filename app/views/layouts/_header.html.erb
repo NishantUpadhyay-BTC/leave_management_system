@@ -1,0 +1,76 @@
+<div class="header">
+  <div class="container">
+    <div class="header-top clearfix">
+      <div class="logo left">
+        <a href="index.html"><%= image_tag 'logo.png' %></a>
+      </div>
+      <% if current_user %>
+        <div class="right-links">
+          <ul class="menu">
+            <li class="menu-whitebg">
+              <%= link_to '', root_path, class: 'fa fa-dashboard' %>
+            </li>
+            <li class="menu-whitebg notify-dropdown">
+              <a href="#" class="dropdown-button fa fa-gear" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="setting-nav"></a>
+              <ul class="dropdown-content" id="setting-nav">
+                <li><%= link_to 'Manage Holidays', holidays_path %></li>
+                <li><%= link_to 'Manage Leave Types', leave_types_path %></li>
+                <li><%= link_to 'Manage Leaves', sign_offs_path %></li>
+                <li><%= link_to 'Add New Employee',  new_user_registration_path %></li>
+              </ul>
+            </li>
+            <li class="menu-whitebg notify-dropdown">
+              <a href="#" class="dropdown-button fa fa-bell" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="notifications"><span class="notify-icon"></span></a>
+              <ul class="dropdown-content" id="notifications">
+                <li class="highlighted"><a href="#"><span class="fa fa-envelope"></span> Nishant requested for Leave...</a></li>
+                <li><a href="#"><span class="fa fa-envelope-open"></span> Nishant cancelled his Leave...</a></li>
+                <li class="seeall"><a href="#">See All</a></li>
+              </ul>
+            </li>
+            <li class="profile-menu">
+              <a href="#" class="dropdown-button" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="profileDropdown"><%= image_tag 'profile-image.jpg', class: 'rounded' %>
+                <span class="dropdown-icon fa fa-caret-down"></span></a>
+                <ul class="dropdown-content" id="profileDropdown">
+                  <li>
+                    <div class="user-detail clearfix">
+                      <div class="profile-image">
+                        <%= image_tag 'profile-image.jpg', class: 'rounded' %>
+                      </div>
+                      <div class="basic-detail">
+                        <h5><%= current_user.name %></h5>
+                        <div class="username-email">
+                          <%= current_user.email %>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <div class="profilemenu-bottom">
+                      <div class="link">
+                        <a href="#">My Account</a> | <a href="#">Request Leave</a>
+                      </div>
+                      <div class="logout-btn">
+                        <%= link_to '', destroy_user_session_path, method: :delete, class: 'fa fa-power-off' %>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    <div class="header-bottom">
+      <div class="row">
+        <div class="col m4 right right-align">
+          <a href="#!" class="breadcrumb"><span class="fa fa-dashboard"></span></a>
+          <a href="#!" class="breadcrumb">Form Elements</a>
+        </div>
+        <div class="col m8">
+          <h1>Form Style</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

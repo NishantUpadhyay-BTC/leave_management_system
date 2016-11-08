@@ -1,8 +1,23 @@
-<h4><%= @user.name %></h4>
-
-<h3>Import Employee</h3>
-
-<%= form_tag admin_import_path, multipart: true do %>
-  <%= file_field_tag :file%>
-  <%= submit_tag "Import CSV"%>
-<% end %>
+<div class="whitebg">
+  <div class="row">
+    <div class="col m3">
+      <div class="box red lighten-3">
+        <strong>Leave Request</strong>: 12
+      </div>
+    </div>
+  </div>
+  <div class="col m12 leave-requests">
+    <table class="responsive-table">
+      <thead>
+        <%= render 'employee_list_table_head' %>
+      </thead>
+      <tbody>
+        <%= render 'employee_list' %>
+      </tbody>
+    </table>
+    <%= form_tag admin_import_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag 'Import CSV' %>
+    <% end %>
+  </div>
+</div>

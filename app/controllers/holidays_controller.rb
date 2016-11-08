@@ -1,6 +1,6 @@
 class HolidaysController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_holiday, only: [:edit, :update, :show, :destroy]
+  before_action :set_holiday, only: [:edit, :update, :destroy]
 
   def index
     @holidays = Holiday.all
@@ -25,9 +25,6 @@ class HolidaysController < ApplicationController
   def update
     @holiday.update_attributes(holiday_params)
     redirect_to holidays_path
-  end
-
-  def show
   end
 
   def destroy
