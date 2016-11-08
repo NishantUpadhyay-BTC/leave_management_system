@@ -13,9 +13,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :leave_types
+  resources :leave_types, except: :show
   resources :sign_offs
-  resources :holidays
+  resources :holidays, except: :show
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,12 @@
+<% if @employees.present? %>
+  <% @employees.each do |employee| %>
+    <tr>
+      <td><%= employee.name %></td>
+      <td><%= employee.email %></td>
+      <td><%= employee.designation %></td>
+      <td><%= employee.gender %></td>
+      <td><%= employee.date_of_birth %></td>
+      <td><%= employee.date_of_joining %></td>
+    </tr>
+  <% end %>
+<% end %>

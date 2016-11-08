@@ -1,4 +1,15 @@
-<%= form_for @sign_off do |f| %>
-  <%= render partial: 'sign_off_fields', locals: {f: f} %>
-  <%= f.submit %>
-<% end %>
+<div class='whitebg'>
+  <div class='row'>
+    <div class='col s8 offset-s2'>
+      <h5 class='center-align'>Add Sign Off</h5>
+        <div class='form-box clearfix'>
+          <%= form_for @sign_off do |f| %>
+            <div class='row'>
+              <%= render partial: 'sign_off_fields', locals: {f: f} %>
+              <%= f.submit :submit, class: 'btn blue' %>
+            </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>
