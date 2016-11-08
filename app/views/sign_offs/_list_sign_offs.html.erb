@@ -1,0 +1,14 @@
+<% if @sign_offs.present? %>
+  <% @sign_offs.each do |sign_off| %>
+    <%= sign_off.leave_type.leave_type_name %>
+    <%= sign_off.half_full_leave %>
+    <%= sign_off.leave_status %>
+    <%= sign_off.date_from %>
+    <%= sign_off.date_to %>
+    <%= sign_off.leave_days %>
+    <%= sign_off.reason %>
+    <%= link_to 'Show', sign_off_path(sign_off) %>
+    <%= link_to 'Edit',  edit_sign_off_path(sign_off) %>
+    <%= link_to 'Delete', sign_off_path(sign_off), method: :delete, data: { confirm: 'Are you sure you want to delete this Sign Off?' } %>
+  <% end %>
+<% end %>

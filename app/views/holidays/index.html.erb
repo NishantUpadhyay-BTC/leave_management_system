@@ -1,32 +1,5 @@
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Date</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  <% @holidays.each do |holiday| %>
-    <tr>
-      <td><%= holiday.id %></td>
-      <td><%= holiday.date %></td>
-      <td><%= holiday.description%></td>
-      <td><%= link_to 'show', holiday_path(holiday) %></td>
-      <td>
-        <%if can? :edit, holiday %>
-          <%= link_to 'Edit', edit_holiday_path(holiday) %>
-        <% end %>    
-      </td>
-      <td>
-        <% if can? :destroy, holiday %>
-          <%= link_to 'Destroy', holiday, method: :delete, data: { confirm: 'Are you sure?' } %>
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-
+<h1>Holidays</h1>
 <% if can? :manage, Holiday %>
-<%= link_to "Add Holiday", new_holiday_path %>
+<%= link_to 'Add Holiday', new_holiday_path %>
 <% end %>
+<%= render 'list_holidays' %>

@@ -12,7 +12,11 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :holidays 
+
+  resources :leave_types
+  resources :sign_offs
+  resources :holidays
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
