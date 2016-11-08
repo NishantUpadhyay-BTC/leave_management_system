@@ -8,11 +8,17 @@ class SignOffsController < ApplicationController
 
   def new
     @sign_off = SignOff.new
+    @admins = User.with_role('admin')
   end
 
   def create
     @sign_off = SignOff.new(sign_off_params.merge!({ user_id: current_user.id, leave_status: 'pending' }))
     if @sign_off.save
+      users_ids = params[:sign_off][:user_id]
+      users_ids.delete_at(0)
+      users_ids.each do |uid|
+        LeaveRequester.create(user_id: uid, sign_off_id: @sign_off.id)
+      end
       redirect_to sign_offs_path
     else
       render :new

@@ -1,45 +1,42 @@
-<h3><%= link_to @user.name, edit_admin_path(@user) %><%= image_tag @user.avatar.url(:thumb) %></h3>
-<br>
-<%= link_to "Check Holidays", holidays_path %>
-
-<% if can? :manage, User %>
-
-  <h3>Import Employee</h3>
-  <%= form_tag admins_import_user_path, multipart: true do %>
-    <%= file_field_tag :file%>
-    <%= submit_tag "Import CSV"%>
-  <% end %>
-  <br>
-  <table>
-    <tr>
-      <th></th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Designation</th>
-      <th>Gender</th>
-      <th>Date of Joining</th>
-      <th>Date of Birth</th>
-      <th>Role</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= image_tag user.avatar.url(:thumb) %></td>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.designation %></td>
-        <td><%= user.gender %></td>
-        <td><%= user.date_of_joining %></td>
-        <td><%= user.date_of_birth %></td>
-        <td><%= user.role.name %></td>
-        <td><%= link_to 'show', admin_path(user) %></td>
-        <td><%= link_to 'Edit', edit_admin_path(user) %></td>
-        <td><%= link_to 'Destroy', admin_path(user) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </table>  
-  <br>
-  <%= link_to "Add User", new_admin_path %>
-<% end %>
+<div class="whitebg">
+  <div class="row">
+    <div class="col m3">
+      <div class="box red lighten-3">
+        <strong>Leave Request</strong>: <%= @pending_sign_offs.count %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col m12 leave-requests">
+      <div id="tabview">
+        <ul class="tabs">
+          <li class="tab"><a class="active" href="#approved">Approved</a></li>
+          <li class="tab"><a href="#pending">Pending</a></li>
+          <li class="tab"><a href="#rejected">Rejected</a></li>
+          <li class="tab"><a href="#cancelled">Cancelled</a></li>
+          <li class="tab"><a href="#emergency">Emergency</a></li>
+        </ul>
+        <div class="tab-content" id="approved">
+          <%= render 'approved_leaves' %>
+        </div>
+        <div class="tab-content" id="pending">
+          <%= render 'pending_leaves' %>
+        </div>
+        <div class="tab-content" id="rejected">
+          <table class="responsive-table">
+            <thead>
+              <%= render 'employee_list_table_head' %>
+            </thead>
+            <tbody>
+              <%= render 'employee_list' %>
+            </tbody>
+          </table>
+          <%= form_tag admin_import_path, multipart: true do %>
+          <%= file_field_tag :file %>
+          <%= submit_tag 'Import CSV' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

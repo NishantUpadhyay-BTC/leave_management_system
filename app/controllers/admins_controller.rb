@@ -3,17 +3,21 @@ class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all
-    @user = User.find(current_user)
+    @employees = User.with_role('employee')
+    @pending_sign_offs = current_user.sign_offs.where(leave_status: 'pending')
+    @approved_sign_offs = current_user.sign_offs.where(leave_status: 'approved')
   end
 
   def new
     @user = User.new
   end
+
   def edit
   end
+
   def show
   end
+
   def create
     @user = User.new(admin_params)
     @role = Role.find_by_name(params[:user][:role_id])
