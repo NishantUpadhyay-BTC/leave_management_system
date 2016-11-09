@@ -1,5 +1,5 @@
 class LeaveTypesController < ApplicationController
-  before_action :set_leave_type, only: [:edit, :update, :destroy, :show]
+  before_action :set_leave_type, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
 
   def index
@@ -25,9 +25,6 @@ class LeaveTypesController < ApplicationController
   def update
     @leave_type.update_attributes(leave_type_params)
     redirect_to leave_types_path
-  end
-
-  def show
   end
 
   def destroy

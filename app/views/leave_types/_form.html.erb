@@ -1,4 +1,15 @@
-<%= form_for @leave_type do |f| %>
-  <%= render partial: 'leave_type_fields', locals: {f: f} %>
-  <%= f.submit %>
-<% end %>
+<div class='whitebg'>
+  <div class='row'>
+    <div class='col s8 offset-s2'>
+      <h5 class='center-align'>Add Leave Type</h5>
+        <div class='form-box clearfix'>
+          <%= form_for @leave_type do |f| %>
+            <div class='row'>
+              <%= render partial: 'leave_type_fields', locals: {f: f} %>
+              <%= f.submit :submit, class: 'btn blue' %>
+            </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>

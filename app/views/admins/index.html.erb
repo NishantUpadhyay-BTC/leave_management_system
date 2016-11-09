@@ -31,7 +31,7 @@
               <%= render 'employee_list' %>
             </tbody>
           </table>
-          <%= form_tag admin_import_path, multipart: true do %>
+          <%= form_tag admins_import_user_path, multipart: true do %>
           <%= file_field_tag :file %>
           <%= submit_tag 'Import CSV' %>
           <% end %>

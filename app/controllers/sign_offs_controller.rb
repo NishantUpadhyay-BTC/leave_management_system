@@ -8,16 +8,22 @@ class SignOffsController < ApplicationController
 
   def new
     @sign_off = SignOff.new
-    @admins = User.with_role('admin')
+    admins = User.with_role('admin')
+    @admin_list = {}
+    admin_list = JSON(admins.select(:name, :id).to_json)
+    admin_list.each do |admin|
+      @admin_list[admin['name'].upcase] = [{ id: admin['id'], text: admin['name']}]
+    end
   end
 
   def create
     @sign_off = SignOff.new(sign_off_params.merge!({ user_id: current_user.id, leave_status: 'pending' }))
     if @sign_off.save
-      users_ids = params[:sign_off][:user_id]
-      users_ids.delete_at(0)
+      users_ids = params[:user_id]
+      users_ids = users_ids.split(',').uniq
       users_ids.each do |uid|
         LeaveRequester.create(user_id: uid, sign_off_id: @sign_off.id)
+        SignOffsMailer.leave_request_mail(uid).deliver_now
       end
       redirect_to sign_offs_path
     else
