@@ -3,14 +3,16 @@
     <div class='col m12'>
       <h5 class='center-align'>Holidays</h5>
       <table class="responsive-table">
-        <thead>
+        <thead class='holiday_table_head'>
           <%= render 'holiday_list_table_head' %>
         </thead>
-        <tbody>
+        <tbody class= 'holiday_table_body'>
           <%= render 'holiday_list' %>
         </tbody>
       </table>
-      <%= paginate @holidays %>
+      <div id="paginate">
+        <%= paginate @holidays, remote: true %>
+      </div>
       <% if can? :manage, Holiday %>
         <%= link_to 'Add Holiday', new_holiday_path %>
       <% end %>

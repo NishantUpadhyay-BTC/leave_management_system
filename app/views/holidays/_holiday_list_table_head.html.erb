@@ -1,5 +1,13 @@
 <tr>
   <th><%= sortable("date","Date") %></th>
   <th>Description</th>
-  <th>Action</th>
 </tr>
+<script type="text/javascript">
+
+  $(document).ready(function() { 
+    $('thead a').click(function() { 
+        $.blockUI({ message: "<h6>Please wait...</h6>" }); 
+        setTimeout($.unblockUI, 1000); 
+    }); 
+  }); 
+</script>

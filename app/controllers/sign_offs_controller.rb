@@ -17,7 +17,7 @@ class SignOffsController < ApplicationController
       users_ids = params[:user_id]
       users_ids = users_ids.split(',').uniq
       users_ids.each do |uid|
-        LeaveRequester.create(user_id: uid, sign_off_id: @sign_off.id)
+        SignOffRequester.create(user_id: uid, sign_off_id: @sign_off.id)
         SignOffsMailer.leave_request_mail(uid).deliver_now
       end
       redirect_to sign_offs_path

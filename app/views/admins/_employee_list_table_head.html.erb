@@ -1,8 +1,20 @@
 <tr>
-  <th>Name</th>
-  <th>Email</th>
+  <th><%= sortable("name","Name") %></th>
+  <th><%= sortable("email","Email") %></th>
   <th>Designation</th>
   <th>Gender</th>
-  <th>Date of birth</th>
-  <th>Date of joining</th>
+  <th><%= sortable("date_of_birth","Date of birth") %></th>
+  <th><%= sortable("date_of_joining","Date of joining") %></th>
+  <th></th>
+  <th></th>
 </tr>
+
+<script type="text/javascript">
+
+  $(document).ready(function() { 
+    $('thead a').click(function() { 
+        $.blockUI({ message: "<h6>Please wait...</h6>" }); 
+        setTimeout($.unblockUI, 1000); 
+    }); 
+  }); 
+</script>

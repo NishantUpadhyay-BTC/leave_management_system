@@ -3,14 +3,16 @@
     <div class='col m12'>
       <h5 class='center-align'>Sign Offs</h5>
       <table class="responsive-table">
-        <thead>
+        <thead class= 'sign_off_table_head'>
           <%= render 'sign_off_list_table_head' %>
         </thead>
-        <tbody>
+        <tbody class= 'sign_off_table_body'>
           <%= render 'sign_off_list' %>
         </tbody>
       </table>
-      <%= paginate @sign_offs %>
+      <div id='sign_off'>
+        <%= paginate @sign_offs, remote: true %>
+      </div>
       <%= link_to 'New Sign Off', new_sign_off_path %>
     </div>
   </div>

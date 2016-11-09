@@ -18,14 +18,13 @@
               <%= f.text_field :designation %>
             </div>
             <div class = 'input-field'>
-              <%= f.label :gender %><br>
-              <span class="radio-inline">
+              <span class = 'radio-inline'>
                 <%= f.radio_button :gender, 'male' %>
-                <%= f.label :gender, 'Male' %>
+                <%= f.label :gender_male, 'Male' %>
               </span>
-              <span class="radio-inline">
+              <span class = 'radio-inline'>
                 <%= f.radio_button :gender, 'female' %>
-                <%= f.label :gender, 'Female' %>
+                <%= f.label :gender_female, 'Female' %>
               </span> 
             </div>
             <% if can? :edit, @user %>

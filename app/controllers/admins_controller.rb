@@ -6,6 +6,9 @@ class AdminsController < ApplicationController
     @employees = User.with_role('employee')
     @pending_sign_offs = current_user.sign_offs.where(leave_status: 'pending')
     @approved_sign_offs = current_user.sign_offs.where(leave_status: 'approved')
+	  if params[:search]
+      @employees= User.where(name: params[:name]).order(sort_column + " " + sort_direction).page(params[:page]).per(5)
+    end
   end
 
   def new

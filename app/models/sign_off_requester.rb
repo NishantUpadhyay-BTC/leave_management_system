@@ -1,4 +1,4 @@
-class LeaveRequester < ActiveRecord::Base
+class SignOffRequester < ActiveRecord::Base
   belongs_to :sign_off
   belongs_to :user
 
