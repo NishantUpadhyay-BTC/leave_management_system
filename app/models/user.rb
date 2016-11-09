@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :comments
   belongs_to :role
 
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/missing.gif"
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>", small: "50x50>" }, default_url: "/images/missing.gif"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
   def self.import_user(file)
@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
         @user.gender = row[3]
         @user.date_of_joining = row[4]
         @user.date_of_birth = row[5]
-        @user.role_id = row[6]
+        @role = Role.find_by_name(row[6])
+        @user.role_id = @role.id
         @user.password = SecureRandom.hex(8)
         @user.save
       end

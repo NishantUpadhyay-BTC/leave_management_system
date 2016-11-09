@@ -1,10 +1,9 @@
 class AdminsController < ApplicationController
-  before_action :authenticate_user!, except: [:update]
+  before_action :authenticate_user!
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all
-    @user = User.find(current_user)
+    @employees = User.joins(:role).where(roles: {name: 'employee'}).order(sort_column + " " + sort_direction).page(params[:page]).per(5)
   end
 
   def new
@@ -36,9 +35,11 @@ class AdminsController < ApplicationController
         format.html { render :edit }
         flash[:notice] = "Password and confirmation Password does not match"
       else
+        if params[:user][:password] != ""
+          @user.password = params[:user][:password]
+        end
         if @user.update(admin_params)
-          sign_in @user
-          format.html { redirect_to admins_path, notice: 'successfully updated.' }
+          format.html { redirect_to admins_path}
         else
           format.html { render :edit }
         end
@@ -65,8 +66,13 @@ class AdminsController < ApplicationController
   def set_admin
     @user = User.find(params[:id])
   end
-
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : 'id'
+  end
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
   def admin_params
-    params.require(:user).permit(:name,:email,:designation,:gender,:date_of_joining,:date_of_birth,:role_id,:password,:avatar)
+    params.require(:user).permit(:name,:email,:designation,:gender,:date_of_joining,:date_of_birth,:role_id,:avatar)
   end
 end

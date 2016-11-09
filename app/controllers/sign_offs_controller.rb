@@ -3,7 +3,7 @@ class SignOffsController < ApplicationController
   before_action :set_sign_off, only: [:edit, :update, :show, :destroy]
 
   def index
-    @sign_offs = SignOff.where({user_id: current_user.id})
+    @sign_offs = SignOff.where({user_id: current_user.id}).order(sort_column + " " + sort_direction).page(params[:page]).per(5)
   end
 
   def new
@@ -40,7 +40,12 @@ class SignOffsController < ApplicationController
   def set_sign_off
     @sign_off = SignOff.find(params[:id])
   end
-
+  def sort_column
+    SignOff.column_names.include?(params[:sort]) ? params[:sort] : 'id'
+  end
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
   def sign_off_params
     params.require(:sign_off).permit(:leave_type_id, :half_full_leave, :date_from, :date_to, :leave_days, :reason)
   end

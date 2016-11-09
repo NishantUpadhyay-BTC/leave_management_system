@@ -1,4 +1,14 @@
-<%= f.label :date, 'Holiday Date' %>
-<%= f.date_field :date %>
-<%= f.label :date, 'Description' %>
-<%= f.text_field :description %>
+<div class = 'row'>
+  <div class = 'input-field col s6'>
+    <%= f.label :date, 'Holiday Date' %>
+    <%= f.date_field :date, class: 'validate datepicker' %>
+  </div>
+  <div class = 'input-field col s6'>
+    <%= f.label :description, 'Description' %>
+    <%= f.text_field :description, class: 'validate' %>
+  </div>
+</div>
+
+<script>
+  LeaveManagementSystem.Common.bindDatePicker();
+</script>

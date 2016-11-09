@@ -1,66 +1,86 @@
-<h1>Editing User</h1>
+<div class='whitebg'>
+  <div class='row'>
+    <div class='col s8 offset-s2'>
+      <h5 class='center-align'>Editing user</h5>
+        <div class='form-box clearfix'>
+          <%= form_for(@user, url: admin_path(@user), html: {method: :put}) do |f| %>
+          <div class="row">
+            <div class = 'input-field'>
+              <%= f.label :name %>
+              <%= f.text_field :name%>
+            </div>
+            <div class = 'input-field'>
+              <%= f.label :email %>
+              <%= f.email_field :email %>
+            </div>
+            <div class = 'input-field'>
+              <%= f.label :designation %>
+              <%= f.text_field :designation %>
+            </div>
+            <div class = 'input-field'>
+              <%= f.label :gender %><br>
+              <span class="radio-inline">
+                <%= f.radio_button :gender, 'male' %>
+                <%= f.label :gender, 'Male' %>
+              </span>
+              <span class="radio-inline">
+                <%= f.radio_button :gender, 'female' %>
+                <%= f.label :gender, 'Female' %>
+              </span> 
+            </div>
+            <% if can? :edit, @user %>
+              <div class = 'input-field'>
+                <%= f.label :date_of_joining %>
+                <%= f.text_field :date_of_joining, class: 'datepicker' %>
+              </div>
+            <% end %>
+            <div class = 'input-field'>
+              <%= f.label :date_of_birth %>
+              <%= f.text_field :date_of_birth, class: 'datepicker' %>
+            </div>
 
-<%= form_for(@user, url: admin_path(@user), html: {method: :put}) do |f| %>
-  
+            <% if can? :edit, @user %>
+              <div class = 'input-field'>
+                <%= f.label :role_id %>
+                <%= f.text_field :role_id, value: @user.role.name %>
+              </div>
+            <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name%>
-  </div>
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :designation %>
-    <%= f.text_field :designation %>
-  </div>
-  <div class="field">    
-     <%= f.label :gender %>
-     Male<%= f.radio_button :gender, "male" %>
-     Female<%= f.radio_button :gender, "female" %>
-  </div>
-  <% if can? :edit, @user %>
-    <div class="field">
-      <%= f.label :date_of_joining %>
-      <%= f.text_field :date_of_joining %>
+            <% if current_user == @user %>
+              <div class="row">
+                <div class = 'input-field col s3'>
+                  <%= f.label :avatar, "Upload Profile Image" %>
+                </div>
+                <div class = 'input-field col s9'>
+                  <%= f.file_field :avatar %>
+                </div>
+              </div>
+              <div class = 'input-field'>
+                <%= f.label :password, "Password (leave blank if you don't want to change it)" %> <br />
+                <%= f.password_field :password, autocomplete: "off" %>
+                <% if @minimum_password_length %>
+                  <br />
+                  <em><%= @minimum_password_length %> characters minimum</em>
+                <% end %>
+              </div>
+              <div class = 'input-field'>
+                <%= f.label :password_confirmation %><br />
+                <%= f.password_field :password_confirmation, autocomplete: "off" %>
+              </div>
+            <% end %>
+
+            <div class = 'input-field'>
+              <%= f.submit :submit, class: 'btn blue' %>
+            </div>
+            
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :date_of_birth %>
-    <%= f.text_field :date_of_birth %>
   </div>
-
-  <% if can? :edit, @user %>
-    <div class="field">
-      <%= f.label :role_id %>
-      <%= f.text_field :role_id, value: @user.role.name %>
-    </div>
-  <% end %>
-
-  <% if current_user == @user %>
-    <div class="field">
-      <%= f.label :avatar, "Upload Profile Image" %>
-      <%= f.file_field :avatar %>
-    </div><br>
-    <div class="field">
-      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-      <%= f.password_field :password, autocomplete: "off" %>
-      <% if @minimum_password_length %>
-        <br />
-        <em><%= @minimum_password_length %> characters minimum</em>
-      <% end %>
-    </div>
-    <div class="field">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "off" %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-  
-<% end %>
+</div>
 <br>
 <%= link_to "Back", admins_path%>
+<script>
+  LeaveManagementSystem.Common.bindDatePicker();
+</script>

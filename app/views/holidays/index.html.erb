@@ -1,5 +1,19 @@
-<h1>Holidays</h1>
-<% if can? :manage, Holiday %>
-<%= link_to 'Add Holiday', new_holiday_path %>
-<% end %>
-<%= render 'list_holidays' %>
+<div class='whitebg'>
+  <div class='row'>
+    <div class='col m12'>
+      <h5 class='center-align'>Holidays</h5>
+      <table class="responsive-table">
+        <thead>
+          <%= render 'holiday_list_table_head' %>
+        </thead>
+        <tbody>
+          <%= render 'holiday_list' %>
+        </tbody>
+      </table>
+      <%= paginate @holidays %>
+      <% if can? :manage, Holiday %>
+        <%= link_to 'Add Holiday', new_holiday_path %>
+      <% end %>
+    </div>
+  </div>
+</div>

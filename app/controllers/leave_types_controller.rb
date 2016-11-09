@@ -1,9 +1,9 @@
 class LeaveTypesController < ApplicationController
-  before_action :set_leave_type, only: [:edit, :update, :destroy, :show]
+  before_action :set_leave_type, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
 
   def index
-    @leave_types = LeaveType.all
+    @leave_types = LeaveType.all.order(sort_column + " " + sort_direction).page(params[:page]).per(5)
   end
 
   def new
@@ -26,10 +26,7 @@ class LeaveTypesController < ApplicationController
     @leave_type.update_attributes(leave_type_params)
     redirect_to leave_types_path
   end
-
-  def show
-  end
-
+  
   def destroy
     @leave_type.destroy
     redirect_to leave_types_path
@@ -39,6 +36,14 @@ class LeaveTypesController < ApplicationController
 
   def set_leave_type
     @leave_type = LeaveType.find(params[:id])
+  end
+
+  def sort_column
+    LeaveType.column_names.include?(params[:sort]) ? params[:sort] : 'id'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 
   def leave_type_params

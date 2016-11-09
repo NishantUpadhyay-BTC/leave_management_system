@@ -1,5 +1,0 @@
-Date: <%= @holiday.date %>
-Description: <%= @holiday.description %>
-<%if can? :edit, @holiday %>
-  <%= link_to 'Edit', edit_holiday_path(@holiday) %>
-<% end %>  

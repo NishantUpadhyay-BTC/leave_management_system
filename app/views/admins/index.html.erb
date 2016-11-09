@@ -1,45 +1,27 @@
-<h3><%= link_to @user.name, edit_admin_path(@user) %><%= image_tag @user.avatar.url(:thumb) %></h3>
-<br>
-<%= link_to "Check Holidays", holidays_path %>
-
-<% if can? :manage, User %>
-
-  <h3>Import Employee</h3>
-  <%= form_tag admins_import_user_path, multipart: true do %>
-    <%= file_field_tag :file%>
-    <%= submit_tag "Import CSV"%>
-  <% end %>
-  <br>
-  <table>
-    <tr>
-      <th></th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Designation</th>
-      <th>Gender</th>
-      <th>Date of Joining</th>
-      <th>Date of Birth</th>
-      <th>Role</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= image_tag user.avatar.url(:thumb) %></td>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.designation %></td>
-        <td><%= user.gender %></td>
-        <td><%= user.date_of_joining %></td>
-        <td><%= user.date_of_birth %></td>
-        <td><%= user.role.name %></td>
-        <td><%= link_to 'show', admin_path(user) %></td>
-        <td><%= link_to 'Edit', edit_admin_path(user) %></td>
-        <td><%= link_to 'Destroy', admin_path(user) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="whitebg">
+  <div class="row">
+    <div class="col m3">
+      <div class="box red lighten-3">
+        <strong>Leave Request</strong>: 12 
+      </div>
+      <%= notice %>
+    </div>
+  </div>
+  <div class="col m12 leave-requests">
+    <% if can? :manage, User %>
+      <table class="responsive-table">
+        <thead>
+          <%= render 'employee_list_table_head' %>
+        </thead>
+        <tbody>
+          <%= render 'employee_list' %>
+        </tbody>
+      </table>
+      <%= paginate @employees %>
+      <%= form_tag admins_import_user_path, multipart: true do %>
+        <%= file_field_tag :file %>
+        <%= submit_tag 'Import CSV' %>
+      <% end %>
     <% end %>
-  </table>  
-  <br>
-  <%= link_to "Add User", new_admin_path %>
-<% end %>
+  </div>
+</div>

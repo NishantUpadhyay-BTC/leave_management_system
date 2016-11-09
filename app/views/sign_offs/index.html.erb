@@ -1,3 +1,17 @@
-<h1> Sign Offs </h1>
-<%= link_to 'New Sign Off', new_sign_off_path %>
-<%= render 'list_sign_offs' %>
+<div class='whitebg'>
+  <div class='row'>
+    <div class='col m12'>
+      <h5 class='center-align'>Sign Offs</h5>
+      <table class="responsive-table">
+        <thead>
+          <%= render 'sign_off_list_table_head' %>
+        </thead>
+        <tbody>
+          <%= render 'sign_off_list' %>
+        </tbody>
+      </table>
+      <%= paginate @sign_offs %>
+      <%= link_to 'New Sign Off', new_sign_off_path %>
+    </div>
+  </div>
+</div>
