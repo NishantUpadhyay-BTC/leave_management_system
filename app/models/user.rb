@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :comments
   belongs_to :role
 
+  scope :with_role, -> (role) { joins(:role).where(roles: {name: role}) }
+
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>", small: "50x50>" }, default_url: "/images/missing.gif"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
@@ -35,9 +37,4 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
 end
-
-
-      
-      

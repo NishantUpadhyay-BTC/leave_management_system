@@ -2,26 +2,42 @@
   <div class="row">
     <div class="col m3">
       <div class="box red lighten-3">
-        <strong>Leave Request</strong>: 12 
+        <strong>Leave Request</strong>: <%= @pending_sign_offs.count %>
       </div>
-      <%= notice %>
     </div>
   </div>
-  <div class="col m12 leave-requests">
-    <% if can? :manage, User %>
-      <table class="responsive-table">
-        <thead>
-          <%= render 'employee_list_table_head' %>
-        </thead>
-        <tbody>
-          <%= render 'employee_list' %>
-        </tbody>
-      </table>
-      <%= paginate @employees %>
-      <%= form_tag admins_import_user_path, multipart: true do %>
-        <%= file_field_tag :file %>
-        <%= submit_tag 'Import CSV' %>
-      <% end %>
-    <% end %>
+  <div class="row">
+    <div class="col m12 leave-requests">
+      <div id="tabview">
+        <ul class="tabs">
+          <li class="tab"><a class="active" href="#approved">Approved</a></li>
+          <li class="tab"><a href="#pending">Pending</a></li>
+          <li class="tab"><a href="#rejected">Rejected</a></li>
+          <li class="tab"><a href="#cancelled">Cancelled</a></li>
+          <li class="tab"><a href="#emergency">Emergency</a></li>
+        </ul>
+        <div class="tab-content" id="approved">
+          <%= render 'approved_leaves' %>
+        </div>
+        <div class="tab-content" id="pending">
+          <%= render 'pending_leaves' %>
+        </div>
+        <div class="tab-content" id="rejected">
+          <table class="responsive-table">
+            <thead>
+              <%= render 'employee_list_table_head' %>
+            </thead>
+            <tbody>
+              <%= render 'employee_list' %>
+            </tbody>
+          </table>
+         <% if can? :manage, User %>
+          <%= form_tag admins_import_user_path, multipart: true do %>
+          <%= file_field_tag :file %>
+          <%= submit_tag 'Import CSV' %>
+          <% end %>
+         <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-</div>

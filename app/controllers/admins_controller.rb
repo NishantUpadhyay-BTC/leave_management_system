@@ -3,16 +3,21 @@ class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
   def index
-    @employees = User.joins(:role).where(roles: {name: 'employee'}).order(sort_column + " " + sort_direction).page(params[:page]).per(5)
+    @employees = User.with_role('employee')
+    @pending_sign_offs = current_user.sign_offs.where(leave_status: 'pending')
+    @approved_sign_offs = current_user.sign_offs.where(leave_status: 'approved')
   end
 
   def new
     @user = User.new
   end
+
   def edit
   end
+
   def show
   end
+
   def create
     @user = User.new(admin_params)
     @role = Role.find_by_name(params[:user][:role_id])
@@ -66,12 +71,15 @@ class AdminsController < ApplicationController
   def set_admin
     @user = User.find(params[:id])
   end
+
   def sort_column
     User.column_names.include?(params[:sort]) ? params[:sort] : 'id'
   end
+
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
+
   def admin_params
     params.require(:user).permit(:name,:email,:designation,:gender,:date_of_joining,:date_of_birth,:role_id,:avatar)
   end

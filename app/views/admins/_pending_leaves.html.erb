@@ -1,0 +1,10 @@
+<table class="responsive-table">
+  <thead>
+    <%= render 'sign_offs/sign_off_list_table_head' %>
+  </thead>
+  <tbody>
+    <% if @pending_sign_offs.present? %>
+    <%= render partial: 'sign_off_list', locals: {sign_offs: @pending_sign_offs} %>
+    <% end %>
+  </tbody>
+</table>

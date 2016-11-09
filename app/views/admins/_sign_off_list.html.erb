@@ -1,0 +1,12 @@
+<% sign_offs.each do |sign_off| %>
+  <tr>
+    <td><%= sign_off.leave_type.leave_type_name %></td>
+    <td><%= sign_off.half_full_leave %></td>
+    <td><%= sign_off.leave_status %></td>
+    <td><%= sign_off.date_from %></td>
+    <td><%= sign_off.date_to %></td>
+    <td><%= sign_off.leave_days %></td>
+    <td><%= sign_off.reason %></td>
+    <td><%= link_to 'Show', sign_off_path(sign_off) %></td>
+  </tr>
+<% end %>

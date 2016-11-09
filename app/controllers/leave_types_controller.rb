@@ -26,7 +26,7 @@ class LeaveTypesController < ApplicationController
     @leave_type.update_attributes(leave_type_params)
     redirect_to leave_types_path
   end
-  
+
   def destroy
     @leave_type.destroy
     redirect_to leave_types_path

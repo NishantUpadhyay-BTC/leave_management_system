@@ -1,3 +1,16 @@
+<%= stylesheet_link_tag 'materialize-autocomplete' %>
+
+<div class="input-field">
+<div class="autocomplete" id="multiple">
+  <div class="ac-users"></div>
+  <div class="ac-input">
+  <%= f.text_field :user_id, placeholder: 'Enter User name',class: 'autocomplete', "data-activates": "multipleDropdown", "data-beloworigin": true %>
+  <ul id="multipleDropdown" class="dropdown-content ac-dropdown"></ul>
+  </div>
+  <%= hidden_field_tag :user_id %>
+</div>
+</div>
+
 <%= f.label :leave_type_id, 'Leave Type' %>
 <%= f.select :leave_type_id, LeaveType.all.collect { |l| [ l.leave_type_name, l.id ] } %>
 
@@ -36,4 +49,9 @@
 <script>
   LeaveManagementSystem.Common.bindSelect();
   LeaveManagementSystem.Common.bindDatePicker();
+  var admin_list = <%= @admin_list.to_json.html_safe %>;
+  LeaveManagementSystem.Common.autoCompleteUserList('#sign_off_user_id', admin_list);
+  <% if action_name == 'edit' %>
+    LeaveManagementSystem.Common.editAutoCompleted('#sign_off_user_id', <%= @req_users.to_json.html_safe %>);
+  <% end %>
 </script>
