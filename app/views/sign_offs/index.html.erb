@@ -10,7 +10,7 @@
           <%= render 'sign_off_list' %>
         </tbody>
       </table>
-      <div id='sign_off'>
+      <div id='paginate'>
         <%= paginate @sign_offs, remote: true %>
       </div>
       <%= link_to 'New Sign Off', new_sign_off_path %>

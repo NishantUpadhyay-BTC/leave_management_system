@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
 
   validates :name, :email, :designation, :gender, :date_of_joining, :date_of_birth, :role_id, presence: true
 
-  has_many :leave_requesters
-  has_many :sign_offs, :through => :leave_requesters
+  has_many :sign_off_requesters
+  has_many :sign_offs, :through => :sign_off_requesters
   has_many :comments
   belongs_to :role
 

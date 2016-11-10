@@ -1,6 +1,6 @@
 class SignOff < ActiveRecord::Base
-  has_many :leave_requesters
-  has_many :users, :through => :leave_requesters
+  has_many :sign_off_requesters
+  has_many :users, :through => :sign_off_requesters
   belongs_to :leave_type
   has_many :comments
 

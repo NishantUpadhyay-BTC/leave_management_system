@@ -1,5 +1,0 @@
-$(".leave_type_table_head").html("<%= escape_javascript(render(partial: 'leave_type_list_table_head'))%>");
-
-$(".leave_type_table_body").html("<%= escape_javascript(render(partial: 'leave_type_list'))%>");
-
-$('#paginate').html('<%= escape_javascript(paginate(@leave_types, remote: :true)) %>');

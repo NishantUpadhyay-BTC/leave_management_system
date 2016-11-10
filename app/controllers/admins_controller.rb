@@ -3,7 +3,7 @@ class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
   def index
-    @employees = User.with_role('employee')
+    @employees = User.with_role('employee').order(sort_column + " " + sort_direction).page(params[:page]).per(5)
     @pending_sign_offs = current_user.sign_offs.where(leave_status: 'pending')
     @approved_sign_offs = current_user.sign_offs.where(leave_status: 'approved')
 	  if params[:search]

@@ -41,8 +41,8 @@
             <%= paginate @employees, remote: true %>
           </div>
           <%= form_tag admins_import_user_path, multipart: true do %>
-          <%= file_field_tag :file %>
-          <%= submit_tag 'Import CSV' %>
+            <%= file_field_tag :file %>
+            <%= submit_tag 'Import CSV' %>
           <% end %>
         </div>
       </div>

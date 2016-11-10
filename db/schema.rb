@@ -33,21 +33,6 @@ ActiveRecord::Schema.define(version: 20161109132313) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "leave_requesters", force: :cascade do |t|
-    t.integer  "sign_off_id"
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "leave_types", force: :cascade do |t|
-    t.string   "leave_type_name"
-    t.integer  "no_of_days"
-    t.string   "description"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
