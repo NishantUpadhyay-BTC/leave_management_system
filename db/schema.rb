@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20161109132313) do
   create_table "sign_offs", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "leave_type_id"
-    t.string   "half_full_leave"
-    t.string   "leave_status"
+    t.integer  "half_full_leave"
+    t.integer  "leave_status"
     t.date     "date_from"
     t.date     "date_to"
     t.integer  "leave_days"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20161109132313) do
     t.string   "encrypted_password",     default: "", null: false
     t.string   "name"
     t.string   "designation"
-    t.string   "gender"
+    t.integer  "gender"
     t.date     "date_of_joining"
     t.date     "date_of_birth"
     t.integer  "role_id"

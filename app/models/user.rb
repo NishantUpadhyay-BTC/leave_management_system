@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :comments
   belongs_to :role
 
+  enum gender: { male: 0, female: 1 }
+
   scope :with_role, -> (role) { joins(:role).where(roles: {name: role}) }
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>", small: "50x50>" }, default_url: "/images/missing.gif"

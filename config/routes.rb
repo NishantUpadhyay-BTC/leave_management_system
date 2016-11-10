@@ -13,7 +13,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :leave_types, except: :show
   resources :sign_offs
   resources :holidays, except: :show
 

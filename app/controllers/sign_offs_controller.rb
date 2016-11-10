@@ -9,6 +9,7 @@ class SignOffsController < ApplicationController
 
   def new
     @sign_off = SignOff.new
+    @leave_types = LeaveType.leave_types
   end
 
   def create
