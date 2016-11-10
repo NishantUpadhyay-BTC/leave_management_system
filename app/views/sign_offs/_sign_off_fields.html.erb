@@ -12,7 +12,7 @@
 </div>
 
 <%= f.label :leave_type_id, 'Leave Type' %>
-<%= f.select :leave_type_id, LeaveType.all.collect { |l| [ l.leave_type_name, l.id ] } %>
+<%= f.select :leave_type_id, @leave_types.collect { |key, value| [ key.humanize, value] } %>
 
 <div class = 'input-field'>
   <span class="radio-inline">
@@ -27,12 +27,10 @@
 
 <div class = 'row'>
   <div class = 'input-field col s6'>
-    <%= f.label :date_from, 'From Date' %>
-    <%= f.date_field :date_from, class: 'datepicker' %>
+    <%= f.date_field :date_from, class: 'datepicker', placeholder: 'From Date' %>
   </div>
   <div class = 'input-field col s6'>
-    <%= f.label :date_to, 'To Date' %>
-    <%= f.date_field :date_to, class: 'datepicker' %>
+    <%= f.date_field :date_to, class: 'datepicker', placeholder: 'To Date' %>
   </div>
 </div>
 
