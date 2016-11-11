@@ -56,15 +56,15 @@ ActiveRecord::Schema.define(version: 20161110101517) do
 
   create_table "sign_offs", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "leave_type_id"
+    t.integer  "sign_off_type_id"
     t.integer  "half_full_leave"
-    t.integer  "leave_status"
+    t.integer  "sign_off_status"
     t.date     "date_from"
     t.date     "date_to"
     t.integer  "leave_days"
     t.string   "reason"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "users", force: :cascade do |t|

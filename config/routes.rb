@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :admins
+
   post 'admins/import_user'
   devise_for :users, controllers: { confirmations: 'confirmations' }
   root 'admins#index'
@@ -10,6 +10,12 @@ Rails.application.routes.draw do
         patch "confirm_user"
         get "confirmation"
       end
+    end
+  end
+
+  resources :admins do
+    collection do
+      get 'notifications' => 'admins#notifications'
     end
   end
   resources :sign_off_types, except: :show

@@ -4,9 +4,9 @@ class AdminsController < ApplicationController
 
   def index
     @employees = User.with_role('employee').order(sort_column + " " + sort_direction).page(params[:page]).per(5)
-    @pending_sign_offs = current_user.sign_offs.where(leave_status: 'pending')
-    @approved_sign_offs = current_user.sign_offs.where(leave_status: 'approved')
-	  if params[:search]
+    @pending_sign_offs = current_user.sign_offs.pending
+    @approved_sign_offs = current_user.sign_offs.approved
+    if params[:search]
       @employees= User.where(name: params[:name]).order(sort_column + " " + sort_direction).page(params[:page]).per(5)
     end
   end
@@ -68,6 +68,10 @@ class AdminsController < ApplicationController
     else
       redirect_to root_url, notice: "Please Select File"
     end
+  end
+
+  def notifications
+    @sign_off_notification = current_user.sign_offs.pending.last(5)
   end
 
   def set_admin

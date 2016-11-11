@@ -26,8 +26,8 @@ LeaveManagementSystem.Common = {
     });
     var resultCache = admin_list;
     multiple.resultCache = resultCache;
-    $('.btn').on('click', function(e){
-     $('#user_id').val(users);
+    $('#send_leave').on('click', function(){
+      $('#user_id').val(users);
     });
   },
   editAutoCompleted: function(selector, req_users)
