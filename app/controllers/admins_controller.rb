@@ -71,7 +71,7 @@ class AdminsController < ApplicationController
   end
 
   def notifications
-    @sign_off_notification = current_user.sign_offs.pending.last(5)
+    @sign_off_notification = current_user.sign_offs.pending
   end
 
   def set_admin
