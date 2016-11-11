@@ -1,33 +1,42 @@
 <%= stylesheet_link_tag 'materialize-autocomplete' %>
-
-<div class="input-field">
-<div class="autocomplete" id="multiple">
-  <div class="ac-users"></div>
-  <div class="ac-input">
-  <%= f.text_field :user_id, placeholder: 'Enter User name',class: 'autocomplete', "data-activates": "multipleDropdown", "data-beloworigin": true %>
-  <ul id="multipleDropdown" class="dropdown-content ac-dropdown"></ul>
+<div class = 'row'>
+  <div class = 'input-field col s6'>
+    <div class="autocomplete" id="multiple">
+      <div class="ac-users"></div>
+      <div class="ac-input">
+        <%= f.text_field :user_id, placeholder: 'Send To',class: 'autocomplete', "data-activates": "multipleDropdown", "data-beloworigin": true %>
+        <ul id="multipleDropdown" class="dropdown-content ac-dropdown"></ul>
+      </div>
+      <%= hidden_field_tag :user_id %>
+    </div>
   </div>
-  <%= hidden_field_tag :user_id %>
-</div>
-</div>
 
-<%= f.label :leave_type_id, 'Leave Type' %>
-<%= f.select :leave_type_id, @leave_types.collect { |key, value| [ key.humanize, value] } %>
-
-<div class = 'input-field'>
-  <span class="radio-inline">
-    <%= f.radio_button :half_full_leave, 'half' %>
-    <%= f.label :half_full_leave_half, 'Half Leave' %>
-  </span>
-  <span class="radio-inline">
-    <%= f.radio_button :half_full_leave, 'full' %>
-    <%= f.label :half_full_leave_full, 'Full Leave' %>
-  </span>
+  <div class = 'input-field col s6'>
+    <%= f.select :leave_type_id, @leave_types.collect { |key, value| [ key.humanize, value] }, placeholder: 'Leave Type' %>
+  </div>
 </div>
 
 <div class = 'row'>
   <div class = 'input-field col s6'>
+    <%= f.label :leave_days, 'Leave Days' %>
+    <%= f.text_field :leave_days %>
+  </div>
+
+  <div class = 'input-field col s6'>
     <%= f.date_field :date_from, class: 'datepicker', placeholder: 'From Date' %>
+  </div>
+</div>
+
+<div class = 'row'>
+  <div class = 'input-field col s6'>
+    <span class="radio-inline">
+      <%= f.radio_button :half_full_leave, 'half' %>
+      <%= f.label :half_full_leave_half, 'Half Leave' %>
+    </span>
+    <span class="radio-inline">
+      <%= f.radio_button :half_full_leave, 'full' %>
+      <%= f.label :half_full_leave_full, 'Full Leave' %>
+    </span>
   </div>
   <div class = 'input-field col s6'>
     <%= f.date_field :date_to, class: 'datepicker', placeholder: 'To Date' %>
@@ -35,12 +44,7 @@
 </div>
 
 <div class = 'input-field'>
-  <%= f.label :leave_days, 'Leave Days' %>
-  <%= f.text_field :leave_days %>
-</div>
-
-<div class = 'input-field'>
-  <%= f.label :reason, 'Reason' %>
+  <%= f.label :reason, 'Leave Reason' %>
   <%= f.text_field :reason %>
 </div>
 

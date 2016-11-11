@@ -4,7 +4,9 @@ LeaveManagementSystem.Common = {
     $('select').material_select();
   },
   bindDatePicker: function(){
-    $('.datepicker').pickadate();
+    $('.datepicker').pickadate({
+      container: 'body'
+    });
   },
   autoCompleteUserList: function(selector, admin_list){
     var users = [];

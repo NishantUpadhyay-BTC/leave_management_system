@@ -1,15 +1,9 @@
-<div class='whitebg'>
-  <div class='row'>
-    <div class='col s8 offset-s2'>
-      <h5 class='center-align'>Add Sign Off</h5>
-        <div class='form-box clearfix'>
-          <%= form_for @sign_off do |f| %>
-            <div class='row'>
-              <%= render partial: 'sign_off_fields', locals: {f: f} %>
-              <%= f.submit :submit, class: 'btn blue' %>
-            </div>
-          <% end %>
-      </div>
-    </div>
-  </div>
+<div class='whitebg z-depth-1'>
+  <%= form_for @sign_off, class: 'form-box' do |f| %>
+    <%= render partial: 'sign_off_fields', locals: {f: f} %>
+     <%= button_tag(type: 'submit', class: 'btn blue') do %>
+      Send Leave Request <span class="fa fa-send"></span>
+    <% end %>
+    <%= button_tag 'CANCEL', type: :reset, class: 'btn grey lighten-1' %>
+  <% end %>
 </div>

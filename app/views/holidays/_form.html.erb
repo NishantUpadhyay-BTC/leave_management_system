@@ -1,15 +1,7 @@
-<div class='whitebg'>
-  <div class='row'>
-    <div class='col s8 offset-s2'>
-      <h5 class='center-align'>Add Holiday</h5>
-        <div class='form-box clearfix'>
-          <%= form_for @holiday do |f| %>
-            <div class='row'>
-              <%= render partial: 'holiday_fields', locals: {f: f} %>
-              <%= f.submit :submit, class: 'btn blue' %>
-            </div>
-          <% end %>
-      </div>
-    </div>
+<%= form_for @holiday do |f| %>
+  <div class="modal-content">
+    <h5>Add New Holiday</h5>
+      <%= render partial: 'holiday_fields', locals: {f: f} %>
+      <%= f.submit 'Add Holiday', class: 'btn-flat blue white-text' %>
   </div>
-</div>
+<% end %>
