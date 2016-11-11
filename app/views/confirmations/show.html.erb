@@ -1,18 +1,80 @@
-<h2>Set Password for <%= @user.email %></h2>
-
-<%= form_for(@user, as: resource_name, url: confirm_user_confirmation_path(@user)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <%= f.hidden_field :confirmation_token %>
-
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Confirm user" %></div>
-<% end %>
-
-<%= render "devise/shared/links" %>
-
+<div class="centeralign-form">
+  <div class="content">
+    <div class="container">
+      <div class="whitebg z-depth-1 register-form">
+        <h5 class="center-align">Fill below detail to start</h5>
+        <%= form_for(@user, as: resource_name, url: confirm_user_confirmation_path(@user)) do |f| %>
+          <%= devise_error_messages! %>
+            <%= f.hidden_field :confirmation_token %>
+          <div class="row">
+            <div class="col s4">
+              <div class="file-field input-field clearfix">
+                <div class="btn grey upload-pic">
+                  <span>Upload Profile</span>
+                  <%= f.file_field :avatar %>
+                </div>
+                <div class="file-path-wrapper clear">
+                  <input class="file-path validate" type="text" placeholder="Select jpeg, jpg and png">
+                </div>
+              </div>
+              <div class="input-field">
+                <%= f.text_field :designation %>
+                <%= f.label :designation %>
+              </div>
+            </div>
+            <div class="col s8">
+              <div class="input-field">
+                <%= f.text_field :name%>
+                <%= f.label :name %>
+              </div>
+              <div class="input-field">
+                <%= f.email_field :email %>
+                <%= f.label :email %>
+              </div>
+              <div class="row">
+                <div class="input-field col s6">
+                  <%= f.password_field :password  %>
+                  <%= f.label :password %>
+                </div>
+                <div class="input-field col s6">  
+                  <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                  <%= f.label :password_confirmation %>
+                </div>
+              </div>              
+            </div>
+            <div class="col s12">
+              <div class="row">
+                <div class="input-field col s4">
+                  <span class = 'radio-inline'>
+                    <%= f.radio_button :gender, 'male' %>
+                    <%= f.label :gender_male, 'Male' %>
+                  </span>
+                  <span class = 'radio-inline'>
+                    <%= f.radio_button :gender, 'female' %>
+                    <%= f.label :gender_female, 'Female' %>
+                  </span> 
+                </div>
+                <div class="input-field col s4">
+                  <%= f.label :date_of_joining %>
+                  <%= f.text_field :date_of_joining, class: 'datepicker' %>
+                </div>
+                <div class="input-field col s4">
+                  <%= f.label :date_of_birth %>
+                  <%= f.text_field :date_of_birth, class: 'datepicker' %>
+                </div>
+              </div>
+            </div>
+          </div>      
+          <div class="row">
+            <div class="col s12">
+              <%= f.submit "Let's start",class: "btn blue" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  LeaveManagementSystem.Common.bindDatePicker();
+</script>

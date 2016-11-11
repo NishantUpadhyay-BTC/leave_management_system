@@ -1,0 +1,19 @@
+<% if @sign_off_types.present? %>
+  <% @sign_off_types.each do |sign_off_type| %>
+    <div class="col m4">
+      <div class="holiday-box">
+        <h5><%= sign_off_type.sign_off_type_name %></h5>
+        <div class="date">Maximum<%= sign_off_type.no_of_days %></div>
+        <div class="action">
+          <%= link_to edit_sign_off_type_path(sign_off_type),remote: true, class: "btn-flat blue waves-effect waves-light" do %>
+            <span class="fa fa-pencil"></span>
+          <% end %>
+          <%= link_to sign_off_type_path(sign_off_type), class: "btn-flat red waves-effect waves-light", method: :delete, data: { confirm: 'Are you sure you want to delete this leave type?' } do %>
+            <span class="fa fa-trash"></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+

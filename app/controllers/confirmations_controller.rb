@@ -17,8 +17,7 @@ class ConfirmationsController < Devise::ConfirmationsController
     @user = User.find_by_confirmation_token(params[:user][:confirmation_token])
     if params[:user][:password] == params[:user][:password_confirmation]
       @user = User.confirm_by_token(@user.confirmation_token)
-      @user.password = params[:user][:password]
-      @user.save
+      @user.update_attributes(user_params.merge!({password: params[:user][:password]}))
       sign_in @user
       redirect_to root_url
     else
@@ -27,4 +26,7 @@ class ConfirmationsController < Devise::ConfirmationsController
     end 
   end
 
+  def user_params
+    params.require(:user).permit(:name,:email,:designation,:gender,:date_of_joining,:date_of_birth,:avatar)
+  end 
 end

@@ -54,7 +54,6 @@ class AdminsController < ApplicationController
       end
     end
   end
-
   def destroy
     @user.destroy
     respond_to do |format|

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :admins 
+  resources :admins
   post 'admins/import_user'
   devise_for :users, controllers: { confirmations: 'confirmations' }
   root 'admins#index'
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  resources :sign_off_types, except: :show
   resources :sign_offs
   resources :holidays, except: :show
 

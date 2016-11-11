@@ -683,6 +683,16 @@ body {
     margin-right:auto;
     &.register-form {
       max-width: 750px;
+      .upload-pic {
+        height: 135px;
+        line-height: normal;
+        margin-bottom: 15px;
+        padding: 46px 17px;
+        width: 135px;
+        + .file-path-wrapper {
+          display: none;
+        }
+      }
     }
   }
 }

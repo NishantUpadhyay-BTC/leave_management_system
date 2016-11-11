@@ -11,7 +11,32 @@
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
-
+  <div class = 'field'>
+    <%= f.label :name %>
+    <%= f.text_field :name%>
+  </div>
+  <div class = 'field'>
+    <%= f.label :designation %>
+    <%= f.text_field :designation %>
+  </div>
+  <div class = 'input-field'>
+    <span class = 'radio-inline'>
+      <%= f.radio_button :gender, 'male' %>
+      <%= f.label :gender_male, 'Male' %>
+    </span>
+    <span class = 'radio-inline'>
+      <%= f.radio_button :gender, 'female' %>
+      <%= f.label :gender_female, 'Female' %>
+    </span> 
+  </div>
+  <div class = 'field'>
+    <%= f.label :date_of_joining %>
+    <%= f.text_field :date_of_joining %>
+  </div>
+  <div class = 'field'>
+    <%= f.label :date_of_birth %>
+    <%= f.text_field :date_of_birth%>
+  </div>
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "off" %>
