@@ -72,6 +72,8 @@ class AdminsController < ApplicationController
       @employees= User.where(name: params[:name]).order(sort_column + " " + sort_direction).page(params[:page]).per(5)
     end
   end
+ 
+
   def notifications
     @sign_off_notification = current_user.sign_offs.pending
   end

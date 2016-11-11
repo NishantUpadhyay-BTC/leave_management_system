@@ -1,9 +1,9 @@
 <% if @sign_offs.present? %>
   <% @sign_offs.each do |sign_off| %>
     <tr>
-    <td><%= sign_off.leave_type %></td>
+    <td><%= sign_off.sign_off_type.sign_off_type_name %></td>
     <td><%= sign_off.half_full_leave %></td>
-    <td><%= sign_off.leave_status %></td>
+    <td><%= sign_off.sign_off_status %></td>
     <td><%= sign_off.date_from %></td>
     <td><%= sign_off.date_to %></td>
     <td><%= sign_off.leave_days %></td>

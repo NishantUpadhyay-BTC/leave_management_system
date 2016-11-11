@@ -9,11 +9,10 @@ class SignOffsController < ApplicationController
 
   def new
     @sign_off = SignOff.new
-    @leave_types = SignOffType.all
   end
 
   def create
-    @sign_off = SignOff.new(sign_off_params.merge!({ user_id: current_user.id, leave_status: 'pending' }))
+    @sign_off = SignOff.new(sign_off_params.merge!({ user_id: current_user.id, sign_off_status: SignOff.sign_off_statuses[:pending] }))
     if @sign_off.save
       users_ids = params[:user_id]
       users_ids = users_ids.split(',').uniq
@@ -72,6 +71,6 @@ class SignOffsController < ApplicationController
   end
 
   def sign_off_params
-    params.require(:sign_off).permit(:leave_type_id, :half_full_leave, :date_from, :date_to, :leave_days, :reason)
+    params.require(:sign_off).permit(:sign_off_type_id, :half_full_leave, :date_from, :date_to, :leave_days, :reason)
   end
 end

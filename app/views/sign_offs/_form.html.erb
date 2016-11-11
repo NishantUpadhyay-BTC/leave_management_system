@@ -1,7 +1,7 @@
 <div class='whitebg z-depth-1'>
   <%= form_for @sign_off, class: 'form-box' do |f| %>
     <%= render partial: 'sign_off_fields', locals: {f: f} %>
-     <%= button_tag(type: 'submit', class: 'btn blue') do %>
+     <%= button_tag(type: 'submit', id: 'send_leave', class: 'btn blue') do %>
       Send Leave Request <span class="fa fa-send"></span>
     <% end %>
     <%= button_tag 'CANCEL', type: :reset, class: 'btn grey lighten-1' %>
