@@ -7,8 +7,9 @@
       <td><%= employee.gender %></td>
       <td><%= employee.date_of_birth %></td>
       <td><%= employee.date_of_joining %></td>
+      <td><%= link_to 'Show', admin_path(employee), method: :get%></td>
       <td><%= link_to 'Edit', edit_admin_path(employee) %></td>
-      <td><%= link_to 'Delete', admins_path(employee), method: :delete %></td>
+      <td><%= link_to 'Delete', admin_path(employee), method: :delete %></td>
     </tr>
   <% end %>
 <% end %>
