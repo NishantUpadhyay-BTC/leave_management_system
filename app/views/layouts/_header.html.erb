@@ -17,7 +17,7 @@
                 <li><%= link_to 'Manage Holidays', holidays_path %></li>
                 <li><%= link_to 'Manage Leave Types', sign_off_types_path %></li>
                 <li><%= link_to 'Manage Leaves', sign_offs_path %></li>
-                <li><%= link_to 'Add New Employee', new_admin_path %></li>
+                <li><%= link_to 'Manage Employees', employee_details_admins_path %></li>
               </ul>
             </li>
             <% end %>
@@ -30,7 +30,7 @@
               </ul>
             </li>
             <li class="profile-menu">
-              <a href="#" class="dropdown-button" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="profileDropdown"><%= image_tag current_user.avatar.url(:small), class: 'rounded' %>
+              <a href="#" class="dropdown-button" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="profileDropdown"><%= image_tag current_user.avatar.url(:small), class: 'rounded', width: "50", height: "50" %>
                 <span class="dropdown-icon fa fa-caret-down"></span></a>
                 <ul class="dropdown-content" id="profileDropdown">
                   <li>
@@ -50,7 +50,7 @@
                   <li>
                     <div class="profilemenu-bottom">
                       <div class="link">
-                        <a href="<%= edit_user_registration_path(current_user) %>">My Account</a> | <a href="#">Request Leave</a>
+                        <a href="<%= edit_user_registration_path %>">My Account</a> | <a href="#">Request Leave</a>
                       </div>
                       <div class="logout-btn">
                         <%= link_to '', destroy_user_session_path, method: :delete, class: 'fa fa-power-off' %>

@@ -1,4 +1,4 @@
-<div class="whitebg">
+<div class="whitebg z-depth-2">
   <div class="row">
     <div class="col m3">
       <div class="box red lighten-3">
@@ -8,10 +8,6 @@
     </div>
   </div>
   <div class="row">
-  <%= form_tag admins_path, :method => 'get', remote: true do%>
-    <%= text_field_tag :name, params[:name], placeholder: "search by employee name" %>
-    <%= submit_tag "Search", name: "search", id: "search"%>
-  <% end %>
     <div class="col m12 leave-requests">
       <% if can? :manage, User %>
       <div id="tabview">
@@ -29,21 +25,6 @@
           <%= render 'pending_leaves' %>
         </div>
         <div class="tab-content" id="rejected">
-          <table class="responsive-table">
-            <thead class="employee_table_head">
-              <%= render 'employee_list_table_head' %>
-            </thead>
-            <tbody class="employee_table_body">
-              <%= render 'employee_list' %>
-            </tbody>
-          </table>
-          <div id="paginate">
-            <%= paginate @employees, remote: true %>
-          </div>
-          <%= form_tag admins_import_user_path, multipart: true do %>
-            <%= file_field_tag :file %>
-            <%= submit_tag 'Import CSV' %>
-          <% end %>
         </div>
       </div>
       <% end %>
