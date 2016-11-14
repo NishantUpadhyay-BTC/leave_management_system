@@ -3,8 +3,8 @@
     <%= render 'sign_offs/sign_off_list_table_head' %>
   </thead>
   <tbody>
-    <% if @approved_sign_offs.present? %>
-    <%= render partial: 'sign_off_list', locals: {sign_offs: @approved_sign_offs} %>
+  <% if @sign_offs[:approved].present? %>
+    <%= render partial: 'sign_off_list', locals: {sign_offs: @sign_offs[:approved] } %>
     <% end %>
   </tbody>
 </table>

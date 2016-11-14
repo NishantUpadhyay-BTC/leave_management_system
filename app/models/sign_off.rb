@@ -8,4 +8,6 @@ class SignOff < ActiveRecord::Base
 
   enum sign_off_status: { pending: 0, approved: 1, rejected: 2 }
   enum half_full_leave: { half: 0, full: 1 }
+
+  scope :requested_sign_off, -> (user_id){ SignOff.joins(:sign_off_requesters).where({sign_off_requesters: {user_id: user_id}}) }
 end

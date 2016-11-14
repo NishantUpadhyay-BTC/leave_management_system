@@ -49,13 +49,11 @@
 </div>
 
 <script>
-  $(document).on('ready', function(){
-    LeaveManagementSystem.Common.bindSelect();
-    LeaveManagementSystem.Common.bindDatePicker();
-    var admin_list = <%= @admin_list.to_json.html_safe %>;
-    LeaveManagementSystem.Common.autoCompleteUserList('#sign_off_user_id', admin_list);
-    <% if action_name == 'edit' %>
-      LeaveManagementSystem.Common.editAutoCompleted('#sign_off_user_id', <%= @req_users.to_json.html_safe %>);
-    <% end %>
-  });
+  LeaveManagementSystem.Common.bindSelect();
+  LeaveManagementSystem.Common.bindDatePicker();
+  var admin_list = <%= @admin_list.to_json.html_safe %>;
+  LeaveManagementSystem.Common.autoCompleteUserList('#sign_off_user_id', admin_list);
+  <% if action_name == 'edit' %>
+    LeaveManagementSystem.Common.editAutoCompleted('#sign_off_user_id', <%= @req_users.to_json.html_safe %>);
+  <% end %>
 </script>

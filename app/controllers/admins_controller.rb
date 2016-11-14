@@ -1,11 +1,11 @@
 class AdminsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
+  before_action :requested_sign_off, only: [:index]
 
   def index
     @employees = User.with_role('employee').order(sort_column + " " + sort_direction).page(params[:page]).per(5)
-    @pending_sign_offs = current_user.sign_offs.pending
-    @approved_sign_offs = current_user.sign_offs.approved
+    @sign_offs = { pending: requested_sign_off.pending, approved: requested_sign_off.approved }
   end
 
   def new
@@ -92,5 +92,9 @@ class AdminsController < ApplicationController
 
   def admin_params
     params.require(:user).permit(:name,:email,:designation,:gender,:date_of_joining,:date_of_birth,:role_id,:avatar)
+  end
+
+  def requested_sign_off
+    SignOff.requested_sign_off(current_user.id)
   end
 end
