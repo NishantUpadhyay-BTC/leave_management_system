@@ -15,4 +15,6 @@
 //= require turbolinks
 //= require materialize-sprockets
 //= require common
+//= require moment 
+//= require fullcalendar
 //= require_tree .

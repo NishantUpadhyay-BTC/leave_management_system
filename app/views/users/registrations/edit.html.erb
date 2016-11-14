@@ -3,7 +3,7 @@
     <div class="container">
       <div class="whitebg z-depth-1 register-form">
         <h5 class="center-align">Update Profile</h5>
-        <%= form_for(resource, as: resource_name, url: confirm_user_confirmation_path(resource)) do |f| %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource), html: {method: :put} ) do |f| %>
           <%= devise_error_messages! %>
             <%= f.hidden_field :confirmation_token %>
              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -35,18 +35,10 @@
                 <%= f.label :email %>
               </div>
               <div class="row">
-                <div class="input-field col s6">
-                  <%= f.password_field :password, autocomplete: "off"  %>
-                  <%= f.label :password %>
+                <div class="input-field col s4">
+                  <%= f.label :date_of_birth %>
+                  <%= f.text_field :date_of_birth, class: 'datepicker' %>
                 </div>
-                <div class="input-field col s6">  
-                  <%= f.password_field :password_confirmation, autocomplete: "off" %>
-                  <%= f.label :password_confirmation %>
-                </div>
-              </div>              
-            </div>
-            <div class="col s12">
-              <div class="row">
                 <div class="input-field col s4">
                   <span class = 'radio-inline'>
                     <%= f.radio_button :gender, 'male' %>
@@ -57,13 +49,21 @@
                     <%= f.label :gender_female, 'Female' %>
                   </span> 
                 </div>
+              </div>              
+            </div>
+            <div class="col s12">
+              <div class="row">
                 <div class="input-field col s4">
-                  <%= f.label :date_of_joining %>
-                  <%= f.text_field :date_of_joining, class: 'datepicker' %>
+                  <%= f.password_field :current_password, autocomplete: "off"  %>
+                  <%= f.label :current_password, "Current Password" %>
                 </div>
                 <div class="input-field col s4">
-                  <%= f.label :date_of_birth %>
-                  <%= f.text_field :date_of_birth, class: 'datepicker' %>
+                  <%= f.password_field :password, autocomplete: "off"  %>
+                  <%= f.label :password %>
+                </div>
+                <div class="input-field col s4">  
+                  <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                  <%= f.label :password_confirmation %>
                 </div>
               </div>
             </div>

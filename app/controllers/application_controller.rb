@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   include CanCan::ControllerAdditions
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   layout :set_layout
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -13,5 +15,11 @@ class ApplicationController < ActionController::Base
 
   def set_layout
     current_user ? 'application' : 'login'
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email,:date_of_birth, :gender, :avatar, :designation, :password] )
   end
 end
