@@ -1,0 +1,27 @@
+<div class="leave-request row">
+  <div class="col m4 employe-detail">
+    <div class="image">
+      <% if @sign_off.user.avatar.present? %>
+        <%= image_url @sign_off.user.avatar.url %>
+      <% end %>
+    </div>
+    <div class="info">
+      <h4><%= @sign_off.user.name %></h4>
+      <div class="designation"><%= @sign_off.user.designation %></div>
+      <div class="red-text">On Probation</div>
+    </div>
+    <div class="leave-counter">
+      <ul>
+        <li>Leave Balance : 15</li>
+        <li>Team Lead : <b>Amit Patel</b></li>
+        <li>Date : <b><%= @sign_off.date_from %></b> to <b><%= @sign_off.date_to %></b>
+        <li>Leave Days : <%= @sign_off.leave_days %></li>
+        <li>Leave Type : <span class="green-text"><%= @sign_off.sign_off_type.sign_off_type_name %></span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col m8">
+    <h5><%= @sign_off.reason %> <span class="right">Status: <span class="red-text"><%= @sign_off.sign_off_status.capitalize %></span></span></h5>
+    <p><%= @sign_off.reason %></p>
+  </div>
+</div>
