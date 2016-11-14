@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :sign_off_requesters
   has_many :sign_offs, :through => :sign_off_requesters
+  has_many :sign_offs
   has_many :comments
   belongs_to :role
 

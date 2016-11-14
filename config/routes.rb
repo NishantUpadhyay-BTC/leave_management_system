@@ -20,7 +20,14 @@ Rails.application.routes.draw do
     end
   end
   resources :sign_off_types, except: :show
-  resources :sign_offs
+
+  resources :sign_offs do
+    member do
+      post 'approve' => 'sign_offs#approve_sign_off'
+      post 'reject' => 'sign_offs#reject_sign_off'
+    end
+  end
+
   resources :holidays, except: :show
 
   # The priority is based upon order of creation: first created -> highest priority.

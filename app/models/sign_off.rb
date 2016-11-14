@@ -6,6 +6,6 @@ class SignOff < ActiveRecord::Base
   belongs_to :user
   validates :user_id, :sign_off_type_id, :date_from, :date_to, :half_full_leave, presence: true
 
-  enum sign_off_status: { pending: 0, approved: 1 }
+  enum sign_off_status: { pending: 0, approved: 1, rejected: 2 }
   enum half_full_leave: { half: 0, full: 1 }
 end

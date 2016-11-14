@@ -13,20 +13,18 @@
       </div>
     </div>
     <div class="chat-typing">
+    <% if @sign_off.sign_off_status == 'pending' %>  
       <div class="buttons">
-        <button class="btn-floating tooltipped blue waves-effect waves-light" data-position="top" data-delay="50" data-tooltip="Send Massege" name="">
-          <span class="fa fa-send"></span>
-        </button>
-        <button class="btn-floating tooltipped green waves-effect waves-light white-text" data-position="top" data-delay="50" data-tooltip="Approve Leave" name="">
-          <span class="fa fa-check"></span>
-        </button>
-        <button class="btn-floating tooltipped red waves-effect waves-light white-text" name="" data-position="top" data-delay="50" data-tooltip="Reject Request Leave">
-          <span class="fa fa-close"></span>
-        </button>
+        <%= link_to "<button class='btn-floating tooltipped blue waves-effect waves-light' data-position='top' data-tooltip='Send Massege' data-delay= '50'><span class='fa fa-send'></span></button>".html_safe, '#' %>
+
+        <%= link_to "<button class='btn-floating tooltipped green waves-effect waves-light white-text' data-position='top' data-tooltip='Approve Leave' data-delay= '50'><span class='fa fa-check'></span></button>".html_safe, approve_sign_off_path(@sign_off), method: :post %>
+
+        <%= link_to "<button class='btn-floating tooltipped red waves-effect waves-light white-text' data-position='top' data-tooltip='Reject Leave' data-delay= '50'><span class='fa fa-close'></span></button>".html_safe, reject_sign_off_path(@sign_off), method: :post %>
       </div>
       <div class="input-field">
         <textarea id="textarea1" class="materialize-textarea" rows="1" placeholder="Type a message here"></textarea>         
       </div>
     </div>
+    <% end %>
   </div>
 </div>

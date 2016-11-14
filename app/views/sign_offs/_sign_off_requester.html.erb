@@ -8,11 +8,10 @@
     <div class="info">
       <h4><%= @sign_off.user.name %></h4>
       <div class="designation"><%= @sign_off.user.designation %></div>
-      <div class="red-text">On Probation</div>
     </div>
     <div class="leave-counter">
       <ul>
-        <li>Leave Balance : 15</li>
+        <li>Leave Balance : <%= remaining_leave(@sign_off.user) %></li>
         <li>Team Lead : <b>Amit Patel</b></li>
         <li>Date : <b><%= @sign_off.date_from %></b> to <b><%= @sign_off.date_to %></b>
         <li>Leave Days : <%= @sign_off.leave_days %></li>
