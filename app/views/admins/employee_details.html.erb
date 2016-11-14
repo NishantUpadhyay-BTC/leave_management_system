@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class='col m12'>
-    <h5 class='center-align'>Employees List</h5>
+    <% content_for :form_title, 'Employees' %>
     <%= form_tag admins_path, :method => 'get', remote: true do%>
       <%= text_field_tag :name, params[:name], placeholder: "search by employee name" %>
       <%= submit_tag "Search", name: "search", id: "search", class: "btn blue"%>

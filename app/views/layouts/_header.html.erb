@@ -50,7 +50,7 @@
                   <li>
                     <div class="profilemenu-bottom">
                       <div class="link">
-                        <a href="<%= edit_user_registration_path %>">My Account</a> | <a href="#">Request Leave</a>
+                        <a href="<%= edit_user_registration_path %>">My Account</a> | <%= link_to 'Request Leave',  new_sign_off_path %>
                       </div>
                       <div class="logout-btn">
                         <%= link_to '', destroy_user_session_path, method: :delete, class: 'fa fa-power-off' %>
@@ -70,7 +70,7 @@
           <a href="#!" class="breadcrumb">Form Elements</a>
         </div>
         <div class="col m8">
-          <h1>Form Style</h1>
+          <h1><%= yield(:form_title) %></h1>
         </div>
       </div>
     </div>

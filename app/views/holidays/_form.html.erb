@@ -1,6 +1,6 @@
 <%= form_for @holiday do |f| %>
   <div class="modal-content">
-    <h5>Add New Holiday</h5>
+    <h5><%= yield(:modal_title) %></h5>
       <%= render partial: 'holiday_fields', locals: {f: f} %>
       <%= f.submit 'Add Holiday', class: 'btn-flat blue white-text' %>
   </div>

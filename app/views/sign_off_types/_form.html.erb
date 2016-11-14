@@ -1,6 +1,6 @@
 <%= form_for @sign_off_type do |f| %>
  <div class="modal-content"> 
-  <h5>Add new Leave Type</h5>
+  <h5><%= yield(:modal_title) %></h5>
     <%= render partial: 'sign_off_type_fields', locals: {f: f} %>
     <%= f.submit :submit, class: 'btn blue' %>
 </div>
