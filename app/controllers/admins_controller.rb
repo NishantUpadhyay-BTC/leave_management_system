@@ -5,7 +5,7 @@ class AdminsController < ApplicationController
 
   def index
     @employees = User.with_role('employee').order(sort_column + " " + sort_direction).page(params[:page]).per(5)
-    @sign_offs = { pending: requested_sign_off.pending, approved: requested_sign_off.approved }
+    @sign_offs = { pending: requested_sign_off.pending, approved: requested_sign_off.approved, rejected: requested_sign_off.rejected }
   end
 
   def new

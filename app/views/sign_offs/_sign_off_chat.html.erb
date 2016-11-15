@@ -17,9 +17,9 @@
       <div class="buttons">
         <%= link_to "<button class='btn-floating tooltipped blue waves-effect waves-light' data-position='top' data-tooltip='Send Massege' data-delay= '50'><span class='fa fa-send'></span></button>".html_safe, '#' %>
 
-        <%= link_to "<button class='btn-floating tooltipped green waves-effect waves-light white-text' data-position='top' data-tooltip='Approve Leave' data-delay= '50'><span class='fa fa-check'></span></button>".html_safe, approve_sign_off_path(@sign_off), method: :post %>
+        <%= link_to "<button class='btn-floating tooltipped green waves-effect waves-light white-text' data-position='top' data-tooltip='Approve Leave' data-delay= '50'><span class='fa fa-check'></span></button>".html_safe, change_status_sign_off_path(@sign_off, status: 'approved'), method: :post %>
 
-        <%= link_to "<button class='btn-floating tooltipped red waves-effect waves-light white-text' data-position='top' data-tooltip='Reject Leave' data-delay= '50'><span class='fa fa-close'></span></button>".html_safe, reject_sign_off_path(@sign_off), method: :post %>
+        <%= link_to "<button class='btn-floating tooltipped red waves-effect waves-light white-text' data-position='top' data-tooltip='Reject Leave' data-delay= '50'><span class='fa fa-close'></span></button>".html_safe, change_status_sign_off_path(@sign_off, status: 'rejected'), method: :post %>
       </div>
       <div class="input-field">
         <textarea id="textarea1" class="materialize-textarea" rows="1" placeholder="Type a message here"></textarea>         

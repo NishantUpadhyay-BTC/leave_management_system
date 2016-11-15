@@ -1,6 +1,6 @@
 class SignOffsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_sign_off, only: [:edit, :update, :show, :destroy, :approve_sign_off, :reject_sign_off]
+  before_action :set_sign_off, only: [:edit, :update, :show, :destroy, :change_sign_off_status]
   before_action :set_admin_list, only: [:new, :edit]
 
   def index
@@ -47,19 +47,26 @@ class SignOffsController < ApplicationController
     redirect_to sign_offs_path 
   end
 
-  def approve_sign_off
-    @sign_off.sign_off_status = SignOff.sign_off_statuses[:approved]
+  def change_sign_off_status
+    @sign_off.sign_off_status = SignOff.sign_off_statuses[params[:status].to_sym]
     if @sign_off.save
       redirect_to admins_path
     end
   end
 
-  def reject_sign_off
-    @sign_off.sign_off_status = SignOff.sign_off_statuses[:rejected]
-    if @sign_off.save
-      redirect_to admins_path
-    end
-  end
+  # def approve_sign_off
+  #   @sign_off.sign_off_status = SignOff.sign_off_statuses[:approved]
+  #   if @sign_off.save
+  #     redirect_to admins_path
+  #   end
+  # end
+
+  # def reject_sign_off
+  #   @sign_off.sign_off_status = SignOff.sign_off_statuses[:rejected]
+  #   if @sign_off.save
+  #     redirect_to admins_path
+  #   end
+  # end
 
   private
 

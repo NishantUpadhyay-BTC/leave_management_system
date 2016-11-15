@@ -23,8 +23,7 @@ Rails.application.routes.draw do
 
   resources :sign_offs do
     member do
-      post 'approve' => 'sign_offs#approve_sign_off'
-      post 'reject' => 'sign_offs#reject_sign_off'
+      post 'change_status' => 'sign_offs#change_sign_off_status'
     end
   end
 
