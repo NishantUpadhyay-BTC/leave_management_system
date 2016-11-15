@@ -54,20 +54,6 @@ class SignOffsController < ApplicationController
     end
   end
 
-  # def approve_sign_off
-  #   @sign_off.sign_off_status = SignOff.sign_off_statuses[:approved]
-  #   if @sign_off.save
-  #     redirect_to admins_path
-  #   end
-  # end
-
-  # def reject_sign_off
-  #   @sign_off.sign_off_status = SignOff.sign_off_statuses[:rejected]
-  #   if @sign_off.save
-  #     redirect_to admins_path
-  #   end
-  # end
-
   private
 
   def set_sign_off
