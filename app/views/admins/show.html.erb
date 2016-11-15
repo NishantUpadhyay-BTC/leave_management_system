@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col m3">
       <div class="user-profile clearfix">
-        <div class="image"><%= image_tag current_user.avatar.url%></div>
+        <div class="image"><%= image_tag current_user.avatar.url, width: '140px', height: '80px' %></div>
         <div class="user-info">
           <div class="name"><%= @user.name %></div>
           <div class="designation"><%= @user.designation%></div>
@@ -25,6 +25,14 @@
           <dl>
             <dt>Joining Date</dt>
             <dd><%= @user.date_of_joining %></dd>
+          </dl>
+          <dl>
+            <dt>Designation</dt>
+            <dd><%= @user.designation %></dd>
+          </dl>
+          <dl>
+            <dt>Birth Date</dt>
+            <dd><%= @user.date_of_birth %></dd>
           </dl>
           <dl>
             <dt>Personal Email Address</dt>

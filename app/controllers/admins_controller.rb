@@ -20,7 +20,7 @@ class AdminsController < ApplicationController
 
   def create
     @user = User.new(admin_params)
-    @role = Role.find_by_name(params[:user][:role_id])
+    @role = Role.find_by(name: 'employee')
     @user.role_id = @role.id
     @user.password = SecureRandom.hex(8)
     respond_to do |format|
@@ -33,8 +33,6 @@ class AdminsController < ApplicationController
   end
 
   def update
-    @role = Role.find_by_name(params[:user][:role_id])
-    params[:user][:role_id] = @role.id if params[:user][:role_id]
     respond_to do |format|
       if params[:user][:password] != params[:user][:password_confirmation]
         format.html { render :edit }
