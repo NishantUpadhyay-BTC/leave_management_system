@@ -24,7 +24,7 @@
             <li class="menu-whitebg notify-dropdown">
               <a href="#" class="dropdown-button fa fa-bell" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="notifications"><span class="notify-icon"></span></a>
               <ul class="dropdown-content" id="notifications">
-                <% SignOff.pending.each do |sign_off| %>
+                <% SignOff.requested_sign_off(current_user.id).pending.each do |sign_off| %>
                   <li class="highlighted">
                     <%= link_to sign_off_path(sign_off) do %><span class="fa fa-envelope"></span> <%= "#{sign_off.user.name.capitalize} has requested for Leave..." %>
                     <% end %>
