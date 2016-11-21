@@ -13,9 +13,7 @@ class User < ActiveRecord::Base
   has_many :sign_offs, :through => :sign_off_requesters
   has_many :sign_offs
   has_many :comments
-  belongs_to :role
-
-  enum gender: { male: 0, female: 1 }
+  has_many :roles
 
   scope :with_role, -> (role) { joins(:role).where(roles: {name: role}) }
 
@@ -25,7 +23,7 @@ class User < ActiveRecord::Base
   def self.import_user(file)
     CSV.foreach(file.path) do |row|
       next if row[0] == "email" || row[0].nil?
-      ActiveRecord::Base.transaction do 
+      ActiveRecord::Base.transaction do
         @user = User.new
         @user.email = row[0]
         @user.name = row[1]

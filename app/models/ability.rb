@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     user ||= User.new
-    if user.role.name == "admin"
+    if user.roles.pluck(:name).include?("admin")
         can :manage, :all
     else
         can :read, Holiday

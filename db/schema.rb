@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110101517) do
+ActiveRecord::Schema.define(version: 20161121054818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,10 +33,31 @@ ActiveRecord::Schema.define(version: 20161110101517) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "leave_requesters", force: :cascade do |t|
+    t.integer  "leave_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "leaves", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "leave_type_id"
+    t.string   "half_full_leave"
+    t.string   "leave_status"
+    t.date     "date_from"
+    t.date     "date_to"
+    t.integer  "leave_days"
+    t.string   "reason"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   create_table "sign_off_requesters", force: :cascade do |t|
@@ -72,10 +93,9 @@ ActiveRecord::Schema.define(version: 20161110101517) do
     t.string   "encrypted_password",     default: "", null: false
     t.string   "name"
     t.string   "designation"
-    t.integer  "gender"
+    t.string   "gender"
     t.date     "date_of_joining"
     t.date     "date_of_birth"
-    t.integer  "role_id"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

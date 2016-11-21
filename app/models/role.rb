@@ -1,5 +1,5 @@
 class Role < ActiveRecord::Base
-  has_many :users
-  
+  belongs_to :user
+
   validates :name, presence: true, uniqueness: true
 end
