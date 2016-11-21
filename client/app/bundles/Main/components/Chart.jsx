@@ -3,7 +3,7 @@ global.Highcharts = require('highcharts');
 require('highcharts/modules/exporting')(global.Highcharts);
 import ReactHighcharts from 'react-highcharts';
 
-// Simple example of a React "smart" component
+  // Simple example of a React "smart" component
 export default class Chart extends React.Component {
 
   render() {
