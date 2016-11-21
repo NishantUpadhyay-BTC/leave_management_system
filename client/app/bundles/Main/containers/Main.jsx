@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import MainWidget from '../components/MainWidget';
 import Chart from '../components/Chart';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default class Main extends React.Component {
 
@@ -22,8 +23,7 @@ export default class Main extends React.Component {
     return (
       <div>
         <Header />
-        <MainWidget name={this.state.name} updateName={e => this.updateName(e)} />
-        <Chart />
+        <Footer />
       </div>
     );
   }
