@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   post 'admins/import_user'
   devise_for :users, controllers: { confirmations: 'confirmations' }
-  root 'admins#index'
+  root 'home#index'
 
   devise_scope :user do
     resources :confirmations do
