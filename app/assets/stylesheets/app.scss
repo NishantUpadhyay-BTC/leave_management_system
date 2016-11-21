@@ -4,6 +4,7 @@ $greencolor: #23c826;
 .header {
   background: $maincolor;
   color: #fff;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3) !important;
   .header-top {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -516,26 +517,18 @@ body {
 }
 .holiday-list {
   position: relative;
-  border: 1px solid color("grey","lighten-2");
   overflow: hidden;
   > .row {
-    margin:0;
+    margin: 0px
   }
-  &:after {
-    position:absolute;
-    left: 33.33%;
-    top: 0;
-    bottom: 0;
-    border-left: 1px solid color("grey","lighten-2");
-    content: "";
+  .row {
+
+    border-left: solid 1px #e0e0e0 !important;
   }
-  &:before {
-    position:absolute;
-    right: 33.33%;
-    top: 0;
-    bottom: 0;
-    border-left: 1px solid color("grey","lighten-2");
-    content: "";
+  .col{
+    border-top: solid 1px #e0e0e0 !important;
+    border-bottom: solid 1px #e0e0e0 !important;
+    border-right: solid 1px #e0e0e0 !important;
   }
   .holiday-box {
     padding: 20px 10px;
@@ -545,6 +538,7 @@ body {
       right: 10px;
       top: 20px;
       .btn-flat {
+        margin-right: 5px !important;
         color: color("shades","white");
         padding-left: 5px;
         padding-right: 5px;
@@ -568,12 +562,11 @@ body {
   > .row > .col:nth-child(2n) {
     background: color("grey","lighten-4")
   }
-  > .row > .col + .col + .col + .col {
-    border-top: 1px solid color("grey","lighten-2");
-  }
+}
+.modal{
+  max-height: 100% !important;
 }
 .holiday-form {
-  max-width: 400px;
   h5 {
     background: color("blue","lighten-2");
     color: color("shades","white");
