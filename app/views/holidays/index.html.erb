@@ -1,0 +1,27 @@
+<% content_for :form_title, 'Holidays' %>
+<div class='whitebg z-depth-2'>
+  <div class='row'>
+    <div class='col s12 right-align'>
+      <% if can? :manage, Holiday %>
+        <%= link_to new_holiday_path, remote: true, class: 'btn-floating red center-align' do %>
+        <span class="fa fa-calendar-plus-o"></span></a>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="holiday-list">
+    <div class="row">
+      <%= render 'holiday_list' %>
+    </div>
+  </div>
+</div>
+
+<div id='new_holiday' class='modal holiday-form'>
+</div>
+
+<div id='edit_holiday' class='modal holiday-form'>
+</div>
+
+<script>
+  $('.modal').modal();
+</script>

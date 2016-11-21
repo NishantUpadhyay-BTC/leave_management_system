@@ -1,6 +1,33 @@
 Rails.application.routes.draw do
-  root 'home#index'
-  get 'login', to: 'home#login'
+
+  post 'admins/import_user'
+  devise_for :users, controllers: { confirmations: 'confirmations' }
+  root 'admins#index'
+
+  devise_scope :user do
+    resources :confirmations do
+      member do
+        patch "confirm_user"
+        get "confirmation"
+      end
+    end
+  end
+
+  resources :admins do
+    collection do
+      get 'notifications' => 'admins#notifications'
+      get 'employee_details' => 'admins#employee_details'
+    end
+  end
+  resources :sign_off_types, except: :show
+
+  resources :sign_offs do
+    member do
+      post 'change_status' => 'sign_offs#change_sign_off_status'
+    end
+  end
+
+  resources :holidays, except: :show
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

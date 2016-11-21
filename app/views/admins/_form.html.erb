@@ -1,0 +1,49 @@
+<%= form_for(@user, url: admins_path(@user), html: {method: :post}) do |f| %>
+  <div class="row">
+    <div class="col s12">
+      <div class="input-field">
+        <%= f.text_field :name%>
+        <%= f.label :name %>
+      </div>
+      <div class="input-field">
+        <%= f.email_field :email %>
+        <%= f.label :email %>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <%= f.text_field :designation %>
+          <%= f.label :designation %>
+        </div>
+        <div class="input-field col s6">
+          <%= f.label :date_of_joining %>
+          <%= f.text_field :date_of_joining, class: 'datepicker' %>
+        </div>
+        
+      </div>              
+    </div>
+    <div class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <span class = 'radio-inline'>
+            <%= f.radio_button :gender, 'male' %>
+            <%= f.label :gender_male, 'Male' %>
+          </span>
+          <span class = 'radio-inline'>
+            <%= f.radio_button :gender, 'female' %>
+            <%= f.label :gender_female, 'Female' %>
+          </span> 
+        </div>
+        <div class="input-field col s6">
+          <%= f.label :date_of_birth %>
+          <%= f.text_field :date_of_birth, class: 'datepicker' %>
+        </div>
+      </div>
+    </div>
+  </div>      
+  <div class="row">
+    <div class="col s12">
+      <%= button_tag(type: 'submit', class: 'btn blue') do %> Add <span class="fa fa-plus"></span>
+      <% end %>
+    </div>
+  </div>
+<% end %>  

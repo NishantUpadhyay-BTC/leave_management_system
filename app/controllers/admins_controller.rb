@@ -1,0 +1,98 @@
+class AdminsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_admin, only: [:show, :edit, :update, :destroy]
+  before_action :requested_sign_off, only: [:index]
+
+  def index
+    @employees = User.with_role('employee').order(sort_column + " " + sort_direction).page(params[:page]).per(5)
+    @sign_offs = { pending: requested_sign_off.pending, approved: requested_sign_off.approved, rejected: requested_sign_off.rejected }
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def edit
+  end
+
+  def show
+  end
+
+  def create
+    @user = User.new(admin_params)
+    @role = Role.find_by(name: 'employee')
+    @user.role_id = @role.id
+    @user.password = SecureRandom.hex(8)
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to root_url, notice: 'User created!' }
+      else
+        format.html { render :new }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if params[:user][:password] != params[:user][:password_confirmation]
+        format.html { render :edit }
+        flash[:notice] = "Password and confirmation Password does not match"
+      else
+        if params[:user][:password] != ""
+          @user.password = params[:user][:password]
+        end
+        if @user.update(admin_params)
+          format.html { redirect_to admins_path}
+        else
+          format.html { render :edit }
+        end
+      end
+    end
+  end
+  def destroy
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to admins_path, notice: 'successfully destroyed.' }
+    end
+  end
+
+  def import_user
+    if params[:file] != nil
+      User.import_user(params[:file])
+      redirect_to root_url, notice: "Data Imported!"
+    else
+      redirect_to root_url, notice: "Please Select File"
+    end
+  end
+  def employee_details
+    @employees = User.with_role('employee').order(sort_column + " " + sort_direction).page(params[:page]).per(5)
+    if params[:search]
+      @employees= User.where(name: params[:name]).order(sort_column + " " + sort_direction).page(params[:page]).per(5)
+    end
+  end
+ 
+
+  def notifications
+    @sign_off_notification = current_user.sign_offs.pending
+  end
+
+  def set_admin
+    @user = User.find(params[:id])
+  end
+
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : 'id'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
+
+  def admin_params
+    params.require(:user).permit(:name,:email,:designation,:gender,:date_of_joining,:date_of_birth,:role_id,:avatar)
+  end
+
+  def requested_sign_off
+    SignOff.requested_sign_off(current_user.id)
+  end
+end

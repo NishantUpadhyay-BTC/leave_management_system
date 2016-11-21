@@ -1,0 +1,5 @@
+$(".holiday_table_head").html("<%= escape_javascript(render(partial: 'holiday_list_table_head'))%>");
+
+$(".holiday_table_body").html("<%= escape_javascript(render(partial: 'holiday_list'))%>");
+
+$('#paginate').html('<%= escape_javascript(paginate(@holidays, remote: :true)) %>');
