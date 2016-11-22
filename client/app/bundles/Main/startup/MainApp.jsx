@@ -2,7 +2,9 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import { Router, browserHistory } from 'react-router';
 import Main from '../containers/Main';
+import Holidays from '../components/Holidays'
 import Contact from '../containers/Contact';
+import Dashboard from '../components/Dashboard';
 import { match, RouterContext } from 'react-router';
 import { Route, IndexRoute } from 'react-router';
 const MainApp = (props, railsContext) => {
@@ -20,10 +22,10 @@ const MainApp = (props, railsContext) => {
     <Router history={browserHistory}>
        <Route path="/" component={Main}>
          <IndexRoute component={Main} />
-         <Route path="contact" component={Contact}/>
+         <Route path="/dashboard" component={Dashboard} />
+         <Route path="/manage_holidays" component={Holidays} />
        </Route>
      </Router>
   );
 };
-
 ReactOnRails.register({ MainApp });

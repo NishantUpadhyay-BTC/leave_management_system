@@ -4,9 +4,7 @@ class HolidaysController < ApplicationController
 
   def index
     @holidays = Holiday.all.order(sort_column + " " + sort_direction).page(params[:page]).per(5)
-    respond_to do |format|
-      format.json @holidays
-    end
+    
   end
 
   def new

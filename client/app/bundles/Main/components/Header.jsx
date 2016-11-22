@@ -2,6 +2,17 @@ import React, {PropTypes} from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router'
 
 export default class Header extends React.Component {
+    componentDidMount(){
+      $('.dropdown-button').dropdown({
+          inDuration: 300,
+          outDuration: 225,
+          constrain_width: false, // Does not change width of dropdown to that of the activator
+          gutter: 0, // Spacing from edge
+          belowOrigin: false, // Displays dropdown below the button
+          alignment: 'left' // Displays dropdown with edge aligned to the left of button
+        }
+      );
+    }
       render() {
           return (
             <div className="nav header z-depth-2">
@@ -13,16 +24,16 @@ export default class Header extends React.Component {
                       <div className="right-links">
                           <ul className="menu">
                               <li className="menu-whitebg">
-                                <Link to= "contact" className="fa fa-dashboard"></Link>
+                                <Link to= "/dashboard" className="fa fa-dashboard"></Link>
                               </li>
                               <li className="menu-whitebg notify-dropdown">
                                   <a href="#" className="dropdown-button fa fa-gear" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="setting-nav"></a>
                                   <ul className="dropdown-content" id="setting-nav">
                                       <li>
-                                          <a href="#">Manage Holidays</a>
+                                        <Link to="/manage_holidays">Manage Holidays</Link>
                                       </li>
                                       <li>
-                                          <a href="#">Manage Leave Types</a>
+                                          <a href="/dashboard">Manage Leave Types</a>
                                       </li>
                                       <li>
                                           <a href="#">Add New Employe</a>

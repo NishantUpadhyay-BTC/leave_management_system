@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
+  root 'home#index'
   post 'admins/import_user'
   devise_for :users, controllers: { confirmations: 'confirmations' }
-  root 'home#index'
 
   devise_scope :user do
     resources :confirmations do
