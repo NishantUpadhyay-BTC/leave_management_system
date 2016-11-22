@@ -67,7 +67,7 @@ export default class Header extends React.Component {
                                               Nishant requested for Leave...</a>
                                       </li>
                                       <li className="seeall">
-                                          <a href="#">See All</a>
+                                          <Link to="/notifications">See All</Link>
                                       </li>
                                   </ul>
                               </li>
@@ -91,9 +91,9 @@ export default class Header extends React.Component {
                                       <li>
                                           <div className="profilemenu-bottom">
                                               <div className="link">
-                                                  <a href="#">My Account</a>
-                                                  |
-                                                  <Link to="request_leave">Request Leave</Link>
+                                                <Link to="/profile">My Account</Link>
+                                                |
+                                                <Link to="request_leave">Request Leave</Link>
                                               </div>
                                               <div className="logout-btn">
                                                   <a href="#" className="fa fa-power-off"></a>
