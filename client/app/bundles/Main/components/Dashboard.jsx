@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import Header from './Header';
 
 export default class Dashboard extends React.Component {
     constructor(){
@@ -10,6 +11,7 @@ export default class Dashboard extends React.Component {
     }
     render() {
         return (
+          <div>
           <div className="content">
             <div className="container">
                 <div className="whitebg z-depth-2">
@@ -146,6 +148,7 @@ export default class Dashboard extends React.Component {
                 </div>
             </div>
           </div>
+        </div>
         );
     }
 }

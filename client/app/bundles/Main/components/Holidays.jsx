@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import HolidayBox from './HolidayBox'
+import Header from './Header';
 export default class Holidays extends React.Component {
   constructor(props, context) {
       super(props, context);
+      alert()
       this.prepare_holiday = this.prepare_holiday.bind(this);
   }
 
@@ -18,7 +20,7 @@ export default class Holidays extends React.Component {
 			container: 'body'
 		});
   }
-  
+
   render(){
     let data = [
       {id: 1, name: 'abc', date: '11/12/2017'},

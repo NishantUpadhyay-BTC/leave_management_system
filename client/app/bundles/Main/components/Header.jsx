@@ -16,6 +16,7 @@ export default class Header extends React.Component {
       render() {
           return (
             <div className="nav header z-depth-2">
+              {this.props.children}
               <div className="container">
                   <div className="header-top clearfix">
                       <div className="logo left">
@@ -30,7 +31,7 @@ export default class Header extends React.Component {
                                   <a href="#" className="dropdown-button fa fa-gear" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="setting-nav"></a>
                                   <ul className="dropdown-content" id="setting-nav">
                                       <li>
-                                        <Link to="/manage_holidays">Manage Holidays</Link>
+                                        <Link to="/holidays">Manage Holidays</Link>
                                       </li>
                                       <li>
                                           <a href="/dashboard">Manage Leave Types</a>
