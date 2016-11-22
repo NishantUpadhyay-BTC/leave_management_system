@@ -441,7 +441,7 @@ img {
       float: right;
       margin-left:15px;
       button{
-        margin-right: 10px; 
+        margin-right: 10px;
       }
     }
     .input-field {
@@ -609,6 +609,7 @@ body {
     font-size: 22px;
   }
   .content-box {
+    padding: 10px;
     border: 1px solid color("grey","lighten-2");
     position: relative;
     margin: 0 0 20px;
