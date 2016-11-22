@@ -14,6 +14,7 @@ export default class Header extends React.Component {
       );
     }
       render() {
+
           return (
             <div className="nav header z-depth-2">
               {this.props.children}
@@ -107,14 +108,8 @@ export default class Header extends React.Component {
                   </div>
                   <div className="header-bottom">
                       <div className="row">
-                          <div className="col m4 right right-align">
-                              <a href="#!" className="breadcrumb">
-                                  <span className="fa fa-dashboard"></span>&nbsp;
-                                  Dashboard</a>
-                              <a href="#!" className="breadcrumb">Page Title</a>
-                          </div>
                           <div className="col m8">
-                              <h1>Dashboard</h1>
+                              <h1>{this.props.current_page}</h1>
                           </div>
                       </div>
                   </div>

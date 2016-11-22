@@ -63,7 +63,6 @@ export default class LeaveRequest extends React.Component {
       	        <a href="#" className="btn grey lighten-1">Cancel</a>
       		    </form>
       			</div>
-      			<div className="footer-box">© 2014-2016 S, All rights reserved.</div>
       	</div>
       </div>
     );

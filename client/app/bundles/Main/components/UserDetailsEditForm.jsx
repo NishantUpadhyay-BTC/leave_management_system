@@ -12,7 +12,7 @@ export default class UserDetailsEditForm extends React.Component {
             </div>
           </div>
           <h5>Job Description</h5>
-            <div className="content-box row">
+            <div className="content-box row z-depth-1">
               <div className="input-field col m12">
                 <input type="text" id="joining_date" value="11/12/2016" />
                 <label htmlFor="joining_date" className="active" >Joining Date</label>
@@ -38,7 +38,7 @@ export default class UserDetailsEditForm extends React.Component {
         </form>
         <div className="user-details">
           <h5>Contact Information</h5>
-          <div className="content-box row">
+          <div className="content-box row z-depth-1">
             <div className="input-field col m12">
               <input type="text"  id="permanent_address" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor." />
               <label htmlFor="permanent_address" className="active">Permanent Address</label>
@@ -63,7 +63,7 @@ export default class UserDetailsEditForm extends React.Component {
         </div>
         <div className="user-details">
           <h5>Education Information</h5>
-          <div className="content-box row">
+          <div className="content-box row z-depth-1">
             <div className="input-field col m12">
               <input type="text" id="qualification" value="B.E. with Computer Science" />
               <label htmlFor="qualification" className="active">Qualification</label>
