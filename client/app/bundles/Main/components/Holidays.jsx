@@ -4,7 +4,6 @@ import Header from './Header';
 export default class Holidays extends React.Component {
   constructor(props, context) {
       super(props, context);
-      alert()
       this.prepare_holiday = this.prepare_holiday.bind(this);
   }
 

@@ -34,10 +34,10 @@ export default class Header extends React.Component {
                                         <Link to="/holidays">Manage Holidays</Link>
                                       </li>
                                       <li>
-                                          <a href="/dashboard">Manage Leave Types</a>
+                                        <Link to="/leave_types">Manage Leave Types</Link>
                                       </li>
                                       <li>
-                                          <a href="#">Add New Employe</a>
+                                          <Link to="/new_employee">Add New Employe</Link>
                                       </li>
                                   </ul>
                               </li>
@@ -93,7 +93,7 @@ export default class Header extends React.Component {
                                               <div className="link">
                                                   <a href="#">My Account</a>
                                                   |
-                                                  <a href="#">Request Leave</a>
+                                                  <Link to="request_leave">Request Leave</Link>
                                               </div>
                                               <div className="logout-btn">
                                                   <a href="#" className="fa fa-power-off"></a>

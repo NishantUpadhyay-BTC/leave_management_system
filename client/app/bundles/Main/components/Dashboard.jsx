@@ -2,10 +2,6 @@ import React, {PropTypes} from 'react';
 import Header from './Header';
 
 export default class Dashboard extends React.Component {
-    constructor(){
-      super()
-      alert()
-    }
     componentDidMount(){
         $('ul.tabs').tabs();
     }
