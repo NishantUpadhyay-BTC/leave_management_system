@@ -21,7 +21,7 @@ export default class Header extends React.Component {
               <div className="container">
                   <div className="header-top clearfix">
                       <div className="logo left">
-                          <a href="index.html"><img src="assets/logo.png" alt=""/></a>
+                          <a href="index.html"><img src="assets/logo.png" alt=""/><span className="header-text">mart SignOff</span></a>
                       </div>
                       <div className="right-links">
                           <ul className="menu">
