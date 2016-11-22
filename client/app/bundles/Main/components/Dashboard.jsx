@@ -13,24 +13,24 @@ export default class Dashboard extends React.Component {
                 <div className="whitebg z-depth-2">
                   <div className="row">
                     <div className="col m3">
-                      <div className="box indigo">
+                      <div className="box indigo z-depth-1">
                         <strong>Total Working Days</strong>: 22
                       </div>
                     </div>
 
                     <div className="col m3">
-                      <div className="box blue">
+                      <div className="box blue z-depth-1">
                         <strong>Public Holidays</strong>: 2
                       </div>
                     </div>
 
                     <div className="col m3">
-                      <div className="box light-blue lighten-1">
+                      <div className="box light-blue lighten-1 z-depth-1">
                         <strong>Weekly Holidays</strong>: 8
                       </div>
                     </div>
                     <div className="col m3">
-                      <div className="box red lighten-3">
+                      <div className="box red lighten-3 z-depth-1">
                         <strong>Leave Request</strong>: 12
                       </div>
                     </div>
@@ -125,17 +125,145 @@ export default class Dashboard extends React.Component {
                             </tbody>
                           </table>
                         </div>
-                        <div className="" id="pendding">
-                          pendding
+                        <div className="tab-content" id="pendding">
+                          <table className="responsive-table">
+                            <thead>
+                              <tr>
+                                <th data-field="id">Em. ID</th>
+                                <th data-field="name">Name</th>
+                                <th data-field="designation">Designation</th>
+                                <th data-field="applyed">Applyed Date</th>
+                                <th data-field="leave">Leave Date</th>
+                                <th data-field="by">Approved By</th>
+                                <th data-field="action"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>001</td>
+                                <td>Nishant Upadhyay</td>
+                                <td>Sr. Developer</td>
+                                <td>03/11/2016</td>
+                                <td>16/11/2016</td>
+                                <td>Amit Patel</td>
+                                <td><a href="#"><span className="fa fa-share"></span></a></td>
+                              </tr>
+                              <tr>
+                                <td>002</td>
+                                <td>Hitesh Patel</td>
+                                <td>Sr. Developer</td>
+                                <td>03/11/2016</td>
+                                <td>16/11/2016</td>
+                                <td>Amit Patel</td>
+                                <td><a href="#"><span className="fa fa-share"></span></a></td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
-                        <div className="" id="rejected">
-                          rejected
+                        <div className="tab-content" id="rejected">
+                          <table className="responsive-table">
+                            <thead>
+                              <tr>
+                                <th data-field="id">Em. ID</th>
+                                <th data-field="name">Name</th>
+                                <th data-field="designation">Designation</th>
+                                <th data-field="applyed">Applyed Date</th>
+                                <th data-field="leave">Leave Date</th>
+                                <th data-field="by">Approved By</th>
+                                <th data-field="action"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>001</td>
+                                <td>Nishant Upadhyay</td>
+                                <td>Sr. Developer</td>
+                                <td>03/11/2016</td>
+                                <td>16/11/2016</td>
+                                <td>Amit Patel</td>
+                                <td><a href="#"><span className="fa fa-share"></span></a></td>
+                              </tr>
+                              <tr>
+                                <td>002</td>
+                                <td>Hitesh Patel</td>
+                                <td>Sr. Developer</td>
+                                <td>03/11/2016</td>
+                                <td>16/11/2016</td>
+                                <td>Amit Patel</td>
+                                <td><a href="#"><span className="fa fa-share"></span></a></td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
-                        <div className="" id="cancelled">
-                          cancelled
+                        <div className="tab-content" id="cancelled">
+                          <table className="responsive-table">
+                            <thead>
+                              <tr>
+                                <th data-field="id">Em. ID</th>
+                                <th data-field="name">Name</th>
+                                <th data-field="designation">Designation</th>
+                                <th data-field="applyed">Applyed Date</th>
+                                <th data-field="leave">Leave Date</th>
+                                <th data-field="by">Approved By</th>
+                                <th data-field="action"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>001</td>
+                                <td>Nishant Upadhyay</td>
+                                <td>Sr. Developer</td>
+                                <td>03/11/2016</td>
+                                <td>16/11/2016</td>
+                                <td>Amit Patel</td>
+                                <td><a href="#"><span className="fa fa-share"></span></a></td>
+                              </tr>
+                              <tr>
+                                <td>002</td>
+                                <td>Hitesh Patel</td>
+                                <td>Sr. Developer</td>
+                                <td>03/11/2016</td>
+                                <td>16/11/2016</td>
+                                <td>Amit Patel</td>
+                                <td><a href="#"><span className="fa fa-share"></span></a></td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
-                        <div className="" id="emergency">
-                          emergency
+                        <div className="tab-content" id="emergency">
+                          <table className="responsive-table">
+                            <thead>
+                              <tr>
+                                <th data-field="id">Em. ID</th>
+                                <th data-field="name">Name</th>
+                                <th data-field="designation">Designation</th>
+                                <th data-field="applyed">Applyed Date</th>
+                                <th data-field="leave">Leave Date</th>
+                                <th data-field="by">Approved By</th>
+                                <th data-field="action"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>001</td>
+                                <td>Nishant Upadhyay</td>
+                                <td>Sr. Developer</td>
+                                <td>03/11/2016</td>
+                                <td>16/11/2016</td>
+                                <td>Amit Patel</td>
+                                <td><a href="#"><span className="fa fa-share"></span></a></td>
+                              </tr>
+                              <tr>
+                                <td>002</td>
+                                <td>Hitesh Patel</td>
+                                <td>Sr. Developer</td>
+                                <td>03/11/2016</td>
+                                <td>16/11/2016</td>
+                                <td>Amit Patel</td>
+                                <td><a href="#"><span className="fa fa-share"></span></a></td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                       <div id="calendar-view" className="calendar-view"></div>
