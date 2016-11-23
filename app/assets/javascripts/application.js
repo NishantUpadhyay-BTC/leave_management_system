@@ -20,4 +20,5 @@
 //= require common
 //= require moment
 //= require fullcalendar
+//= require toastr
 //= require_tree .

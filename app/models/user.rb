@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   validates :name, :email, :designation, :gender, :date_of_joining, :date_of_birth, presence: true
 
+  before_create :generate_access_token
+
   has_many :sign_off_requesters
   has_many :sign_offs, :through => :sign_off_requesters
   has_many :sign_offs
@@ -36,5 +38,19 @@ class User < ActiveRecord::Base
         @user.save
       end
     end
+  end
+
+  def add_authentication_token
+    update_attributes!({access_token: create_token})
+  end
+
+  def create_token
+    access_token.present? ? access_token : SecureRandom.hex
+  end
+
+  def generate_access_token
+    begin
+      self.access_token = SecureRandom.hex
+    end while self.class.exists?(access_token: access_token)
   end
 end
