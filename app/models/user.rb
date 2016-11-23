@@ -4,10 +4,10 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   #  :lockable, :timeoutable and :omniauthable
 
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :name, :email, :designation, :gender, :date_of_joining, :date_of_birth, :role_id, presence: true
+  validates :name, :email, :designation, :gender, :date_of_joining, :date_of_birth, presence: true
 
   has_many :sign_off_requesters
   has_many :sign_offs, :through => :sign_off_requesters
@@ -32,7 +32,6 @@ class User < ActiveRecord::Base
         @user.date_of_joining = row[4]
         @user.date_of_birth = row[5]
         @role = Role.find_by_name(row[6])
-        @user.role_id = @role.id
         @user.password = SecureRandom.hex(8)
         @user.save
       end

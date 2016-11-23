@@ -10,8 +10,7 @@ const MainApp = (props, railsContext) => {
   const { location } = railsContext;
 
   return (
-      <Router history={browserHistory} children={routes} {...props} />
-
+    <Router history={browserHistory} children={routes} {...props} />
   );
 };
 ReactOnRails.register({ MainApp });

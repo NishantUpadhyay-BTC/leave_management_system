@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get '/request_leave' => 'home#index'
   # post 'admins/import_user'
-  # devise_for :users, controllers: { confirmations: 'confirmations' }
+  devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
   #
   # devise_scope :user do
   #   resources :confirmations do
