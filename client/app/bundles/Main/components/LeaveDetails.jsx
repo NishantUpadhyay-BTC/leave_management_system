@@ -1,5 +1,25 @@
 import React, { PropTypes } from 'react';
 export default class LeaveDetails extends React.Component {
+
+  constructor(props, context){
+    super(props, context);
+    this.approveRequest = this.approveRequest.bind(this);
+  }
+
+  approveRequest(e){
+      e.preventDefault();
+      return $.ajax({
+        url: "/sign_offs/16/change_status",
+        dataType: 'json',
+        method: "post",
+        data: { status: 'approved' },
+      success: function(data){
+        console.log(data)
+        toastr.success('Woohooo!! Request Send Successfully!');
+      }.bind(this)
+    });
+  }
+
   render(){
     return(
       <div className="content">
@@ -79,10 +99,10 @@ export default class LeaveDetails extends React.Component {
       							<button className="btn-floating tooltipped blue waves-effect waves-light" data-position="top" data-delay="50" data-tooltip="Send Massege" name="">
       								<span className="fa fa-send"></span>
       							</button>
-      							<button className="btn-floating tooltipped green waves-effect waves-light white-text" data-position="top" data-delay="50" data-tooltip="Approve Leave" name="">
+      							<button onClick={this.approveRequest} className="btn-floating tooltipped green waves-effect waves-light white-text" data-position="top" data-delay="50" data-tooltip="Approve Leave" name="" >
       								<span className="fa fa-check"></span>
       							</button>
-      							<button className="btn-floating tooltipped red waves-effect waves-light white-text" name="" data-position="top" data-delay="50" data-tooltip="Reject Request Leave">
+      							<button onClick={this.approveRequest} className="btn-floating tooltipped red waves-effect waves-light white-text" name="" data-position="top" data-delay="50" data-tooltip="Reject Request Leave">
       								<span className="fa fa-close"></span>
       							</button>
       						</div>

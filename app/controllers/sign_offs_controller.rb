@@ -1,10 +1,16 @@
 class SignOffsController < ApplicationController
-  # before_action :authenticate_user!
   before_action :set_sign_off, only: [:edit, :update, :show, :destroy, :change_sign_off_status]
   before_action :set_admin_list, only: [:new, :edit]
 
   def index
     @sign_offs = SignOff.where({user_id: current_user.id}).order(sort_column + " " + sort_direction).page(params[:page]).per(5)
+    respond_to do |format|
+      format.json do
+        render json: {
+          leaves: @sign_offs
+        }
+      end
+    end
   end
 
   def new
@@ -12,16 +18,14 @@ class SignOffsController < ApplicationController
   end
 
   def create
-    binding.pry
     @sign_off = SignOff.new(sign_off_params.merge!({ user_id: current_user.id, sign_off_status: "pending" }))
-    @sign_off.sign_off_type = SignOffType.where(id: sign_off_params[:sign_off_type_id] ).first
+    @sign_off.sign_off_type = SignOffType.find(sign_off_params[:sign_off_type_id] )
     if @sign_off.save
       requestee_ids =  params[:sign_off][:requestee_ids]
       requestee_ids = requestee_ids.split(',').uniq
       requestee_ids.each do |uid|
-        puts "sending email to requestees " + uid
-        # SignOffRequester.create(user_id: uid, sign_off_id: @sign_off.id)
-        # SignOffsMailer.leave_request_mail(uid).deliver_now
+        SignOffRequester.create(user_id: uid, sign_off_id: @sign_off.id)
+        SignOffsMailer.leave_request_mail(uid).deliver_now
       end
       respond_to do |format|
         format.json{ render json: { success: true, leave_data: @sign_off} }
@@ -55,9 +59,16 @@ class SignOffsController < ApplicationController
   end
 
   def change_sign_off_status
-    @sign_off.sign_off_status = SignOff.sign_off_statuses[params[:status].to_sym]
+    @sign_off.sign_off_status = params[:status]
     if @sign_off.save
-      redirect_to admins_path
+      respond_to do |format|
+        format.json do
+          render json: {
+            success: true,
+            leave: @sign_off
+          }
+        end
+      end
     end
   end
 
