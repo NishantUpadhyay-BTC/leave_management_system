@@ -22,11 +22,11 @@ Rails.application.routes.draw do
   # end
   # resources :sign_off_types, except: :show
   #
-  # resources :sign_offs do
-  #   member do
-  #     post 'change_status' => 'sign_offs#change_sign_off_status'
-  #   end
-  # end
+  resources :sign_offs do
+    member do
+      post 'change_status' => 'sign_offs#change_sign_off_status'
+    end
+  end
   #
   # resources :holidays, except: :show
 

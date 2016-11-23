@@ -12,17 +12,24 @@ class SignOffsController < ApplicationController
   end
 
   def create
-    @sign_off = SignOff.new(sign_off_params.merge!({ user_id: current_user.id, sign_off_status: SignOff.sign_off_statuses[:pending] }))
+    binding.pry
+    @sign_off = SignOff.new(sign_off_params.merge!({ user_id: current_user.id, sign_off_status: "pending" }))
+    @sign_off.sign_off_type = SignOffType.where(id: sign_off_params[:sign_off_type_id] ).first
     if @sign_off.save
-      users_ids = params[:user_id]
-      users_ids = users_ids.split(',').uniq
-      users_ids.each do |uid|
-        SignOffRequester.create(user_id: uid, sign_off_id: @sign_off.id)
-        SignOffsMailer.leave_request_mail(uid).deliver_now
+      requestee_ids =  params[:sign_off][:requestee_ids]
+      requestee_ids = requestee_ids.split(',').uniq
+      requestee_ids.each do |uid|
+        puts "sending email to requestees " + uid
+        # SignOffRequester.create(user_id: uid, sign_off_id: @sign_off.id)
+        # SignOffsMailer.leave_request_mail(uid).deliver_now
       end
-      redirect_to sign_offs_path
+      respond_to do |format|
+        format.json{ render json: { success: true, leave_data: @sign_off} }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.json{ render json: { success: false, error: @sign_off.errors} }
+      end
     end
   end
 
