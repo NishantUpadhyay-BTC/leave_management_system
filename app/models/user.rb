@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   before_create :generate_access_token
 
   has_many :sign_off_requesters
-  has_many :sign_offs, :through => :sign_off_requesters
   has_many :sign_offs
   has_many :comments
   has_many :roles

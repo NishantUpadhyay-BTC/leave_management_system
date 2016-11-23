@@ -4,8 +4,21 @@ export default class LeaveDetails extends React.Component {
   constructor(props, context){
     super(props, context);
     this.approveRequest = this.approveRequest.bind(this);
+    this.requestStatus = this.requestStatus.bind(this);
   }
 
+  requestStatus(e){
+      e.preventDefault();
+      return $.ajax({
+        url: "/sign_offs",
+        dataType: 'json',
+        method: "get",
+        data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
+      success: function(data){
+        console.log(data)
+      }.bind(this)
+    });
+  }
   approveRequest(e){
       e.preventDefault();
       return $.ajax({
@@ -96,7 +109,7 @@ export default class LeaveDetails extends React.Component {
       					</div>
       					<div className="chat-typing">
       						<div className="buttons">
-      							<button className="btn-floating tooltipped blue waves-effect waves-light" data-position="top" data-delay="50" data-tooltip="Send Massege" name="">
+      							<button onClick={this.requestStatus} className="btn-floating tooltipped blue waves-effect waves-light" data-position="top" data-delay="50" data-tooltip="Send Massege" name="">
       								<span className="fa fa-send"></span>
       							</button>
       							<button onClick={this.approveRequest} className="btn-floating tooltipped green waves-effect waves-light white-text" data-position="top" data-delay="50" data-tooltip="Approve Leave" name="" >

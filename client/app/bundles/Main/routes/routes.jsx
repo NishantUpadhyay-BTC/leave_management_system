@@ -13,7 +13,7 @@ import LeaveDetails from '../components/LeaveDetails';
 import Login from '../components/Login';
 export default (
     <Route path="/" component={App}>
-      <IndexRoute component={Dashboard} />
+      <IndexRoute component={Login} />
       <Route path= 'login' component={Login} />
       <Route path="dashboard" component={Dashboard} />
       <Route path="holidays" component={Holidays} />

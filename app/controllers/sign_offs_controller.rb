@@ -2,12 +2,16 @@ class SignOffsController < ApplicationController
   before_action :set_sign_off, only: [:edit, :update, :show, :destroy, :change_sign_off_status]
   before_action :set_admin_list, only: [:new, :edit]
 
+
   def index
-    @sign_offs = SignOff.where({user_id: current_user.id}).order(sort_column + " " + sort_direction).page(params[:page]).per(5)
+    binding.pry
+    @pending_requests = current_user.sign_offs
+    @requests_for_approval = SignOffRequester.where(user_id: current_user.id).includes(:sign_off)
     respond_to do |format|
       format.json do
         render json: {
-          leaves: @sign_offs
+          leaves_for_approval: @requests_for_approval.map(&:sign_off),
+          pending_requests: @pending_requests
         }
       end
     end
@@ -18,6 +22,7 @@ class SignOffsController < ApplicationController
   end
 
   def create
+    binding.pry
     @sign_off = SignOff.new(sign_off_params.merge!({ user_id: current_user.id, sign_off_status: "pending" }))
     @sign_off.sign_off_type = SignOffType.find(sign_off_params[:sign_off_type_id] )
     if @sign_off.save

@@ -25,7 +25,8 @@ export default class LeaveRequest extends React.Component {
           date_from: "26/11/2016",
           date_to: "1/12/2016",
           reason: 'This is the reason'
-        }
+        },
+        access_token: '17c60fdf5981794bb31f246849ae398e'
       },
       success: function(data){
         console.log(data)
