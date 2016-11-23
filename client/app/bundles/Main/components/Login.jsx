@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 export default class Login extends React.Component {
   constructor() {
     super()
-    this.onLogin = this.onLogin.bind(this)
+    this.onLogin = this.onLogin.bind(this);
   }
 
   onLogin(e){
@@ -21,9 +21,6 @@ export default class Login extends React.Component {
       },
       success: function(data){
         console.log(data)
-        this.setState({profile: { email: data.email, id: data.id }});
-        toastr.success('Woohooo!! Login Successfully!');
-        toastr.success('Welcome' + this.state.profile.email);
       }.bind(this)
     });
   }

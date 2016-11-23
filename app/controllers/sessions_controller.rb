@@ -6,6 +6,7 @@ class SessionsController < Devise::SessionsController
 
     if resource.valid_password?(params[:user][:password])
       sign_in("user", resource)
+      session[:access_token] = resource.access_token
       render json: { :success=>true,
           user: { :email=>resource.email,
             :name=>resource.name,
@@ -20,6 +21,22 @@ class SessionsController < Devise::SessionsController
       return
     end
     invalid_login_attempt
+  end
+
+  def destroy
+    if session.clear
+      respond_to do |format|
+        format.json do
+          render json: { success: true, message: "You are logged out Successfully!"}
+        end
+      end
+    else
+      respond_to do |format|
+        format.json do
+          render json: { success: false, message: "Unable to Logout."}
+        end
+      end
+    end
   end
 
   private

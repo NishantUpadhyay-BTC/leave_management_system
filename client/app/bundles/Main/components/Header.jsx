@@ -2,6 +2,22 @@ import React, {PropTypes} from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router'
 
 export default class Header extends React.Component {
+  constructor(){
+    super();
+    this.logout = this.logout.bind(this);
+  }
+    logout(e){
+        e.preventDefault();
+        return $.ajax({
+          url: "/users/sign_out",
+          dataType: 'json',
+          method: "delete",
+          data: { access_token: '17c60fdf5981794bb31f246849ae398e'},
+        success: function(data){
+          console.log(data)
+        }.bind(this)
+      });
+    }
     componentDidMount(){
       $('.dropdown-button').dropdown({
           inDuration: 300,
@@ -97,7 +113,7 @@ export default class Header extends React.Component {
                                                 <Link to="request_leave">Request Leave</Link>
                                               </div>
                                               <div className="logout-btn">
-                                                  <a href="#" className="fa fa-power-off"></a>
+                                                  <a href="#" onClick={this.logout} className="fa fa-power-off"></a>
                                               </div>
                                           </div>
                                       </li>

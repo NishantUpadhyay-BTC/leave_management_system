@@ -4,14 +4,13 @@ class SignOffsController < ApplicationController
 
 
   def index
-    binding.pry
-    @pending_requests = current_user.sign_offs
-    @requests_for_approval = SignOffRequester.where(user_id: current_user.id).includes(:sign_off)
     respond_to do |format|
       format.json do
         render json: {
-          leaves_for_approval: @requests_for_approval.map(&:sign_off),
-          pending_requests: @pending_requests
+          leaves_for_approval: current_user.request_for_approval,
+          pending_requests: current_user.pending_requests,
+          approved_requests: current_user.approved_request,
+          rejected_requests: current_user.rejected_requests
         }
       end
     end
@@ -22,13 +21,12 @@ class SignOffsController < ApplicationController
   end
 
   def create
-    binding.pry
     @sign_off = SignOff.new(sign_off_params.merge!({ user_id: current_user.id, sign_off_status: "pending" }))
     @sign_off.sign_off_type = SignOffType.find(sign_off_params[:sign_off_type_id] )
     if @sign_off.save
-      requestee_ids =  params[:sign_off][:requestee_ids]
-      requestee_ids = requestee_ids.split(',').uniq
-      requestee_ids.each do |uid|
+      requestee_ids =  params[:sign_off][:requestee_ids] if params[:sign_off].present?
+      requested_user_ids = requestee_ids.split(',').uniq
+      requested_user_ids.each do |uid|
         SignOffRequester.create(user_id: uid, sign_off_id: @sign_off.id)
         SignOffsMailer.leave_request_mail(uid).deliver_now
       end

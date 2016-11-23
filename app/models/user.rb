@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   require 'securerandom'
   # Include default devise modules. Others available are:
   #  :lockable, :timeoutable and :omniauthable
-
+  REQUEST_APPROVAL_TYPES = [:pending, :rejected, :approved]
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -39,8 +39,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def add_authentication_token
-    update_attributes!({access_token: create_token})
+  REQUEST_APPROVAL_TYPES.each do |status|
+    define_method("#{status}_requests") do |*args|
+      sign_offs.where(sign_off_status: status)
+    end
   end
 
   def create_token
@@ -51,5 +53,9 @@ class User < ActiveRecord::Base
     begin
       self.access_token = SecureRandom.hex
     end while self.class.exists?(access_token: access_token)
+  end
+
+  def request_for_approval
+    sign_off_requesters.includes(:sign_off).map(&:sign_off)
   end
 end
