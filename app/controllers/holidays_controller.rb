@@ -4,6 +4,7 @@ class HolidaysController < ApplicationController
 
   def index
     @holidays = Holiday.all.order(sort_column + " " + sort_direction).page(params[:page]).per(5)
+    
   end
 
   def new

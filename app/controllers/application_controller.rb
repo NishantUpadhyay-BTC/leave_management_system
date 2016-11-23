@@ -5,16 +5,8 @@ class ApplicationController < ActionController::Base
   include CanCan::ControllerAdditions
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  layout :set_layout
-
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :notice => exception.message
-  end
-
-  private
-
-  def set_layout
-    current_user ? 'application' : 'login'
   end
 
   protected

@@ -2,17 +2,23 @@ $maincolor: #0091ea;
 $greencolor: #23c826;
 // header style
 .header {
+  .header-text{
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+  };
   background: $maincolor;
   color: #fff;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3) !important;
   .header-top {
     padding-top: 20px;
     padding-bottom: 20px;
-    border-bottom:1px solid #0d98ed; 
+    border-bottom:1px solid #0d98ed;
     .right-links {
       float: right;
       > ul > li {
         float: left;
-        margin-left:12px; 
+        margin-left:12px;
       }
       .menu-whitebg {
         > a {
@@ -55,7 +61,7 @@ $greencolor: #23c826;
         height: 17px;
         width: 17px;
         border-radius: 50%;
-        background: #23C826;
+        background: color("green","custom-1");
         text-align: center;
         color: #fff;
         font-size: 12px;
@@ -81,7 +87,7 @@ $greencolor: #23c826;
       min-height: 40px;
     }
     li {
-      cursor: auto;      
+      cursor: auto;
     }
     .user-detail {
       padding: 15px;
@@ -92,7 +98,7 @@ $greencolor: #23c826;
         background: #e8e8e8;
         overflow: hidden;
         margin-right:20px;
-        border-radius: 50%; 
+        border-radius: 50%;
       }
       .basic-detail {
         overflow: hidden;
@@ -106,7 +112,7 @@ $greencolor: #23c826;
           font-size: 12px;
           color: #b4b4b4;
         }
-      }      
+      }
     }
     .profilemenu-bottom {
       .link {
@@ -170,15 +176,15 @@ $greencolor: #23c826;
         background: color("grey", "lighten-5");
         a {
           color: color("blue", "base");
-        } 
-      }      
+        }
+      }
       a {
         color: color("grey", "lighten-1");
         font-size: 13px;
         padding-top: 8px;
         padding-bottom: 8px;
         &.fa {
-          margin-right:10px; 
+          margin-right:10px;
         }
       }
     }
@@ -219,13 +225,13 @@ img {
     }
   }
   .row {
-    margin-bottom:0; 
+    margin-bottom:0;
   }
 }
 //content
 .content {
   background: color("grey","lighten-5");
-  padding: 1px;  
+  padding: 1px;
   .whitebg {
     background: color("shades", "white");
     margin-top: -115px;
@@ -239,7 +245,7 @@ img {
     .dropdown-button {
       display: none;
     }
-  }  
+  }
   position: relative;
   .tabs {
     &:after {
@@ -266,7 +272,7 @@ img {
     .indicator {
       z-index: 1;
       background: color("blue","base");
-    }    
+    }
   }
   .tab-content {
     padding: 15px;
@@ -292,7 +298,7 @@ img {
 }
 .box {
   padding:15px;
-  color: color("shades","white") 
+  color: color("shades","white")
 }
 .calendar-view {
   h2 {
@@ -328,6 +334,9 @@ img {
 }
 .form-box {
   padding: 15px;
+  button{
+    margin-right: 10px;
+  }
 }
 
 .leave-request {
@@ -357,7 +366,7 @@ img {
     font-size: 12px;
     overflow: hidden;
     position: relative;
-    margin-bottom:5px; 
+    margin-bottom:5px;
     span {
       position: relative;
       display: inline-block;
@@ -369,11 +378,11 @@ img {
         top: 50%;
         border-top: 1px solid color("grey","lighten-2");
         content: "";
-      } 
+      }
     }
   }
   .chat-box {
-    margin:25px 0; 
+    margin:25px 0;
     &:after {
       content:"";
       display: block;
@@ -393,7 +402,7 @@ img {
       background: color("grey","lighten-2");
       border-radius: 50%;
       height: 40px;
-      width: 40px; 
+      width: 40px;
     }
     .chat-text {
       margin-left:55px;
@@ -417,7 +426,7 @@ img {
         font-weight: bold;
         line-height: 25px;
         margin-bottom: 7px;
-        margin-left: -10px; 
+        margin-left: -10px;
         margin-top: -32px;
       }
     }
@@ -438,7 +447,10 @@ img {
     padding-top: 20px;
     .buttons {
       float: right;
-      margin-left:15px; 
+      margin-left:15px;
+      button{
+        margin-right: 10px;
+      }
     }
     .input-field {
       margin-top: 0;
@@ -463,7 +475,7 @@ img {
     height: 80px;
     background: color("grey","lighten-4");
     float: left;
-    margin-right:15px; 
+    margin-right:15px;
   }
   .info {
     overflow: hidden;
@@ -480,7 +492,7 @@ img {
       list-style: none;
       margin: 0;
       li {
-        padding:5px; 
+        padding:5px;
         border-top: 1px solid color("grey","lighten-4");
       }
     }
@@ -516,26 +528,18 @@ body {
 }
 .holiday-list {
   position: relative;
-  border: 1px solid color("grey","lighten-2");
   overflow: hidden;
   > .row {
-    margin:0;
+    margin: 0px
   }
-  &:after {
-    position:absolute;
-    left: 33.33%;
-    top: 0;
-    bottom: 0;
-    border-left: 1px solid color("grey","lighten-2");
-    content: "";
+  .row {
+
+    border-left: solid 1px #e0e0e0 !important;
   }
-  &:before {
-    position:absolute;
-    right: 33.33%;
-    top: 0;
-    bottom: 0;
-    border-left: 1px solid color("grey","lighten-2");
-    content: "";
+  .col{
+    border-top: solid 1px #e0e0e0 !important;
+    border-bottom: solid 1px #e0e0e0 !important;
+    border-right: solid 1px #e0e0e0 !important;
   }
   .holiday-box {
     padding: 20px 10px;
@@ -545,6 +549,7 @@ body {
       right: 10px;
       top: 20px;
       .btn-flat {
+        margin-right: 5px !important;
         color: color("shades","white");
         padding-left: 5px;
         padding-right: 5px;
@@ -568,23 +573,22 @@ body {
   > .row > .col:nth-child(2n) {
     background: color("grey","lighten-4")
   }
-  > .row > .col + .col + .col + .col {
-    border-top: 1px solid color("grey","lighten-2");
-  }
+}
+.modal{
+  max-height: 100% !important;
 }
 .holiday-form {
-  max-width: 400px;
   h5 {
     background: color("blue","lighten-2");
     color: color("shades","white");
     text-align: center;
     padding:15px;
     margin-top: 0px;
-    margin-bottom:25px; 
+    margin-bottom:25px;
     font-size: 18px;
   }
   .modal-content {
-    padding:20px; 
+    padding:20px;
   }
   .modal-footer {
     padding: 10px 20px;
@@ -605,7 +609,7 @@ body {
     color: color("grey","darken-1");
   }
   .designation {
-    color: color("grey","lighten-1") 
+    color: color("grey","lighten-1")
   }
 }
 .user-details {
@@ -613,6 +617,7 @@ body {
     font-size: 22px;
   }
   .content-box {
+    padding: 10px;
     border: 1px solid color("grey","lighten-2");
     position: relative;
     margin: 0 0 20px;
@@ -621,7 +626,7 @@ body {
     }
     dl {
       clear: both;
-      margin: 0;      
+      margin: 0;
       &:after {
         clear:both;
         display: block;
@@ -683,16 +688,6 @@ body {
     margin-right:auto;
     &.register-form {
       max-width: 750px;
-      .upload-pic {
-        height: 135px;
-        line-height: normal;
-        margin-bottom: 15px;
-        padding: 46px 17px;
-        width: 135px;
-        + .file-path-wrapper {
-          display: none;
-        }
-      }
     }
   }
 }

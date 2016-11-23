@@ -5,12 +5,6 @@ import React, { PropTypes } from 'react';
 
 // Simple example of a React "dumb" component
 export default class MainWidget extends React.Component {
-  static propTypes = {
-    // If you have lots of data or action properties, you should consider grouping them by
-    // passing two properties: "data" and "actions".
-    updateName: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
-  };
 
   // React will automatically provide us with the event `e`
   handleChange(e) {

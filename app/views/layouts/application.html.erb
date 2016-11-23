@@ -6,14 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body> 
-  <script src="http://malsup.github.io/jquery.blockUI.js" type="text/javascript"></script>
-  <%= render 'layouts/header' %> 
-  <div class='content'>
-    <div class='container'>
-      <%= yield %>
-      <%= render 'layouts/footer' %> 
-    </div>
-  </div>
+<body>
+  <%= yield %>
 </body>
 </html>

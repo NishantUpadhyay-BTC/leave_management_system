@@ -1,11 +1,17 @@
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
+import { Router, browserHistory } from 'react-router';
+import routes from '../routes/routes';
 
-import Main from '../containers/Main';
+const MainApp = (props, railsContext) => {
+  let error;
+  let redirectLocation;
+  let routeProps;
+  const { location } = railsContext;
 
-const MainApp = (props) => (
-  <Main {...props} />
-);
+  return (
+      <Router history={browserHistory} children={routes} {...props} />
 
-// This is how react_on_rails can see the HelloWorldApp in the browser.
+  );
+};
 ReactOnRails.register({ MainApp });

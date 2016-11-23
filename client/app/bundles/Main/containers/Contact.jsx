@@ -4,16 +4,14 @@ import Chart from '../components/Chart';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Dashboard from '../components/Dashboard';
-import Holidays from '../components/Holidays'
-export default class Main extends React.Component {
-
+export default class Contact extends React.Component {
 
   render() {
+    alert();
     return (
       <div>
         <Header />
-        <Holidays />
-        <Footer />
+        <Dashboard />
       </div>
     );
   }

@@ -1,5 +1,5 @@
 class SignOffsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_sign_off, only: [:edit, :update, :show, :destroy, :change_sign_off_status]
   before_action :set_admin_list, only: [:new, :edit]
 
@@ -44,7 +44,7 @@ class SignOffsController < ApplicationController
 
   def destroy
     @sign_off.destroy
-    redirect_to sign_offs_path 
+    redirect_to sign_offs_path
   end
 
   def change_sign_off_status
