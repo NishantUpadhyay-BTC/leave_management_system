@@ -9,6 +9,6 @@ class SignOff < ActiveRecord::Base
   scope :requested_sign_off, -> (user_id){ SignOff.joins(:sign_off_requesters).where({sign_off_requesters: {user_id: user_id}}) }
 
   def leave_days
-    (date_to - date_from).to_i
+    (date_to - date_from).to_i + 1
   end
 end
