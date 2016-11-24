@@ -3,8 +3,10 @@ class HolidaysController < ApplicationController
   before_action :set_holiday, only: [:edit, :update, :destroy]
 
   def index
-    @holidays = Holiday.all.order(sort_column + " " + sort_direction).page(params[:page]).per(5)
-
+    @holidays = Holiday.all
+    respond_to do |format|
+      format.json { render json: {holidays: @holidays } }
+    end
   end
 
   def new

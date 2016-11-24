@@ -6,6 +6,20 @@ export default class Holidays extends React.Component {
       super(props, context);
       this.prepare_holiday = this.prepare_holiday.bind(this);
       this.addHoliday = this.addHoliday.bind(this);
+      this.getHolidays = this.getHolidays.bind(this);
+  }
+
+  getHolidays(e){
+    e.preventDefault();
+    return $.ajax({
+      url: "/holidays",
+      dataType: 'json',
+      method: "get",
+      data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
+    success: function(data){
+      console.log(data)
+      }.bind(this)
+    });
   }
 
   addHoliday(e){
@@ -70,6 +84,9 @@ export default class Holidays extends React.Component {
       			</div>
       			<button className="btn-flat blue white-text" type="submit" onClick={this.addHoliday}>
       				Add Holiday
+      			</button>
+            <button className="btn-flat blue white-text" type="submit" onClick={this.getHolidays}>
+      				Get Holiday List
       			</button>
       		</div>
       	</form>
