@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import Header from './Header';
 import LeaveListingRaw from './LeaveListingRaw'
 import LeavesListingTableHeader from './LeavesListingTableHeader'
+
 export default class Dashboard extends React.Component {
     constructor(){
       super();
