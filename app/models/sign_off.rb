@@ -7,4 +7,8 @@ class SignOff < ActiveRecord::Base
   validates :user_id, :sign_off_type, :date_from, :date_to, :half_full_leave, presence: true
 
   scope :requested_sign_off, -> (user_id){ SignOff.joins(:sign_off_requesters).where({sign_off_requesters: {user_id: user_id}}) }
+
+  def leave_days
+    (date_to - date_from).to_i
+  end
 end

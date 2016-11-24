@@ -9,7 +9,7 @@ class SignOffsController < ApplicationController
         render json: {
           leaves_for_approval: current_user.request_for_approval,
           pending_requests: current_user.pending_requests,
-          approved_requests: current_user.approved_request,
+          approved_requests: current_user.approved_requests,
           rejected_requests: current_user.rejected_requests
         }
       end
@@ -54,6 +54,20 @@ class SignOffsController < ApplicationController
   end
 
   def show
+    @sign_off_data = {
+      user_name: current_user.name,
+      designation: current_user.designation,
+      leave_status: @sign_off.sign_off_status,
+      date_from: @sign_off.date_from,
+      date_to: @sign_off.date_to,
+      leave_days: @sign_off.leave_days,
+      leave_type: @sign_off.sign_off_type.sign_off_type_name,
+      reason: @sign_off.reason,
+      description: @sign_off.description
+    }
+    respond_to do |format|
+      format.json { render json: @sign_off_data}
+    end
   end
 
   def destroy

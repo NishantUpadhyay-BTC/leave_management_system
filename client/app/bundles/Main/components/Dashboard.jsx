@@ -2,9 +2,42 @@ import React, {PropTypes} from 'react';
 import Header from './Header';
 
 export default class Dashboard extends React.Component {
+    constructor(){
+      super();
+      this.getLeaveDetails = this.getLeaveDetails.bind(this);
+      this.getUserLeavesListBytype = this.getUserLeavesListBytype.bind(this);
+    }
     componentDidMount(){
         $('ul.tabs').tabs();
     }
+
+    getLeaveDetails(e) {
+      e.preventDefault();
+      return $.ajax({
+        // Add replace 22 with leave id of current selected leave
+        url: "/sign_offs/22",
+        dataType: 'json',
+        method: "get",
+        data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
+      success: function(data){
+        console.log(data)
+        }.bind(this)
+      });
+    }
+
+    getUserLeavesListBytype(e){
+      e.preventDefault();
+      return $.ajax({
+        url: "/sign_offs",
+        dataType: 'json',
+        method: "get",
+        data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
+      success: function(data){
+        console.log(data)
+        }.bind(this)
+      });
+    }
+
     render() {
         return (
           <div>
@@ -70,7 +103,7 @@ export default class Dashboard extends React.Component {
                             <tbody>
                               <tr>
                                 <td>001</td>
-                                <td>Nishant Upadhyay</td>
+                                <td onClick={this.getUserLeavesListBytype} >Nishant Upadhyay</td>
                                 <td>Sr. Developer</td>
                                 <td>03/11/2016</td>
                                 <td>16/11/2016</td>
@@ -141,7 +174,7 @@ export default class Dashboard extends React.Component {
                             <tbody>
                               <tr>
                                 <td>001</td>
-                                <td>Nishant Upadhyay</td>
+                                <td onClick={this.getLeaveDetails}>Nishant Upadhyay</td>
                                 <td>Sr. Developer</td>
                                 <td>03/11/2016</td>
                                 <td>16/11/2016</td>
@@ -150,7 +183,7 @@ export default class Dashboard extends React.Component {
                               </tr>
                               <tr>
                                 <td>002</td>
-                                <td>Hitesh Patel</td>
+                                <td onClick={this.getLeaveDetails}>Hitesh Patel</td>
                                 <td>Sr. Developer</td>
                                 <td>03/11/2016</td>
                                 <td>16/11/2016</td>
