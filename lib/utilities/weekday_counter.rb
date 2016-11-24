@@ -1,4 +1,4 @@
-module Utilites
+module Utilities
   module WeekdayCounter
     WEEKDAYS_INDEX = [1,2,3,4,5] # Start with 0 as sunday and 6 as saturday
 
@@ -13,7 +13,7 @@ module Utilites
     private
 
     def current_month_public_holidays
-      Holiday.select{|holiday| holiday.date.month == Date.today.month}.count
+      Holiday.select{|holiday| (holiday.date.month == Date.today.month) && (holiday.date.year == Date.today.year)}.count
     end
 
     def start_date_of_current_month

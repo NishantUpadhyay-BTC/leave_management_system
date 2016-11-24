@@ -12,5 +12,7 @@ class SignOff < ActiveRecord::Base
     (date_to - date_from).to_i + 1
   end
 
-
+  def mark_notification_as_read
+    update_attribute(:read, true)
+  end
 end

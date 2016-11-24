@@ -42,13 +42,7 @@ class User < ActiveRecord::Base
   REQUEST_APPROVAL_TYPES.each do |status|
     define_method("#{status}_requests") do |*args|
       selected_sign_offs = sign_offs.where(sign_off_status: status).includes(:sign_off_type)
-      final = []
-      selected_sign_offs.each do |sign_off|
-        json = sign_off.as_json
-        json[:leave_type] = sign_off.sign_off_type.sign_off_type_name
-        final << json
-      end
-      final
+      prepare_leave_data_as_json(selected_sign_offs) if selected_sign_offs.present?
     end
   end
 
@@ -74,6 +68,10 @@ class User < ActiveRecord::Base
     15 - total_approved_request_count_till_now
   end
 
+  def new_notifications_of_approval
+    sign_offs.where(sign_off_status: 'approved')
+  end
+
   def is_admin?
     roles.pluck(:name).include?('admin')
   end
@@ -86,5 +84,24 @@ class User < ActiveRecord::Base
       approved_request_counts: approved_requests.count,
       rejected_request_counts: rejected_requests.count
     }
+  end
+
+  def new_leave_notifications
+    new_notifications = unread_notifications.includes(:sign_off_type)
+    prepare_leave_data_as_json(new_notifications) if new_notifications.present?
+  end
+
+  def unread_notifications
+    sign_offs.where(read: false)
+  end
+
+  def prepare_leave_data_as_json(leaves)
+    prepared_leaves = []
+    leaves.each do |leave|
+      leave_json = leave.as_json
+      leave_json['leave_type'] = leave.sign_off_type.sign_off_type_name if leave.sign_off_type.present?
+      prepared_leaves << leave_json
+    end
+    prepared_leaves
   end
 end

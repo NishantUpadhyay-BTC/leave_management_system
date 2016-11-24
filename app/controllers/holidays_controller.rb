@@ -3,14 +3,13 @@ class HolidaysController < ApplicationController
   before_action :set_holiday, only: [:edit, :update, :destroy]
 
   def index
-    @holidays = Holiday.all
+    @current_year_holidays = Holiday.current_year_holidays
     respond_to do |format|
       format.json { render json: {holidays: @holidays } }
     end
   end
 
   def new
-    @holiday = Holiday.new
   end
 
   def create
@@ -30,13 +29,27 @@ class HolidaysController < ApplicationController
   end
 
   def update
-    @holiday.update_attributes(holiday_params)
-    redirect_to holidays_path
+    if @holiday.update_attributes(holiday_params)
+      respond_to do |format|
+        format.json { render json: { holiday: @holiday, success: true } }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { errors: @holiday.errors, success: false } }
+      end
+    end
   end
 
   def destroy
-    @holiday.destroy
-    redirect_to holidays_path
+    if @holiday.destroy
+      respond_to do |format|
+        format.json { render json: { success: true, message: 'Holiday Removed successfully.'}}
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { success: false, message: 'Unable to remove Holiday.'}}
+      end
+    end
   end
 
   private

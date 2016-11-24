@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get '/leave_details/request_leave' => 'home#index'
   post 'admins/import_user'
   get 'pending_requests_count' => "sign_offs#pending_requests_count"
+  get '/fetch_new_notifications' => "sign_offs#fetch_new_notifications"
+  get '/mark_all_notifications_as_read' => 'sign_offs#mark_all_notifications_as_read'
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
   #
   # devise_scope :user do

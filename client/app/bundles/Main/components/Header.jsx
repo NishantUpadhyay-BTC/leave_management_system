@@ -5,6 +5,34 @@ export default class Header extends React.Component {
   constructor(){
     super();
     this.logout = this.logout.bind(this);
+    this.fetchNewNotifications = this.fetchNewNotifications.bind(this);
+    this.markAllNotificationsAsRead = this.markAllNotificationsAsRead.bind(this)
+  }
+
+  fetchNewNotifications(e){
+    e.preventDefault();
+    return $.ajax({
+      url: "/fetch_new_notifications",
+      dataType: 'json',
+      method: "get",
+      data: { access_token: '17c60fdf5981794bb31f246849ae398e'},
+      success: function(data){
+        console.log(data)
+      }.bind(this)
+    });
+  }
+
+  markAllNotificationsAsRead(e){
+    e.preventDefault();
+    return $.ajax({
+      url: "/mark_all_notifications_as_read",
+      dataType: 'json',
+      method: "get",
+      data: { access_token: '17c60fdf5981794bb31f246849ae398e'},
+      success: function(data){
+        console.log(data)
+      }.bind(this)
+    });
   }
 
   logout(e){
@@ -31,7 +59,6 @@ export default class Header extends React.Component {
     );
   }
     render() {
-
         return (
           <div className="nav header z-depth-2">
             {this.props.children}
@@ -65,14 +92,14 @@ export default class Header extends React.Component {
                                 </a>
                                 <ul className="dropdown-content" id="notifications">
                                     <li className="highlighted">
-                                        <a href="#">
+                                        <a href="#" onClick={this.fetchNewNotifications}>
                                             <span className="fa fa-envelope"></span>
                                             Nishant requested for Leave...</a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="#" onClick={this.markAllNotificationsAsRead}>
                                             <span className="fa fa-envelope-open"></span>
-                                            Nishant cancelled his Leave...</a>
+                                            mark all notification as read notification...</a>
                                     </li>
                                     <li>
                                         <a href="#">

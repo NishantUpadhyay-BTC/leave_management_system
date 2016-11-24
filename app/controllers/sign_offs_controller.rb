@@ -69,6 +69,7 @@ class SignOffsController < ApplicationController
   end
 
   def show
+    @sign_off.mark_notification_as_read unless @sign_off.read
     @sign_off_data = {
       user_name: current_user.name,
       designation: current_user.designation,
@@ -92,6 +93,7 @@ class SignOffsController < ApplicationController
 
   def change_sign_off_status
     @sign_off.sign_off_status = params[:status]
+    @sign_off.read = false if @sign_off.changes.keys.include?('sign_off_status')
     if @sign_off.save
       respond_to do |format|
         format.json do
@@ -99,6 +101,28 @@ class SignOffsController < ApplicationController
             success: true,
             leave: @sign_off
           }
+        end
+      end
+    end
+  end
+
+  def fetch_new_notifications
+    @notifications = current_user.new_leave_notifications
+    respond_to do |format|
+      format.json { render json: {notifications: @notifications}}
+    end
+  end
+
+  def mark_all_notifications_as_read
+    @notifications = current_user.unread_notifications
+    if @notifications.update_all(read: true)
+      respond_to do |format|
+        format.json { render json: {notifications: @notifications}}
+      end
+    else
+      respond_to do |format|
+        format.json do
+          logger.debug "SignOff::::mark_all_notifications_as_read >>> #{@notifications.errros}"
         end
       end
     end
