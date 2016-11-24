@@ -11,4 +11,22 @@ class SignOff < ActiveRecord::Base
   def leave_days
     (date_to - date_from).to_i + 1
   end
+
+  def total_working_days_of_current_month
+    (start_date_of_current_month..end_date_of_current_month).to_a.select {|k| my_days.include?(k.wday)}.count
+  end
+
+  private
+
+  def start_date_of_current_month
+    Date.new(Date.today.year, Date.today.month)
+  end
+
+  def end_date_of_current_month
+    start_date_of_current_month.end_of_month
+  end
+
+  def weekdays_index
+    [1,2,3,4,5] # Start with 0 as sunday and 6 as saturday
+  end
 end

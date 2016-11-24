@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/request_leave' => 'home#index'
   get '/leave_details/request_leave' => 'home#index'
   get '*path' => 'home#index'
-  # post 'admins/import_user'
+  post 'admins/import_user'
   get 'pending_requests_count' => "sign_offs#pending_requests_count"
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
   #
