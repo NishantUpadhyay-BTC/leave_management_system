@@ -1,7 +1,5 @@
 class SignOffsController < ApplicationController
   before_action :set_sign_off, only: [:edit, :update, :show, :destroy, :change_sign_off_status]
-  before_action :set_admin_list, only: [:new, :edit]
-
 
   def index
     respond_to do |format|
@@ -16,8 +14,26 @@ class SignOffsController < ApplicationController
     end
   end
 
+  def pending_requests_count
+    binding.pry
+    respond_to do |format|
+      format.json { render json: { pending_requests_count: current_user.pending_requests}}
+    end
+  end
+
   def new
+    @users = User.select(:email, :id)
+    @sign_off_types = SignOffType.select(:id, :sign_off_type_name)
     @sign_off = SignOff.new
+    respond_to do |format|
+      format.json do
+        render json: {
+          sign_off: @sign_off,
+          users: @users,
+          sign_off_types: @sign_off_types
+        }
+      end
+    end
   end
 
   def create
@@ -101,15 +117,6 @@ class SignOffsController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
-  end
-
-  def set_admin_list
-    admins = User.with_role('admin')
-    @admin_list = {}
-    admin_list = JSON(admins.select(:name, :id).to_json)
-    admin_list.each do |admin|
-      @admin_list[admin['name'].upcase] = [{ id: admin['id'], text: admin['name']}]
-    end
   end
 
   def sign_off_params

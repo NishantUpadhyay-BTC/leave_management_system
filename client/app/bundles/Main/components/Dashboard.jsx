@@ -6,6 +6,7 @@ export default class Dashboard extends React.Component {
       super();
       this.getLeaveDetails = this.getLeaveDetails.bind(this);
       this.getUserLeavesListBytype = this.getUserLeavesListBytype.bind(this);
+      this.getSignOffNewObject = this.getSignOffNewObject.bind(this);
     }
     componentDidMount(){
         $('ul.tabs').tabs();
@@ -29,6 +30,19 @@ export default class Dashboard extends React.Component {
       e.preventDefault();
       return $.ajax({
         url: "/sign_offs",
+        dataType: 'json',
+        method: "get",
+        data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
+      success: function(data){
+        console.log(data)
+        }.bind(this)
+      });
+    }
+
+    getSignOffNewObject(e){
+      e.preventDefault();
+      return $.ajax({
+        url: "/sign_offs/new",
         dataType: 'json',
         method: "get",
         data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
@@ -279,7 +293,7 @@ export default class Dashboard extends React.Component {
                             <tbody>
                               <tr>
                                 <td>001</td>
-                                <td>Nishant Upadhyay</td>
+                                <td onClick={this.getSignOffNewObject}>Nishant Upadhyay</td>
                                 <td>Sr. Developer</td>
                                 <td>03/11/2016</td>
                                 <td>16/11/2016</td>
