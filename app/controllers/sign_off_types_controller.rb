@@ -3,7 +3,11 @@ class SignOffTypesController < ApplicationController
   # before_action :authenticate_user!
 
   def index
-    @sign_off_types = SignOffType.all.order(:id).page(params[:page]).per(5)
+    @sign_off_types = SignOffType.all.order(:id).page(params[:page])
+    respond_to do |format|
+      format.json { render json: { sign_off_types: @sign_off_types } }
+    end
+
   end
 
   def new
@@ -13,9 +17,13 @@ class SignOffTypesController < ApplicationController
   def create
     @sign_off_type = SignOffType.new(sign_off_type_params)
     if @sign_off_type.save
-      redirect_to sign_off_types_path
+      respond_to do |format|
+        format.json { render json: { success: true, sign_off_type: @sign_off_type }}
+      end
     else
-      render 'new'
+      respond_to do |format|
+        format.json { render json: { success: false, errors: @sign_off_type.errors }}
+      end
     end
   end
 

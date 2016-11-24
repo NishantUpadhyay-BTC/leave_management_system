@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   #     get 'employee_details' => 'admins#employee_details'
   #   end
   # end
-  # resources :sign_off_types, except: :show
+  resources :sign_off_types, except: :show
   #
   resources :sign_offs do
     member do
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     end
   end
   #
-  # resources :holidays, except: :show
+  resources :holidays, except: :show
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

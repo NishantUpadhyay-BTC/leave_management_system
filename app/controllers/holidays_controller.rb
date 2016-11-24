@@ -4,7 +4,7 @@ class HolidaysController < ApplicationController
 
   def index
     @holidays = Holiday.all.order(sort_column + " " + sort_direction).page(params[:page]).per(5)
-    
+
   end
 
   def new
@@ -14,9 +14,13 @@ class HolidaysController < ApplicationController
   def create
     @holiday = Holiday.new(holiday_params)
     if @holiday.save
-      redirect_to holidays_path
+      respond_to do |format|
+        format.json { render json: {holiday: @holiday, success: true} }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.json { render json: {errors: @holiday.errors, success: false} }
+      end
     end
   end
 
@@ -48,6 +52,6 @@ class HolidaysController < ApplicationController
   end
 
   def holiday_params
-    params.require(:holiday).permit(:date,:description)
+    params.require(:holiday).permit(:date,:name)
   end
 end

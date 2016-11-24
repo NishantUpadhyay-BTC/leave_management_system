@@ -58,4 +58,12 @@ class User < ActiveRecord::Base
   def request_for_approval
     sign_off_requesters.includes(:sign_off).map(&:sign_off)
   end
+
+  def total_approved_request_count_till_now
+    approved_requests.where("date_from < ? ", Time.zone.today).map{|req| req.date_to - req.date_from}.inject(0){|sum,x| sum + x }.to_i
+  end
+
+  def leave_balance
+    15 - total_approved_request_count_till_now
+  end
 end

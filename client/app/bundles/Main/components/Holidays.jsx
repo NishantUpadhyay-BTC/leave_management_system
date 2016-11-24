@@ -5,6 +5,20 @@ export default class Holidays extends React.Component {
   constructor(props, context) {
       super(props, context);
       this.prepare_holiday = this.prepare_holiday.bind(this);
+      this.addHoliday = this.addHoliday.bind(this);
+  }
+
+  addHoliday(e){
+    e.preventDefault();
+    return $.ajax({
+      url: "/holidays",
+      dataType: 'json',
+      method: "post",
+      data: {access_token: '17c60fdf5981794bb31f246849ae398e', holiday: { date: "26/11/1992", name: "diwali holiday"}},
+    success: function(data){
+      console.log(data)
+    }.bind(this)
+  });
   }
 
   prepare_holiday(holiday, index){
@@ -54,7 +68,7 @@ export default class Holidays extends React.Component {
       				<textarea id="textarea1" className="materialize-textarea"></textarea>
       				<label htmlFor="textarea1">Description</label>
       			</div>
-      			<button className="btn-flat blue white-text" type="submit">
+      			<button className="btn-flat blue white-text" type="submit" onClick={this.addHoliday}>
       				Add Holiday
       			</button>
       		</div>

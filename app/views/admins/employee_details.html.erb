@@ -7,18 +7,18 @@
             <div class= "col s6">
               <div class="btn">
                 <span>File</span>
-                <%= file_field_tag :file %>            
+                <%= file_field_tag :file %>
               </div>
-              <div class="file-path-wrapper"> 
+              <div class="file-path-wrapper">
                 <input class="file-path validate" type="text">
               </div>
-            </div> 
+            </div>
             <div class="col s5">
               <%= submit_tag 'Import CSV', class: 'btn' %>
-            </div>  
+            </div>
           </div>
         </div>
-      <% end %>  
+      <% end %>
       <div class= "col s1">
       <%= link_to new_admin_path, class: 'btn-floating green center-align' do %>
         <span class='fa fa-plus'></span>
