@@ -7,9 +7,23 @@ export default class Dashboard extends React.Component {
       this.getLeaveDetails = this.getLeaveDetails.bind(this);
       this.getUserLeavesListBytype = this.getUserLeavesListBytype.bind(this);
       this.getSignOffNewObject = this.getSignOffNewObject.bind(this);
+      this.getPendingRequestCount = this.getPendingRequestCount.bind(this);
     }
     componentDidMount(){
         $('ul.tabs').tabs();
+    }
+
+    getPendingRequestCount(e){
+      e.preventDefault();
+      return $.ajax({
+        url: "/pending_requests_count",
+        dataType: 'json',
+        method: "get",
+        data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
+      success: function(data){
+        console.log(data)
+        }.bind(this)
+      });
     }
 
     getLeaveDetails(e) {
@@ -258,7 +272,7 @@ export default class Dashboard extends React.Component {
                             <tbody>
                               <tr>
                                 <td>001</td>
-                                <td>Nishant Upadhyay</td>
+                                <td onClick={this.getPendingRequestCount}>Nishant Upadhyay</td>
                                 <td>Sr. Developer</td>
                                 <td>03/11/2016</td>
                                 <td>16/11/2016</td>

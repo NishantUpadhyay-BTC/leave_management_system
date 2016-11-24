@@ -15,9 +15,8 @@ class SignOffsController < ApplicationController
   end
 
   def pending_requests_count
-    binding.pry
     respond_to do |format|
-      format.json { render json: { pending_requests_count: current_user.pending_requests}}
+      format.json { render json: { pending_requests_count: current_user.pending_requests.count } }
     end
   end
 
