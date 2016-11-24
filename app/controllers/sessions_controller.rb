@@ -24,17 +24,12 @@ class SessionsController < Devise::SessionsController
   end
 
   def destroy
-    if session.clear
-      respond_to do |format|
-        format.json do
-          render json: { success: true, message: "You are logged out Successfully!"}
-        end
-      end
-    else
-      respond_to do |format|
-        format.json do
-          render json: { success: false, message: "Unable to Logout."}
-        end
+    success = false
+    success = ture if session.clear
+    message = (success ? "You are logged out Successfully!" : "Unable to Logout.")
+    respond_to do |format|
+      format.json do
+        render json: { success: success, message: message }
       end
     end
   end
