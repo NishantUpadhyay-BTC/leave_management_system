@@ -41,7 +41,15 @@ class User < ActiveRecord::Base
 
   REQUEST_APPROVAL_TYPES.each do |status|
     define_method("#{status}_requests") do |*args|
-      sign_offs.where(sign_off_status: status)
+      selected_sign_offs = sign_offs.where(sign_off_status: status)
+      final = {}
+      selected_sign_offs.each do |sign_off|
+        json = sign_off.as_json
+        json[:leave_type] = sign_off.sign_off_type.sign_off_type_name
+        final[sign_off.id] = json
+        puts final
+      end
+      final
     end
   end
 
