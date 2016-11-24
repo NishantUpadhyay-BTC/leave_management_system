@@ -41,13 +41,12 @@ class User < ActiveRecord::Base
 
   REQUEST_APPROVAL_TYPES.each do |status|
     define_method("#{status}_requests") do |*args|
-      selected_sign_offs = sign_offs.where(sign_off_status: status)
-      final = {}
+      selected_sign_offs = sign_offs.where(sign_off_status: status).includes(:sign_off_type)
+      final = []
       selected_sign_offs.each do |sign_off|
         json = sign_off.as_json
         json[:leave_type] = sign_off.sign_off_type.sign_off_type_name
-        final[sign_off.id] = json
-        puts final
+        final << json
       end
       final
     end
@@ -68,7 +67,7 @@ class User < ActiveRecord::Base
   end
 
   def total_approved_request_count_till_now
-    approved_requests.where("date_from < ? ", Time.zone.today).map{|req| req.date_to - req.date_from}.inject(0){|sum,x| sum + x }.to_i
+    sign_offs.where(sign_off_status: 'approved').includes(:sign_off_type).where("date_from < ? ", Time.zone.today).map{|req| req.date_to - req.date_from}.inject(0){|sum,x| sum + x }.to_i
   end
 
   def leave_balance
@@ -77,5 +76,15 @@ class User < ActiveRecord::Base
 
   def is_admin?
     roles.pluck(:name).include?('admin')
+  end
+
+  def leave_counts
+    {
+      remaingin_leaves: leave_balance,
+      laves_taken: total_approved_request_count_till_now,
+      pending_request_counts: pending_requests.count,
+      approved_request_counts: approved_requests.count,
+      rejected_request_counts: rejected_requests.count
+    }
   end
 end
