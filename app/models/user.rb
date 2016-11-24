@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :sign_offs
   has_many :comments
   has_many :roles
-
+  has_one :profile
   scope :with_role, -> (role) { joins(:role).where(roles: {name: role}) }
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>", small: "50x50>" }, default_url: "/images/missing.gif"
@@ -73,5 +73,9 @@ class User < ActiveRecord::Base
 
   def leave_balance
     15 - total_approved_request_count_till_now
+  end
+
+  def is_admin?
+    roles.pluck(:name).include?('admin')
   end
 end
