@@ -93,7 +93,7 @@ class SignOffsController < ApplicationController
   end
 
   def change_sign_off_status
-    @sign_off.sign_off_status = params[:status]
+    @sign_off.sign_off_status = params[:sign_off][:status]
     notify_on_save = @sign_off.changes.keys.include?('sign_off_status')
     if @sign_off.save
       if notify_on_save

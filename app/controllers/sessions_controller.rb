@@ -8,7 +8,8 @@ class SessionsController < Devise::SessionsController
       sign_in("user", resource)
       session[:access_token] = resource.access_token
       render json: { :success=>true,
-          user: { :email=>resource.email,
+          user: { id: resource.id,
+            :email=>resource.email,
             :name=>resource.name,
             :access_token => resource.access_token,
             designation: resource.designation,
