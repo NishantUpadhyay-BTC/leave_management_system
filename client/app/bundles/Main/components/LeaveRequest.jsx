@@ -3,7 +3,27 @@ export default class LeaveRequest extends React.Component {
   constructor(props, context){
     super(props, context);
     this.sendSignOffRequest = this.sendSignOffRequest.bind(this);
+    this.createComment = this.createComment.bind(this);
   }
+
+  createComment(e){
+    e.preventDefault();
+    return $.ajax({
+      url: "/sign_offs/1",
+      dataType: 'json',
+      method: "get",
+      data: { comment: {
+        message: 'This is my comment message from ajax'
+      },
+        access_token: '17c60fdf5981794bb31f246849ae398e'
+      },
+      success: function(data){
+        console.log(data)
+        toastr.success('Woohooo!! Request Send Successfully!');
+      }.bind(this)
+    });
+  }
+
   componentDidMount(){
     $('select').material_select();
     $('.datepicker').pickadate({
@@ -85,7 +105,7 @@ export default class LeaveRequest extends React.Component {
       	          <label htmlFor="textarea1">Leave Reason</label>
       	        </div>
       	        <button type="submit" className="btn blue" onClick={this.sendSignOffRequest}>Send Leave Request <span className="fa fa-send"></span></button>
-      	        <a href="#" className="btn grey lighten-1">Cancel</a>
+      	        <a href="#" onClick={this.createComment} className="btn grey lighten-1">Cancel</a>
       		    </form>
       			</div>
       	</div>

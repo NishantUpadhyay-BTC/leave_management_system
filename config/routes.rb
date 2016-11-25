@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :sign_off_types, except: :show
   #
   resources :sign_offs do
+    resources :comments
     member do
       post 'change_status' => 'sign_offs#change_sign_off_status'
     end

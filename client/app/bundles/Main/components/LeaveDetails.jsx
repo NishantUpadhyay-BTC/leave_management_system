@@ -25,7 +25,7 @@ export default class LeaveDetails extends React.Component {
         url: "/sign_offs/16/change_status",
         dataType: 'json',
         method: "post",
-        data: { status: 'approved' },
+        data: { sign_off: { status: 'approved' } },
       success: function(data){
         console.log(data)
         toastr.success('Woohooo!! Request Send Successfully!');

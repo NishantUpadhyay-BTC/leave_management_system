@@ -72,6 +72,7 @@ class SignOffsController < ApplicationController
   def show
     @sign_off.mark_notification_as_read(current_user)
     @sign_off_data = {
+      comments: @sign_off.comments_with_user_data,
       user_name: current_user.name,
       designation: current_user.designation,
       leave_status: @sign_off.sign_off_status,
@@ -82,6 +83,7 @@ class SignOffsController < ApplicationController
       reason: @sign_off.reason,
       description: @sign_off.description
     }
+
     respond_to do |format|
       format.json { render json: @sign_off_data}
     end

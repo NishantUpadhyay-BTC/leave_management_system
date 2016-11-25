@@ -23,4 +23,17 @@ class SignOff < ActiveRecord::Base
       end
     end
   end
+
+  def comments_with_user_data
+    commets_with_users = comments.includes(:user)
+    final_comments = []
+    if commets_with_users.present?
+      commets_with_users.each do |comment|
+        comment_obj = comment.as_json
+        comment_obj[:user_name] = comment.user.name
+        final_comments << comment_obj
+      end
+    end
+    final_comments
+  end
 end
