@@ -4,7 +4,7 @@ class SignOff < ActiveRecord::Base
   belongs_to :sign_off_type
   has_many :comments
   belongs_to :user
-  has_many :notifications
+  has_many :notifications, dependent: :destroy
   validates :user_id, :sign_off_type, :date_from, :date_to, :half_full_leave, presence: true
 
   scope :requested_sign_off, -> (user_id){ SignOff.joins(:sign_off_requesters).where({sign_off_requesters: {user_id: user_id}}) }
@@ -13,7 +13,14 @@ class SignOff < ActiveRecord::Base
     (date_to - date_from).to_i + 1
   end
 
-  def mark_notification_as_read
-    update_attribute(:read, true)
+  def mark_notification_as_read(user)
+    notification = notifications.where(user_id: user.id)
+    if notification.present?
+      begin
+        notification.destroy
+      rescue Exception => e
+        loggger.debug("ERROR : Notification Removeal Failure :: #{e}")
+      end
+    end
   end
 end

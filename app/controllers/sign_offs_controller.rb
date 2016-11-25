@@ -70,7 +70,7 @@ class SignOffsController < ApplicationController
   end
 
   def show
-    @sign_off.mark_notification_as_read unless @sign_off.read
+    @sign_off.mark_notification_as_read(current_user)
     @sign_off_data = {
       user_name: current_user.name,
       designation: current_user.designation,
@@ -94,8 +94,18 @@ class SignOffsController < ApplicationController
 
   def change_sign_off_status
     @sign_off.sign_off_status = params[:status]
-    @sign_off.read = false if @sign_off.changes.keys.include?('sign_off_status')
+    notify_on_save = @sign_off.changes.keys.include?('sign_off_status')
     if @sign_off.save
+      if notify_on_save
+        requested_tos = @sign_off.sign_off_requesters.includes(:user).map(&:user) || []
+        main_user = @sign_off.user
+        request_send_to = requested_tos.push(main_user) - [current_user]
+        binding.pry
+        request_send_to.each do |receiver|
+          Notification.create(user_id: receiver.id, sign_off_id: @sign_off.id, notification_type: 'LeaveRequest')
+          SignOffsMailer.request_status_change_notification(receiver, @sign_off, current_user).deliver_now
+        end
+      end
       respond_to do |format|
         format.json do
           render json: {
@@ -119,8 +129,8 @@ class SignOffsController < ApplicationController
   end
 
   def mark_all_notifications_as_read
-    @notifications = current_user.unread_notifications
-    if @notifications.update_all(read: true)
+    @notifications = current_user.notifications
+    if @notifications.destroy_all
       respond_to do |format|
         format.json { render json: {notifications: @notifications}}
       end
