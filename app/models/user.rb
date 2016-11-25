@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   end
 
   def others_requests_notifications
-    new_other_notifications = notifications.includes(sign_off: :sign_off_type).where.not("sign_offs.user_id" => id)
+    new_other_notifications = notifications.includes(sign_off: :sign_off_type, sign_off: :user).where.not("sign_offs.user_id" => id)
     prepare_leave_data_as_json(new_other_notifications) if new_other_notifications.present?
   end
 
@@ -108,6 +108,7 @@ class User < ActiveRecord::Base
       leave_request = leave.kind_of?(Notification) ? leave.sign_off : leave
       leave_json = leave_request.as_json
       leave_json['notification_id'] = leave.id if leave.kind_of?(Notification)
+      leave_json['username'] = leave_request.user.name
       leave_json['leave_type'] = leave_request.sign_off_type.sign_off_type_name if leave_request.sign_off_type.present?
       prepared_leaves << leave_json
     end
