@@ -1,6 +1,5 @@
 class SignOffTypesController < ApplicationController
   before_action :set_sign_off_type, only: [:edit, :update, :destroy]
-  # before_action :authenticate_user!
 
   def index
     @sign_off_types = SignOffType.all.order(:id).page(params[:page])
