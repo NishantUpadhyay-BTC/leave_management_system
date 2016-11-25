@@ -5,7 +5,6 @@ class SignOffsMailer < ApplicationMailer
   end
 
   def request_status_change_notification(notify_to, leave, changed_by)
-    binding.pry
     @leave = leave
     @user = changed_by
     @leave_requested_by = @leave.user
