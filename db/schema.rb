@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124111221) do
+ActiveRecord::Schema.define(version: 20161125063548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,14 @@ ActiveRecord::Schema.define(version: 20161124111221) do
     t.string   "reason"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "sign_off_id"
+    t.string   "notification_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -98,13 +106,12 @@ ActiveRecord::Schema.define(version: 20161124111221) do
     t.date     "date_from"
     t.date     "date_to"
     t.string   "reason"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "sign_off_status"
     t.string   "half_full_leave"
     t.integer  "sign_off_type_id"
     t.text     "description"
-    t.boolean  "read",             default: true
   end
 
   create_table "users", force: :cascade do |t|

@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :roles
   has_one :profile
+  has_many :notifications
+
   scope :with_role, -> (role) { joins(:role).where(roles: {name: role}) }
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>", small: "50x50>" }, default_url: "/images/missing.gif"
@@ -86,20 +88,21 @@ class User < ActiveRecord::Base
     }
   end
 
-  def new_leave_notifications
-    new_notifications = unread_notifications.includes(:sign_off_type)
-    prepare_leave_data_as_json(new_notifications) if new_notifications.present?
+  def own_requests_notifications
+     new_own_notifications = notifications.includes(sign_off: :sign_off_type).where("sign_offs.user_id" => id)
+     prepare_leave_data_as_json(new_own_notifications.map(&:sign_off)) if new_own_notifications.present?
   end
 
-  def unread_notifications
-    sign_offs.where(read: false)
+  def others_requests_notifications
+    new_other_notifications = notifications.includes(sign_off: :sign_off_type).where.not("sign_offs.user_id" => id)
+    prepare_leave_data_as_json(new_other_notifications.map(&:sign_off)) if new_other_notifications.present?
   end
 
   def prepare_leave_data_as_json(leaves)
     prepared_leaves = []
     leaves.each do |leave|
       leave_json = leave.as_json
-      leave_json['leave_type'] = leave.sign_off_type.sign_off_type_name if leave.sign_off_type.present?
+      leave_json['leave_type'] = leave.sign_off_type.sign_off_type_name if leave.sign_off_type_id.present?
       prepared_leaves << leave_json
     end
     prepared_leaves

@@ -4,6 +4,7 @@ class SignOff < ActiveRecord::Base
   belongs_to :sign_off_type
   has_many :comments
   belongs_to :user
+  has_many :notifications
   validates :user_id, :sign_off_type, :date_from, :date_to, :half_full_leave, presence: true
 
   scope :requested_sign_off, -> (user_id){ SignOff.joins(:sign_off_requesters).where({sign_off_requesters: {user_id: user_id}}) }

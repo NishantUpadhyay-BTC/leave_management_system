@@ -43,6 +43,7 @@ class SignOffsController < ApplicationController
       requested_user_ids = requestee_ids.split(',').uniq
       requested_user_ids.each do |uid|
         SignOffRequester.create(user_id: uid, sign_off_id: @sign_off.id)
+        Notification.create(user_id: uid, sign_off_id: @sign_off.id, notification_type: 'LeaveRequest')
         SignOffsMailer.leave_request_mail(uid).deliver_now
       end
       respond_to do |format|
@@ -107,9 +108,13 @@ class SignOffsController < ApplicationController
   end
 
   def fetch_new_notifications
-    @notifications = current_user.new_leave_notifications
+    own_requests_notifications = current_user.own_requests_notifications
+    others_requests_notifications = current_user.others_requests_notifications
     respond_to do |format|
-      format.json { render json: {notifications: @notifications}}
+      format.json { render json: {own_requests_notifications: own_requests_notifications,
+          others_requests_notifications: others_requests_notifications
+        }
+      }
     end
   end
 

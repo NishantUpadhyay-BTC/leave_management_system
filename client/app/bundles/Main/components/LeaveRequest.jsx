@@ -19,7 +19,7 @@ export default class LeaveRequest extends React.Component {
         dataType: 'json',
         method: "post",
         data: { sign_off: {
-          requestee_ids: "5",
+          requestee_ids: "2,3,4",
           sign_off_type_id: '1',
           half_full_leave: "half",
           date_from: "26/11/2016",

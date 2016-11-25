@@ -15,7 +15,7 @@ export default class Header extends React.Component {
       url: "/fetch_new_notifications",
       dataType: 'json',
       method: "get",
-      data: { access_token: '17c60fdf5981794bb31f246849ae398e'},
+      data: { access_token: '4e4ad7c1e24e3f40ef2672005c96bbcd'},
       success: function(data){
         console.log(data)
       }.bind(this)
@@ -82,7 +82,7 @@ export default class Header extends React.Component {
                                       <Link to="/leave_types">Manage Leave Types</Link>
                                     </li>
                                     <li>
-                                        <Link to="/new_employee">Add New Employe</Link>
+                                        <Link to="/new_employee">Add Employe</Link>
                                     </li>
                                 </ul>
                             </li>
