@@ -1,11 +1,11 @@
 class HolidaysController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_holiday, only: [:edit, :update, :destroy]
 
   def index
     @current_year_holidays = Holiday.current_year_holidays
     respond_to do |format|
-      format.json { render json: {holidays: @holidays } }
+      format.json { render json: {holidays: @current_year_holidays } }
     end
   end
 

@@ -63,7 +63,12 @@ class User < ActiveRecord::Base
   end
 
   def total_approved_request_count_till_now
-    sign_offs.where(sign_off_status: 'approved').includes(:sign_off_type).where("date_from < ? ", Time.zone.today).map{|req| req.date_to - req.date_from}.inject(0){|sum,x| sum + x }.to_i
+    t = sign_offs.where(sign_off_status: 'approved').includes(:sign_off_type).where("date_from < ? ", Time.zone.today)
+    v = 0
+    if t.present? 
+      v = t.map{|req| req.date_to - req.date_from}.inject(0){|sum,x| sum + x }.to_i
+    end
+    v
   end
 
   def leave_balance
@@ -79,12 +84,15 @@ class User < ActiveRecord::Base
   end
 
   def leave_counts
+    approved_requests_count = approved_requests.count  if approved_requests.present?
+    rejected_requests_count = rejected_requests.count if rejected_requests.present?
+    pending_requests_count = pending_requests.count if pending_requests.present?
     {
       remaingin_leaves: leave_balance,
       laves_taken: total_approved_request_count_till_now,
-      pending_request_counts: pending_requests.count,
-      approved_request_counts: approved_requests.count,
-      rejected_request_counts: rejected_requests.count
+      pending_request_counts: pending_requests_count,
+      approved_request_counts: approved_requests_count,
+      rejected_request_counts: rejected_requests_count
     }
   end
 
