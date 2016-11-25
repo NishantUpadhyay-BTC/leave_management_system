@@ -14,12 +14,12 @@ class SignOff < ActiveRecord::Base
   end
 
   def mark_notification_as_read(user)
-    notification = notifications.where(user_id: user.id)
+    notification = notifications.find_by_user_id(user.id)
     if notification.present?
       begin
         notification.destroy
       rescue Exception => e
-        loggger.debug("ERROR : Notification Removeal Failure :: #{e}")
+        logger.debug("ERROR : Notification Removeal Failure :: #{e}")
       end
     end
   end

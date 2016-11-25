@@ -59,7 +59,8 @@ class User < ActiveRecord::Base
   end
 
   def request_for_approval
-    sign_off_requesters.includes(:sign_off).map(&:sign_off)
+    leaves = sign_off_requesters.includes(:sign_off).map(&:sign_off)
+    prepare_leave_data_as_json(leaves)
   end
 
   def total_approved_request_count_till_now
