@@ -9,10 +9,6 @@ export default class Header extends React.Component {
     this.markAllNotificationsAsRead = this.markAllNotificationsAsRead.bind(this)
   }
 
-  loadHolidays(e){
-    e.preventDefault();
-  }
-
   fetchNewNotifications(e){
     e.preventDefault();
     return $.ajax({

@@ -6,39 +6,22 @@ import { connect } from 'react-redux'
 import * as HolidaysActions from './../actions/HolidaysActions';
 
 class Holidays extends React.Component {
-  constructor(props, context) {
+    constructor(props, context) {
       super(props, context);
       this.prepare_holiday = this.prepare_holiday.bind(this);
       this.addHoliday = this.addHoliday.bind(this);
-      this.getHolidays = this.getHolidays.bind(this);
   }
 
-  getHolidays(e){
-    e.preventDefault();
-    return $.ajax({
-      url: "/holidays",
-      dataType: 'json',
-      method: "get",
-      data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
-    success: function(data){
-      console.log(data)
-      }.bind(this)
-    });
+  componentWillMount(){
+    this.props.actions.loadHolidays();
   }
 
   addHoliday(e){
     e.preventDefault();
-    console.log("inside addHoliday")
-    this.props.actions.addHoliday({ name: "anohter new holiday", id: '3', date: '28/11/2016s'});
-    // return $.ajax({
-    //   url: "/holidays",
-    //   dataType: 'json',
-    //   method: "post",
-    //   data: {access_token: '17c60fdf5981794bb31f246849ae398e', holiday: { date: "26/11/1992", name: "diwali holiday"}},
-    // success: function(data){
-    //   console.log(data)
-    // }.bind(this)
-  // });
+    let date = this.refs.holidayDate.value
+    let name = this.refs.holidayName.value
+    this.props.actions.addHoliday({ name: name, date: date});
+    $('.modal').modal('close');
   }
 
   prepare_holiday(holiday, index){
@@ -55,10 +38,6 @@ class Holidays extends React.Component {
   }
 
   render(){
-    let data = [
-      {id: 1, name: 'abc', date: '11/12/2017'},
-      {id: 2, name: 'def', date: '1/12/2017'}
-    ]
     return(
       <div>
       <div className="content">
@@ -71,7 +50,7 @@ class Holidays extends React.Component {
             </div>
             <div className="holiday-list">
               <div className="row">
-              { data.map(holiday => this.prepare_holiday(holiday))}
+                { this.props.holidays.map(holiday => this.prepare_holiday(holiday))}
               </div>
             </div>
           </div>
@@ -82,17 +61,14 @@ class Holidays extends React.Component {
       		<div className="modal-content">
       			<h5>Add New Holiday</h5>
       			<div className="input-field">
-      				<input type="date" name="holidayDate" className="datepicker" placeholder="Select Date" />
+      				<input type="date" name="holidayDate" className="datepicker" placeholder="Select Date" ref="holidayDate"/>
       			</div>
       			<div className="input-field">
-      				<textarea id="textarea1" className="materialize-textarea"></textarea>
+      				<textarea id="textarea1" className="materialize-textarea" ref="holidayName"></textarea>
       				<label htmlFor="textarea1">Description</label>
       			</div>
       			<button className="btn-flat blue white-text" type="submit" onClick={this.addHoliday}>
       				Add Holiday
-      			</button>
-            <button className="btn-flat blue white-text" type="submit" onClick={this.getHolidays}>
-      				Get Holiday List
       			</button>
       		</div>
       	</form>
@@ -103,6 +79,7 @@ class Holidays extends React.Component {
 }
 
 Holidays.propTypes = {
+  holidays: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 };
 

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get '/fetch_new_notifications' => "sign_offs#fetch_new_notifications"
   get '/mark_all_notifications_as_read' => 'sign_offs#mark_all_notifications_as_read'
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
+  get '/current_year_holidays' => 'holidays#index'
+  post '/add_holiday' => 'holidays#create'
+
   #
   # devise_scope :user do
   #   resources :confirmations do
@@ -33,7 +36,6 @@ Rails.application.routes.draw do
     end
   end
   #
-  resources :holidays, except: :show
   resources :profiles
   get '*path' => 'home#index'
 end

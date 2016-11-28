@@ -13,20 +13,18 @@ export function loadHolidays(){
 export function loadHolidaysSuccess(holidays){
 	return {
 		type: "LOAD_HOLIDAY_SUCCESS",
-		thoughts: holidays
+		holidays: holidays
 	};
 }
 
 export function addHolidaySuccess(holiday){
-	console.log('>>>>>>>>>>>>>>>>>>>>>>.' + holiday.holiday)
 	return {
-		type: 'ADD_HOLIDAY_SUCCES',
-		thought: holiday
+		type: 'ADD_HOLIDAY_SUCCESS',
+		holiday: holiday
 	};
 }
 
 export function addHoliday(holiday){
-	console.log(holiday)
 	return function(dispatch){
 		return HolidaysApi.CallAddHoliday(holiday).then(holiday => {
 			dispatch(addHolidaySuccess(holiday));

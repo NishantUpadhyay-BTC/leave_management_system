@@ -4,7 +4,7 @@ class HolidaysController < ApplicationController
   def index
     @current_year_holidays = Holiday.current_year_holidays
     respond_to do |format|
-      format.html{ redirect_to root_path }
+      format.html{  render json: {holidays: @current_year_holidays } }
       format.json { render json: {holidays: @current_year_holidays } }
     end
   end
