@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react';
 import HolidayBox from './HolidayBox'
+import {bindActionCreators} from 'redux';
 import Header from './Header';
-export default class Holidays extends React.Component {
+import { connect } from 'react-redux'
+import * as HolidaysActions from './../actions/HolidaysActions';
+
+class Holidays extends React.Component {
   constructor(props, context) {
       super(props, context);
       this.prepare_holiday = this.prepare_holiday.bind(this);
@@ -24,15 +28,17 @@ export default class Holidays extends React.Component {
 
   addHoliday(e){
     e.preventDefault();
-    return $.ajax({
-      url: "/holidays",
-      dataType: 'json',
-      method: "post",
-      data: {access_token: '17c60fdf5981794bb31f246849ae398e', holiday: { date: "26/11/1992", name: "diwali holiday"}},
-    success: function(data){
-      console.log(data)
-    }.bind(this)
-  });
+    console.log("inside addHoliday")
+    this.props.actions.addHoliday({name: "new holiday", id: '3', date: '28/11/2016s'});
+    // return $.ajax({
+    //   url: "/holidays",
+    //   dataType: 'json',
+    //   method: "post",
+    //   data: {access_token: '17c60fdf5981794bb31f246849ae398e', holiday: { date: "26/11/1992", name: "diwali holiday"}},
+    // success: function(data){
+    //   console.log(data)
+    // }.bind(this)
+  // });
   }
 
   prepare_holiday(holiday, index){
@@ -93,4 +99,22 @@ export default class Holidays extends React.Component {
       </div>
     </div>
     );
-  }}
+  }
+}
+
+Holidays.propTypes = {
+  actions: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state, ownProps){
+  return {
+      holidays: state.holidays
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(HolidaysActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Holidays);
