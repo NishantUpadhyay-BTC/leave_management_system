@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121095126) do
+ActiveRecord::Schema.define(version: 20161125103036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,9 +21,9 @@ ActiveRecord::Schema.define(version: 20161121095126) do
     t.integer  "user_id"
     t.integer  "sender_id"
     t.integer  "receiver_id"
-    t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.text     "message"
   end
 
   create_table "holidays", force: :cascade do |t|
@@ -53,6 +53,32 @@ ActiveRecord::Schema.define(version: 20161121095126) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "sign_off_id"
+    t.string   "notification_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.date     "joining_date"
+    t.integer  "probation_period"
+    t.boolean  "confirmation_status"
+    t.string   "skills"
+    t.text     "current_address"
+    t.text     "permanent_address"
+    t.string   "phone_number"
+    t.string   "emergency_contact_number"
+    t.string   "personal_email_id"
+    t.string   "qualification"
+    t.string   "education_institute"
+    t.text     "certifications"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -77,15 +103,15 @@ ActiveRecord::Schema.define(version: 20161121095126) do
 
   create_table "sign_offs", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "sign_off_type_id"
-    t.integer  "half_full_leave"
-    t.integer  "sign_off_status"
     t.date     "date_from"
     t.date     "date_to"
-    t.integer  "leave_days"
     t.string   "reason"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "sign_off_status"
+    t.string   "half_full_leave"
+    t.integer  "sign_off_type_id"
+    t.text     "description"
   end
 
   create_table "users", force: :cascade do |t|
@@ -113,6 +139,7 @@ ActiveRecord::Schema.define(version: 20161121095126) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "access_token"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

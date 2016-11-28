@@ -10,10 +10,12 @@ import LeaveRequest from '../components/LeaveRequest';
 import Notifications from '../components/Notifications';
 import Profile from '../components/Profile';
 import LeaveDetails from '../components/LeaveDetails';
-
+import Login from '../components/Login';
+import AddEmployee from '../components/AddEmployee';
 export default (
     <Route path="/" component={App}>
-      <IndexRoute component={ Dashboard } />
+      <IndexRoute component={Login} />
+      <Route path= 'login' component={Login} />
       <Route path="dashboard" component={Dashboard} />
       <Route path="holidays" component={Holidays} />
       <Route path="leave_types" component={LeaveTypes} />
@@ -21,5 +23,7 @@ export default (
       <Route path="notifications" component={Notifications} />
       <Route path="profile" component={Profile} />
       <Route path="leave_details/:leave_id" component={LeaveDetails} />
+      <Route path="new_employee" component={AddEmployee} />
+
     </Route>
 );

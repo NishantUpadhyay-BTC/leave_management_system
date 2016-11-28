@@ -1,6 +1,25 @@
 import React, { PropTypes } from 'react';
 
 export default class UserDetailsEditForm extends React.Component {
+  constructor(props, context){
+    super(props, context);
+    this.getMyProfile = this.getMyProfile.bind(this);
+  }
+
+  getMyProfile(e){
+    e.preventDefault();
+    return $.ajax({
+      // replace 5 with user id
+      url: "/profiles/5",
+      dataType: 'json',
+      method: "get",
+      data: { access_token: '17c60fdf5981794bb31f246849ae398e'},
+      success: function(data){
+        console.log(data)
+      }.bind(this)
+    });
+  }
+
   render() {
     return(
       <div className="col m9">
@@ -8,7 +27,7 @@ export default class UserDetailsEditForm extends React.Component {
           <div className="user-details">
             <div className="row">
             <div className="col m12">
-              <button type="submit" value="Save" className="right btn tooltipped green waves-effect waves-light white-text">Save</button>
+              <button type="submit" onClick= {this.getMyProfile}  value="Save" className="right btn tooltipped green waves-effect waves-light white-text">Save</button>
             </div>
           </div>
           <h5>Job Description</h5>
@@ -69,8 +88,8 @@ export default class UserDetailsEditForm extends React.Component {
               <label htmlFor="qualification" className="active">Qualification</label>
             </div>
             <div className="input-field col m12">
-              <input type="text" id="institude" value="IIM- Ahmedabad" />
-              <label htmlFor="institude" className="active">Education Institute</label>
+              <input type="text" id="institute" value="IIM- Ahmedabad" />
+              <label htmlFor="institute" className="active">Education Institute</label>
             </div>
             <div className="input-field col m12">
               <input type="text" id="certified_cources" value="DBA - Oracle, RedHat Linux" />

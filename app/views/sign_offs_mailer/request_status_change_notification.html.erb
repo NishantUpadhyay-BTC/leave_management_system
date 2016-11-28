@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi, <%= @notify_to.name %></h1>
+    <p>
+      Leave Request for <%= @leave.reason %> by <%= @leave_requested_by.name %> has been changed by <%= @user.name %> to <%= @leave.sign_off_status %><br>
+    </p>
+    <p>Thank You</p>
+  </body>
+</html>

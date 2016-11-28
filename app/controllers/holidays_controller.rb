@@ -1,22 +1,26 @@
 class HolidaysController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_holiday, only: [:edit, :update, :destroy]
 
   def index
-    @holidays = Holiday.all.order(sort_column + " " + sort_direction).page(params[:page]).per(5)
-    
+    @current_year_holidays = Holiday.current_year_holidays
+    respond_to do |format|
+      format.json { render json: {holidays: @current_year_holidays } }
+    end
   end
 
   def new
-    @holiday = Holiday.new
   end
 
   def create
     @holiday = Holiday.new(holiday_params)
     if @holiday.save
-      redirect_to holidays_path
+      respond_to do |format|
+        format.json { render json: {holiday: @holiday, success: true} }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.json { render json: {errors: @holiday.errors, success: false} }
+      end
     end
   end
 
@@ -24,13 +28,27 @@ class HolidaysController < ApplicationController
   end
 
   def update
-    @holiday.update_attributes(holiday_params)
-    redirect_to holidays_path
+    if @holiday.update_attributes(holiday_params)
+      respond_to do |format|
+        format.json { render json: { holiday: @holiday, success: true } }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { errors: @holiday.errors, success: false } }
+      end
+    end
   end
 
   def destroy
-    @holiday.destroy
-    redirect_to holidays_path
+    if @holiday.destroy
+      respond_to do |format|
+        format.json { render json: { success: true, message: 'Holiday Removed successfully.'}}
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { success: false, message: 'Unable to remove Holiday.'}}
+      end
+    end
   end
 
   private
@@ -48,6 +66,6 @@ class HolidaysController < ApplicationController
   end
 
   def holiday_params
-    params.require(:holiday).permit(:date,:description)
+    params.require(:holiday).permit(:date,:name)
   end
 end
