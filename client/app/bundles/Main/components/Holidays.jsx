@@ -29,7 +29,7 @@ class Holidays extends React.Component {
   addHoliday(e){
     e.preventDefault();
     console.log("inside addHoliday")
-    this.props.actions.addHoliday({name: "new holiday", id: '3', date: '28/11/2016s'});
+    this.props.actions.addHoliday({ name: "anohter new holiday", id: '3', date: '28/11/2016s'});
     // return $.ajax({
     //   url: "/holidays",
     //   dataType: 'json',
