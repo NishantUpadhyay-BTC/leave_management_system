@@ -1,38 +1,28 @@
 import React, { PropTypes } from 'react';
 import LeaveTypeBox from './LeaveTypeBox'
+import {bindActionCreators} from 'redux';
+import Header from './Header';
+import { connect } from 'react-redux'
+import * as LeaveTypeActions from './../actions/LeaveTypeActions';
 
-export default class LeaveTypes extends React.Component {
+class LeaveTypes extends React.Component {
   constructor(props, context) {
       super(props, context);
       this.prepare_leave_types = this.prepare_leave_types.bind(this);
       this.addLeaveType = this.addLeaveType.bind(this);
-      this.getLeaveTypes = this.getLeaveTypes.bind(this);
+  }
+
+  componentWillMount(){
+    this.props.actions.loadLeaveTypes();
   }
 
   addLeaveType(e){
     e.preventDefault();
-      return $.ajax({
-        url: "/sign_off_types",
-        dataType: 'json',
-        method: "post",
-        data: {access_token: '17c60fdf5981794bb31f246849ae398e', sign_off_type: { sign_off_type_name: "Medical Leave", no_of_days: 2, description: "This is for medical Emergency"}},
-      success: function(data){
-        console.log(data)
-      }.bind(this)
-    });
-  }
-
-  getLeaveTypes(e){
-    e.preventDefault();
-      return $.ajax({
-        url: "/sign_off_types",
-        dataType: 'json',
-        method: "get",
-        data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
-      success: function(data){
-        console.log(data)
-      }.bind(this)
-    });
+    let noOfDays = this.refs.noOfDays.value;
+    let leaveType = this.refs.leaveTypeName.value;
+    let description = this.refs.leaveTypeDescription.value;
+    this.props.actions.addSignOffType({ no_of_days: noOfDays, description: description, sign_off_type_name: leaveType});
+    $('.modal').modal('close');
   }
 
   prepare_leave_types(leave_type){
@@ -49,10 +39,6 @@ export default class LeaveTypes extends React.Component {
   }
 
   render(){
-    let data = [
-      {id: 1, type: 'Sick Leave', description: 'Leave taken due to sickness '},
-      {id: 2, type: 'Casual Leave', description: 'Leave taken for some occasion'}
-    ]
     return(
       <div>
         <div className="content">
@@ -65,7 +51,7 @@ export default class LeaveTypes extends React.Component {
         			</div>
         			<div className="holiday-list">
         				<div className="row">
-        					{ data.map(leave_type => this.prepare_leave_types(leave_type))}
+        					{ this.props.leave_types.map(leave_type => this.prepare_leave_types(leave_type))}
         				</div>
         			</div>
         		</div>
@@ -76,11 +62,15 @@ export default class LeaveTypes extends React.Component {
         		<div className="modal-content">
         			<h5>Add New Type</h5>
         			<div className="input-field">
-        				<input type="text" name="leaveType" id="leaveType" />
+        				<input type="text" name="leaveType" id="leaveType" ref="leaveTypeName" />
         				<label htmlFor="leaveType">Leave Type</label>
         			</div>
+              <div className="input-field">
+        				<input type="number" name="noOfDays" id="noOfDays" ref="noOfDays" />
+        				<label htmlFor="noOfDays">Leave Type</label>
+        			</div>
         			<div className="input-field">
-        				<textarea id="textarea1" className="materialize-textarea"></textarea>
+        				<textarea id="textarea1" className="materialize-textarea" ref="leaveTypeDescription"></textarea>
         				<label htmlFor="textarea1">Description</label>
         			</div>
         			<button className="btn-flat blue white-text" type="submit" onClick={this.addLeaveType}>
@@ -113,3 +103,22 @@ export default class LeaveTypes extends React.Component {
     </div>
     );
   }}
+
+LeaveTypes.propTypes = {
+  leave_types: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state, ownProps){
+  console.log(state)
+  return {
+      leave_types: state.leave_types
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(LeaveTypeActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(LeaveTypes);

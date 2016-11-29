@@ -43,11 +43,13 @@ class HolidaysController < ApplicationController
   def destroy
     if @holiday.destroy
       respond_to do |format|
-        format.json { render json: { success: true, message: 'Holiday Removed successfully.'}}
+        format.json { render json: { success: true, message: 'Holiday Removed successfully.', holiday_id: params[:id]}}
+        format.html { render json: { success: true, message: 'Holiday Removed successfully.', holiday_id: params[:id]}}
       end
     else
       respond_to do |format|
         format.json { render json: { success: false, message: 'Unable to remove Holiday.'}}
+        format.html { render json: { success: false, message: 'Unable to remove Holiday.'}}
       end
     end
   end

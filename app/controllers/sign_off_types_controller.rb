@@ -4,7 +4,7 @@ class SignOffTypesController < ApplicationController
   def index
     @sign_off_types = SignOffType.all.order(:id).page(params[:page])
     respond_to do |format|
-      format.json { render json: { sign_off_types: @sign_off_types } }
+      format.all { render json: { sign_off_types: @sign_off_types } }
     end
 
   end
@@ -17,11 +17,11 @@ class SignOffTypesController < ApplicationController
     @sign_off_type = SignOffType.new(sign_off_type_params)
     if @sign_off_type.save
       respond_to do |format|
-        format.json { render json: { success: true, sign_off_type: @sign_off_type }}
+        format.all { render json: { success: true, sign_off_type: @sign_off_type}}
       end
     else
       respond_to do |format|
-        format.json { render json: { success: false, errors: @sign_off_type.errors }}
+        format.all { render json: { success: false, errors: @sign_off_type.errors }}
       end
     end
   end
@@ -35,8 +35,15 @@ class SignOffTypesController < ApplicationController
   end
 
   def destroy
-    @sign_off_type.destroy
-    redirect_to sign_off_types_path
+    if @sign_off_type.destroy
+      respond_to do |format|
+        format.all { render json: { sign_off_type: @sign_off_type, success: true, leave_type_id: params[:id] } }
+      end
+    else
+      respond_to do |format|
+        format.all { render json: { errors: @sign_off_type.errors, success: false, leave_type_id: params[:id] } }
+      end
+    end
   end
 
   private

@@ -10,32 +10,17 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
   get '/current_year_holidays' => 'holidays#index'
   post '/add_holiday' => 'holidays#create'
+  delete '/delete_holiday/:id' => 'holidays#destroy'
 
-  #
-  # devise_scope :user do
-  #   resources :confirmations do
-  #     member do
-  #       patch "confirm_user"
-  #       get "confirmation"
-  #     end
-  #   end
-  # end
-  #
-  # resources :admins do
-  #   collection do
-  #     get 'notifications' => 'admins#notifications'
-  #     get 'employee_details' => 'admins#employee_details'
-  #   end
-  # end
   resources :sign_off_types, except: :show
-  #
+
   resources :sign_offs do
     resources :comments
     member do
       post 'change_status' => 'sign_offs#change_sign_off_status'
     end
   end
-  #
+
   resources :profiles
   get '*path' => 'home#index'
 end

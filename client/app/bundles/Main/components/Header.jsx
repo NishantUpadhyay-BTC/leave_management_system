@@ -1,12 +1,20 @@
 import React, {PropTypes} from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router'
+import { connect } from 'react-redux'
+import * as HolidaysActions from './../actions/HolidaysActions';
+import {bindActionCreators} from 'redux';
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   constructor(){
     super();
     this.logout = this.logout.bind(this);
     this.fetchNewNotifications = this.fetchNewNotifications.bind(this);
     this.markAllNotificationsAsRead = this.markAllNotificationsAsRead.bind(this)
+    this.loadHolidayList = this.loadHolidayList.bind(this);
+  }
+
+  loadHolidayList(){
+    this.props.actions.loadHolidays();
   }
 
   fetchNewNotifications(e){
@@ -76,10 +84,10 @@ export default class Header extends React.Component {
                                 <a href="#" className="dropdown-button fa fa-gear" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="setting-nav"></a>
                                 <ul className="dropdown-content" id="setting-nav">
                                     <li>
-                                      <Link to="/holidays">Manage Holidays</Link>
+                                      <Link to="/holidays" onClick={this.loadHolidayList}>Manage Holidays</Link>
                                     </li>
                                     <li>
-                                      <Link to="/leave_types">Manage Leave Types</Link>
+                                      <Link to="/leave_types" activeClassName='active'>Manage Leave Types</Link>
                                     </li>
                                     <li>
                                         <Link to="/new_employee">Add Employe</Link>
@@ -162,3 +170,21 @@ export default class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  holidays: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state, ownProps){
+  return {
+      holidays: state.holidays
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(HolidaysActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

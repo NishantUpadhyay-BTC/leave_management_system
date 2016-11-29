@@ -32,5 +32,21 @@ class HolidaysApi {
       });
     });
   }
+
+  static callDeleteHoliday(holiday_id){
+    return new Promise((resolve, reject) => {
+      let options = {
+        url: "http://localhost:3000/delete_holiday/" + holiday_id,
+        method: 'DELETE',
+        type: 'json'
+      };
+      request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          let holiday_id = JSON.parse(body).holiday_id
+          resolve(holiday_id);
+        }
+      });
+    });
+  }
 }
 export default HolidaysApi;

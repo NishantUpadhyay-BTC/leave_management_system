@@ -12,10 +12,6 @@ class Holidays extends React.Component {
       this.addHoliday = this.addHoliday.bind(this);
   }
 
-  componentWillMount(){
-    this.props.actions.loadHolidays();
-  }
-
   addHoliday(e){
     e.preventDefault();
     let date = this.refs.holidayDate.value
@@ -84,6 +80,7 @@ Holidays.propTypes = {
 };
 
 function mapStateToProps(state, ownProps){
+  console.log(state)
   return {
       holidays: state.holidays
   };
