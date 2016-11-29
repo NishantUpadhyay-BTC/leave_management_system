@@ -72,7 +72,8 @@ class SignOffsController < ApplicationController
   def show
     @sign_off.mark_notification_as_read(current_user)
     @sign_off_data = {
-      comments: @sign_off.comments_with_user_data,
+      comments: @sign_off.comments_with_user_data.reverse,
+      requestee_name: @sign_off.requestee_name,
       user_name: current_user.name,
       designation: current_user.designation,
       leave_status: @sign_off.sign_off_status,
