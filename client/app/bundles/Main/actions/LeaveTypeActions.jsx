@@ -12,7 +12,6 @@ export function loadLeaveTypes(){
 }
 
 export function loadLeaveTypeSuccess(leave_types){
-	console.log(leave_types)
 	return {
 		type: types.LOAD_LEAVE_TYPE_SUCCESS,
 		leave_types: leave_types

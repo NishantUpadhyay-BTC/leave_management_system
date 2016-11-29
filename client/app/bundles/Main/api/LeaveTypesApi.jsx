@@ -4,7 +4,6 @@ let leave_types = [];
 request('http://localhost:3000/sign_off_types', function (error, response, body) {
   if (!error && response.statusCode == 200) {
     leave_types = JSON.parse(body);
-    console.log(JSON.parse(body))
     leave_types = leave_types.sign_off_types
   }
 });
@@ -33,7 +32,6 @@ class LeaveTypesApi {
   }
 
   static callDeleteLeaveType(id){
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>> + ID " + id)
     return new Promise((resolve, reject) => {
       let options = {
         url: "http://localhost:3000/sign_off_types/" + id,
