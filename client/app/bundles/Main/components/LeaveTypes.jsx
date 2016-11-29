@@ -110,7 +110,6 @@ LeaveTypes.propTypes = {
 };
 
 function mapStateToProps(state, ownProps){
-  console.log(state)
   return {
       leave_types: state.leave_types
   };

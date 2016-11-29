@@ -3,7 +3,7 @@ class SignOffsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.json do
+      format.all do
         render json: {
           leaves_for_approval: current_user.request_for_approval,
           pending_requests: current_user.pending_requests,

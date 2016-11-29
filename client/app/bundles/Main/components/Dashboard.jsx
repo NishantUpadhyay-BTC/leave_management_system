@@ -2,15 +2,22 @@ import React, {PropTypes} from 'react';
 import Header from './Header';
 import LeaveListingRaw from './LeaveListingRaw'
 import LeavesListingTableHeader from './LeavesListingTableHeader'
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux'
+import * as dashboardActions from './../actions/dashboardActions';
 
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
     constructor(){
       super();
       this.getLeaveDetails = this.getLeaveDetails.bind(this);
       this.getUserLeavesListBytype = this.getUserLeavesListBytype.bind(this);
       this.getSignOffNewObject = this.getSignOffNewObject.bind(this);
       this.getPendingRequestCount = this.getPendingRequestCount.bind(this);
-      this.prepare_rejected_leaves = this.prepare_rejected_leaves.bind(this);
+      this.prepare_leave_row = this.prepare_leave_row.bind(this);
+    }
+
+    componentWillMount(){
+      this.props.actions.loadAllRequests();
     }
 
     componentDidMount(){
@@ -70,15 +77,15 @@ export default class Dashboard extends React.Component {
       });
     }
 
-    prepare_rejected_leaves(leave){
+    prepare_leave_row(leave){
       return <LeaveListingRaw key={leave.id} data = {leave} />
     }
 
   render() {
-    let rejected_leaves = [
-      { id: 2, name: 'Hitesh Patel', designation: 'Sr. Developer', from_date: '03/11/2016', to_date: '16/11/2016', approved_by: 'Amit Patel' },
-      { id: 3, name: 'Nishant Patel', designation: 'Sr. Developer', from_date: '03/11/2016', to_date: '16/11/2016', approved_by: 'Amit Patel' }
-    ];
+    let approval_requests = this.props.leave_requests.leaves_for_approval || [];
+    let approved_requests = this.props.leave_requests.approved_requests || [];
+    let pending_requests = this.props.leave_requests.pending_requests || [];
+    let rejected_requests = this.props.leave_requests.rejected_requests || [];
     return (
       <div>
       <div className="content">
@@ -121,108 +128,40 @@ export default class Dashboard extends React.Component {
                   </div>
                   <div id="tabview">
                     <ul className="tabs">
-                      <li className="tab"><a className="active" href="#approved">Approved</a></li>
+                      <li className="tab"><a className="active" href="#approval">Waiting Approval</a></li>
+                      <li className="tab"><a href="#approved">Approved</a></li>
                       <li className="tab"><a href="#pendding">Pendding</a></li>
                       <li className="tab"><a href="#rejected">Rejected</a></li>
-                      <li className="tab"><a href="#cancelled">Cancelled</a></li>
-                      <li className="tab"><a href="#emergency">Emergency</a></li>
                     </ul>
+                    <div className="tab-content" id="approval">
+                      <table className="responsive-table">
+                        <LeavesListingTableHeader requestType='approval_requests'/>
+                        <tbody>
+                          { approval_requests.map(leave => this.prepare_leave_row(leave))}
+                        </tbody>
+                      </table>
+                    </div>
                     <div className="tab-content" id="approved">
                       <table className="responsive-table">
-                        <LeavesListingTableHeader />
+                        <LeavesListingTableHeader requestType='approved_requests'/>
                         <tbody>
-                          <tr>
-                            <td>001</td>
-                            <td onClick={this.getUserLeavesListBytype} >Nishant Upadhyay</td>
-                            <td>Sr. Developer</td>
-                            <td>03/11/2016</td>
-                            <td>16/11/2016</td>
-                            <td>Amit Patel</td>
-                            <td><a href="#"><span className="fa fa-share"></span></a></td>
-                          </tr>
+                          { approved_requests.map(leave => this.prepare_leave_row(leave))}
                         </tbody>
                       </table>
                     </div>
                     <div className="tab-content" id="pendding">
                       <table className="responsive-table">
-                        <LeavesListingTableHeader />
+                        <LeavesListingTableHeader requestType='pending_requests'/>
                         <tbody>
-                          <tr>
-                            <td>001</td>
-                            <td onClick={this.getLeaveDetails}>Nishant Upadhyay</td>
-                            <td>Sr. Developer</td>
-                            <td>03/11/2016</td>
-                            <td>16/11/2016</td>
-                            <td>Amit Patel</td>
-                            <td><a href="#"><span className="fa fa-share"></span></a></td>
-                          </tr>
-                          <tr>
-                            <td>002</td>
-                            <td onClick={this.getLeaveDetails}>Hitesh Patel</td>
-                            <td>Sr. Developer</td>
-                            <td>03/11/2016</td>
-                            <td>16/11/2016</td>
-                            <td>Amit Patel</td>
-                            <td><a href="#"><span className="fa fa-share"></span></a></td>
-                          </tr>
+                          { pending_requests.map(leave => this.prepare_leave_row(leave))}
                         </tbody>
                       </table>
                     </div>
                     <div className="tab-content" id="rejected">
                       <table className="responsive-table">
-                        <LeavesListingTableHeader />
+                        <LeavesListingTableHeader requestType='rejected_requests' />
                         <tbody>
-                          { rejected_leaves.map(leave => this.prepare_rejected_leaves(leave))}
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="tab-content" id="cancelled">
-                      <table className="responsive-table">
-                        <LeavesListingTableHeader />
-                        <tbody>
-                          <tr>
-                            <td>001</td>
-                            <td onClick={this.getPendingRequestCount}>Nishant Upadhyay</td>
-                            <td>Sr. Developer</td>
-                            <td>03/11/2016</td>
-                            <td>16/11/2016</td>
-                            <td>Amit Patel</td>
-                            <td><a href="#"><span className="fa fa-share"></span></a></td>
-                          </tr>
-                          <tr>
-                            <td>002</td>
-                            <td>Hitesh Patel</td>
-                            <td>Sr. Developer</td>
-                            <td>03/11/2016</td>
-                            <td>16/11/2016</td>
-                            <td>Amit Patel</td>
-                            <td><a href="#"><span className="fa fa-share"></span></a></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="tab-content" id="emergency">
-                      <table className="responsive-table">
-                        <LeavesListingTableHeader />
-                        <tbody>
-                          <tr>
-                            <td>001</td>
-                            <td onClick={this.getSignOffNewObject}>Nishant Upadhyay</td>
-                            <td>Sr. Developer</td>
-                            <td>03/11/2016</td>
-                            <td>16/11/2016</td>
-                            <td>Amit Patel</td>
-                            <td><a href="#"><span className="fa fa-share"></span></a></td>
-                          </tr>
-                          <tr>
-                            <td>002</td>
-                            <td>Hitesh Patel</td>
-                            <td>Sr. Developer</td>
-                            <td>03/11/2016</td>
-                            <td>16/11/2016</td>
-                            <td>Amit Patel</td>
-                            <td><a href="#"><span className="fa fa-share"></span></a></td>
-                          </tr>
+                          { rejected_requests.map(leave => this.prepare_leave_row(leave))}
                         </tbody>
                       </table>
                     </div>
@@ -237,3 +176,21 @@ export default class Dashboard extends React.Component {
     );
   }
 }
+
+Dashboard.propTypes = {
+  leave_requests: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state, ownProps){
+  return {
+      leave_requests: state.leave_requests
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(dashboardActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

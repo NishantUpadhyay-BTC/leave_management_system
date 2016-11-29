@@ -80,7 +80,6 @@ Holidays.propTypes = {
 };
 
 function mapStateToProps(state, ownProps){
-  console.log(state)
   return {
       holidays: state.holidays
   };
