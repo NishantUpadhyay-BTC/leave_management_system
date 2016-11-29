@@ -1,10 +1,21 @@
 import React, { PropTypes } from 'react';
-export default class LeaveDetails extends React.Component {
+import {bindActionCreators} from 'redux';
+import Header from './Header';
+import { connect } from 'react-redux'
+import * as LeaveActions from './../actions/LeaveActions';
+
+
+class LeaveDetails extends React.Component {
 
   constructor(props, context){
     super(props, context);
     this.approveRequest = this.approveRequest.bind(this);
     this.requestStatus = this.requestStatus.bind(this);
+  }
+
+  componentWillMount(){
+    console.log(this.props.params.leave_id)
+    this.props.actions.fetchLeaveDetails(this.props.params.leave_id);
   }
 
   requestStatus(e){
@@ -127,7 +138,25 @@ export default class LeaveDetails extends React.Component {
       			</div>
       	</div>
       </div>
-
     );
   }
 }
+
+LeaveDetails.propTypes = {
+  active_request: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state, ownProps){
+  console.log(state.active_request)
+  return {
+      active_request: state.active_request
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(LeaveActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(LeaveDetails);

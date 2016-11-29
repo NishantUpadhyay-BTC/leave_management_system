@@ -85,7 +85,7 @@ class SignOffsController < ApplicationController
     }
 
     respond_to do |format|
-      format.json { render json: @sign_off_data}
+      format.all { render json: @sign_off_data}
     end
   end
 

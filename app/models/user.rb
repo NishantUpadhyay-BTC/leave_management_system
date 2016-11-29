@@ -59,9 +59,8 @@ class User < ActiveRecord::Base
   end
 
   def request_for_approval
-    leaves = sign_off_requesters.includes(:sign_off).map(&:sign_off)
+    leaves = sign_off_requesters.includes(sign_off: [:sign_off_type, :user]).map(&:sign_off)
     prepare_leave_data_as_json(leaves) if leaves.compact.present?
-
   end
 
   def total_approved_request_count_till_now
@@ -110,7 +109,7 @@ class User < ActiveRecord::Base
       leave_request = leave.kind_of?(Notification) ? leave.sign_off : leave
       leave_json = leave_request.as_json
       leave_json['notification_id'] = leave.id if leave.kind_of?(Notification)
-      leave_json['username'] = leave_request.user.name if leave_request.present? && leave_request.user.present? 
+      leave_json['username'] = leave_request.user.name if leave_request.present? && leave_request.user.present?
       leave_json['leave_type'] = leave_request.sign_off_type.sign_off_type_name if leave_request.present? && leave_request.sign_off_type.present?
       prepared_leaves << leave_json
     end
