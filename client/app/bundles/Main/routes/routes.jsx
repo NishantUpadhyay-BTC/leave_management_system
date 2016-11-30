@@ -10,7 +10,7 @@ import LeaveRequest from '../components/LeaveRequest';
 import Notifications from '../components/Notifications';
 import Profile from '../components/Profile';
 import LeaveDetails from '../components/LeaveDetails';
-import Login from '../components/Login';
+import Login from '../components/authentication/Login';
 import AddEmployee from '../components/AddEmployee';
 export default (
     <Route path="/" component={App}>

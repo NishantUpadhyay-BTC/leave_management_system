@@ -1,28 +1,33 @@
 import React, { PropTypes } from 'react';
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import * as authActions from './../../actions/authActions';
+import { browserHistory } from 'react-router'
 
-export default class Login extends React.Component {
-  constructor() {
-    super()
+class Login extends React.Component {
+  constructor(props, context) {
+    super(props, context)
     this.onLogin = this.onLogin.bind(this);
+    this.transferToDashboardIfLoggedIn  = this.transferToDashboardIfLoggedIn.bind(this)
+  }
+
+  transferToDashboardIfLoggedIn(){
+    if (this.props.authUser.isLoggedIn){
+      browserHistory.push('/dashboard')
+    }
+  }
+  componentWillMount() {
+    this.transferToDashboardIfLoggedIn();
+  }
+  componentDidUpdate() {
+    this.transferToDashboardIfLoggedIn();
   }
 
   onLogin(e){
       e.preventDefault();
       let email = $(this.refs.user_email).val();
       let password = $(this.refs.user_password).val();
-      return $.ajax({
-        url: "/users/sign_in",
-        dataType: 'json',
-        method: "post",
-        data: { user: {
-          email: email,
-          password: password
-        }
-      },
-      success: function(data){
-        console.log(data)
-      }.bind(this)
-    });
+      this.props.actions.doLogin(email, password)
   }
 
   render() {
@@ -68,3 +73,22 @@ export default class Login extends React.Component {
     );
   }
 }
+
+
+Login.propTypes = {
+  authUser: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state, ownProps){
+  return {
+      authUser: state.auth_reducer
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(authActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
