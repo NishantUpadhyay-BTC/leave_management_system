@@ -125,7 +125,7 @@ class Header extends React.Component {
                                 </ul>
                             </li>
                             <li className="profile-menu">
-                                <a href="#" className="dropdown-button" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="profileDropdown"><img src="assets/profile-image.jpg" alt="" className="rounded"/>
+                                <a href="#" className="dropdown-button" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="profileDropdown"><img src="/assets/profile-image.jpg" alt="" className="rounded"/>
                                     <span className="dropdown-icon fa fa-caret-down"></span>
                                 </a>
                                 <ul className="dropdown-content" id="profileDropdown">

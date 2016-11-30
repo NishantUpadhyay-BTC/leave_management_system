@@ -45,6 +45,7 @@ class LeaveDetails extends React.Component {
   }
 
   render(){
+    let leave_details = this.props.active_request ;
     return(
       <div className="content">
       	<div className="container">
@@ -55,24 +56,23 @@ class LeaveDetails extends React.Component {
 
       						</div>
       						<div className="info">
-      							<h4>Nishant Upadhyay</h4>
-      							<div className="designation">Sr. Developer</div>
+      							<h4>{leave_details.user_name}</h4>
+      							<div className="designation">{leave_details.designation}</div>
       							<div className="red-text">On Probation</div>
       						</div>
       						<div className="leave-counter">
       							<ul>
       								<li>Leave Balance : 15</li>
-      								<li>Team Lead : <b>Amit Patel</b></li>
-      								<li>Date : <b>11<sup>th</sup> Jan</b> to <b>15<sup>th</sup> Jan</b></li>
-      								<li>Leave Days : 5 days</li>
-      								<li>Leave Type : <span className="green-text">Madical</span></li>
+      								<li>From Date : <b>{leave_details.date_from}</b></li>
+                      <li>To Date : <b>{leave_details.date_to}</b></li>
+      								<li>Leave Days : {leave_details.leave_days} days</li>
+      								<li>Leave Type : <span className="green-text">{leave_details.leave_type}</span></li>
       							</ul>
       						</div>
       					</div>
       					<div className="col m8">
-      						<h5>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <span className="right">Status: <span className="red-text">Pending</span></span></h5>
-      						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
-      						<p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.</p>
+      						<h5>{leave_details.reason} <span className="right">Status: <span className="red-text">{leave_details.leave_status}</span></span></h5>
+      						<p>{leave_details.description}</p>
       					</div>
       				</div>
       				<div className="chat-system">
