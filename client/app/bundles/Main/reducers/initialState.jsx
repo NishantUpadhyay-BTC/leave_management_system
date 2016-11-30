@@ -1,9 +1,10 @@
+let loggedIn = ('true' == localStorage.getItem( 'isLoggedIn')) || false
 export default {
 	holidays: [],
 	leave_types: [],
 	leave_requests: [],
 	active_request: {},
-	authUser: { isLoggedIn: false,
+	authUser: { isLoggedIn: loggedIn,
               userData: null
             }
 };

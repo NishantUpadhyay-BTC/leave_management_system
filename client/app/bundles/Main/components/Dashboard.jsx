@@ -5,81 +5,93 @@ import LeavesListingTableHeader from './LeavesListingTableHeader'
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux'
 import * as dashboardActions from './../actions/dashboardActions';
+import { browserHistory } from 'react-router';
 
 class Dashboard extends React.Component {
-    constructor(){
-      super();
-      this.getLeaveDetails = this.getLeaveDetails.bind(this);
-      this.getUserLeavesListBytype = this.getUserLeavesListBytype.bind(this);
-      this.getSignOffNewObject = this.getSignOffNewObject.bind(this);
-      this.getPendingRequestCount = this.getPendingRequestCount.bind(this);
-      this.prepare_leave_row = this.prepare_leave_row.bind(this);
-    }
+  constructor(props, context){
+    super(props, context);
+    this.getLeaveDetails = this.getLeaveDetails.bind(this);
+    this.getUserLeavesListBytype = this.getUserLeavesListBytype.bind(this);
+    this.getSignOffNewObject = this.getSignOffNewObject.bind(this);
+    this.getPendingRequestCount = this.getPendingRequestCount.bind(this);
+    this.prepare_leave_row = this.prepare_leave_row.bind(this);
+  }
 
-    componentWillMount(){
+  componentWillMount(){
+    if (!this.props.authUser.isLoggedIn){
+      browserHistory.push('/login')
+    } else {
       this.props.actions.loadAllRequests();
     }
-
-    componentDidMount(){
-        $('ul.tabs').tabs();
+  }
+  
+  componentDidUpdate(){
+    if (!this.props.authUser.isLoggedIn){
+      browserHistory.push('/login')
+    } else {
+      this.props.actions.loadAllRequests();
     }
+  }
+  componentDidMount(){
+    $('ul.tabs').tabs();
+  }
 
-    getPendingRequestCount(e){
-      e.preventDefault();
-      return $.ajax({
-        url: "/pending_requests_count",
-        dataType: 'json',
-        method: "get",
-        data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
-      success: function(data){
-        console.log(data)
-        }.bind(this)
-      });
-    }
+  getPendingRequestCount(e){
+    e.preventDefault();
+    return $.ajax({
+      url: "/pending_requests_count",
+      dataType: 'json',
+      method: "get",
+      data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
+    success: function(data){
+      console.log(data)
+      }.bind(this)
+    });
+  }
 
-    getLeaveDetails(e) {
-      e.preventDefault();
-      return $.ajax({
-        // Add replace 22 with leave id of current selected leave
-        url: "/sign_offs/22",
-        dataType: 'json',
-        method: "get",
-        data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
-      success: function(data){
-        console.log(data)
-        }.bind(this)
-      });
-    }
+  getLeaveDetails(e) {
+    e.preventDefault();
+    return $.ajax({
+      // Add replace 22 with leave id of current selected leave
+      url: "/sign_offs/22",
+      dataType: 'json',
+      method: "get",
+      data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
+    success: function(data){
+      console.log(data)
+      }.bind(this)
+    });
+  }
 
-    getUserLeavesListBytype(e){
-      e.preventDefault();
-      return $.ajax({
-        url: "/sign_offs",
-        dataType: 'json',
-        method: "get",
-        data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
-      success: function(data){
-        console.log(data)
-        }.bind(this)
-      });
-    }
+  getUserLeavesListBytype(e){
+    e.preventDefault();
+    return $.ajax({
+      url: "/sign_offs",
+      dataType: 'json',
+      method: "get",
+      data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
+    success: function(data){
+      console.log(data)
+      }.bind(this)
+    });
+  }
 
-    getSignOffNewObject(e){
-      e.preventDefault();
-      return $.ajax({
-        url: "/sign_offs/new",
-        dataType: 'json',
-        method: "get",
-        data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
-      success: function(data){
-        console.log(data)
-        }.bind(this)
-      });
-    }
+  getSignOffNewObject(e){
+    e.preventDefault();
+    return $.ajax({
+      url: "/sign_offs/new",
+      dataType: 'json',
+      method: "get",
+      data: {access_token: '17c60fdf5981794bb31f246849ae398e'},
+    success: function(data){
+      console.log(data)
+      }.bind(this)
+    });
+  }
 
-    prepare_leave_row(leave){
-      return <LeaveListingRaw key={leave.id} data = {leave} />
-    }
+  prepare_leave_row(leave){
+    return <LeaveListingRaw key={leave.id} data = {leave} />
+  }
 
   render() {
     let approval_requests = this.props.leave_requests.leaves_for_approval || [];
@@ -179,12 +191,14 @@ class Dashboard extends React.Component {
 
 Dashboard.propTypes = {
   leave_requests: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  authUser: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state, ownProps){
   return {
-      leave_requests: state.leave_requests
+      leave_requests: state.leave_requests,
+      authUser: state.auth_reducer
   };
 }
 

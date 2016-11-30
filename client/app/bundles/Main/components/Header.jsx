@@ -2,11 +2,12 @@ import React, {PropTypes} from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import * as HolidaysActions from './../actions/HolidaysActions';
+import * as authActions from './../actions/authActions';
 import {bindActionCreators} from 'redux';
 
 class Header extends React.Component {
-  constructor(){
-    super();
+  constructor(props, context){
+    super(props, context);
     this.logout = this.logout.bind(this);
     this.fetchNewNotifications = this.fetchNewNotifications.bind(this);
     this.markAllNotificationsAsRead = this.markAllNotificationsAsRead.bind(this)
@@ -14,7 +15,7 @@ class Header extends React.Component {
   }
 
   loadHolidayList(){
-    this.props.actions.loadHolidays();
+    this.props.actions.holidayActions.loadHolidays();
   }
 
   fetchNewNotifications(e){
@@ -44,16 +45,9 @@ class Header extends React.Component {
   }
 
   logout(e){
-      e.preventDefault();
-      return $.ajax({
-        url: "/users/sign_out",
-        dataType: 'json',
-        method: "delete",
-        data: { access_token: '17c60fdf5981794bb31f246849ae398e'},
-      success: function(data){
-        console.log(data)
-      }.bind(this)
-    });
+    e.preventDefault();
+    this.props.actions.authActions.doLogout();
+    browserHistory.push('/login')
   }
   componentDidMount(){
     $('.dropdown-button').dropdown({
@@ -67,6 +61,90 @@ class Header extends React.Component {
     );
   }
     render() {
+        let menuLinks;
+        if(this.props.authUser.isLoggedIn){
+          menuLinks = (
+            <ul className="menu">
+              <li className="menu-whitebg">
+                <Link to= "/dashboard" className="fa fa-dashboard"></Link>
+              </li>
+              <li className="menu-whitebg notify-dropdown">
+                  <a href="#" className="dropdown-button fa fa-gear" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="setting-nav"></a>
+                  <ul className="dropdown-content" id="setting-nav">
+                      <li>
+                        <Link to="/holidays" onClick={this.loadHolidayList}>Manage Holidays</Link>
+                      </li>
+                      <li>
+                        <Link to="/leave_types" activeClassName='active'>Manage Leave Types</Link>
+                      </li>
+                      <li>
+                          <Link to="/new_employee">Add Employe</Link>
+                      </li>
+                  </ul>
+              </li>
+              <li className="menu-whitebg notify-dropdown">
+                  <a href="#" className="dropdown-button fa fa-bell" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="notifications">
+                      <span className="notify-icon"></span>
+                  </a>
+                  <ul className="dropdown-content" id="notifications">
+                      <li className="highlighted">
+                          <a href="#" onClick={this.fetchNewNotifications}>
+                              <span className="fa fa-envelope"></span>
+                              Nishant requested for Leave...</a>
+                      </li>
+                      <li>
+                          <a href="#" onClick={this.markAllNotificationsAsRead}>
+                              <span className="fa fa-envelope-open"></span>
+                              mark all notification as read notification...</a>
+                      </li>
+                      <li>
+                          <a href="#">
+                              <span className="fa fa-envelope-open"></span>
+                              Nishant requested for Leave...</a>
+                      </li>
+                      <li>
+                          <a href="#">
+                              <span className="fa fa-envelope-open"></span>
+                              Nishant requested for Leave...</a>
+                      </li>
+                      <li className="seeall">
+                          <Link to="/notifications">See All</Link>
+                      </li>
+                  </ul>
+              </li>
+              <li className="profile-menu">
+                  <a href="#" className="dropdown-button" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="profileDropdown"><img src="/assets/profile-image.jpg" alt="" className="rounded"/>
+                      <span className="dropdown-icon fa fa-caret-down"></span>
+                  </a>
+                  <ul className="dropdown-content" id="profileDropdown">
+                      <li>
+                          <div className="user-detail clearfix">
+                              <div className="profile-image">
+                                  <img src="assets/profile-image.jpg" alt=""/>
+                              </div>
+                              <div className="basic-detail">
+                                  <h5>User Name</h5>
+                                  <div className="username-email">hitesh.patoliya@botreetechnologies.com</div>
+                              </div>
+                          </div>
+                      </li>
+                      <li className="divider"></li>
+                      <li>
+                          <div className="profilemenu-bottom">
+                              <div className="link">
+                                <Link to="/profile">My Account</Link>
+                                |
+                                <Link to="request_leave">Request Leave</Link>
+                              </div>
+                              <div className="logout-btn">
+                                  <a href="#" onClick={this.logout} className="fa fa-power-off"></a>
+                              </div>
+                          </div>
+                      </li>
+                  </ul>
+              </li>
+          </ul>);
+        }
         return (
           <div className="nav header z-depth-2">
             {this.props.children}
@@ -76,86 +154,7 @@ class Header extends React.Component {
                         <a href="index.html"><img src="assets/logo.png" alt=""/><span className="header-text">mart SignOff</span></a>
                     </div>
                     <div className="right-links">
-                        <ul className="menu">
-                            <li className="menu-whitebg">
-                              <Link to= "/dashboard" className="fa fa-dashboard"></Link>
-                            </li>
-                            <li className="menu-whitebg notify-dropdown">
-                                <a href="#" className="dropdown-button fa fa-gear" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="setting-nav"></a>
-                                <ul className="dropdown-content" id="setting-nav">
-                                    <li>
-                                      <Link to="/holidays" onClick={this.loadHolidayList}>Manage Holidays</Link>
-                                    </li>
-                                    <li>
-                                      <Link to="/leave_types" activeClassName='active'>Manage Leave Types</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/new_employee">Add Employe</Link>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li className="menu-whitebg notify-dropdown">
-                                <a href="#" className="dropdown-button fa fa-bell" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="notifications">
-                                    <span className="notify-icon"></span>
-                                </a>
-                                <ul className="dropdown-content" id="notifications">
-                                    <li className="highlighted">
-                                        <a href="#" onClick={this.fetchNewNotifications}>
-                                            <span className="fa fa-envelope"></span>
-                                            Nishant requested for Leave...</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" onClick={this.markAllNotificationsAsRead}>
-                                            <span className="fa fa-envelope-open"></span>
-                                            mark all notification as read notification...</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span className="fa fa-envelope-open"></span>
-                                            Nishant requested for Leave...</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span className="fa fa-envelope-open"></span>
-                                            Nishant requested for Leave...</a>
-                                    </li>
-                                    <li className="seeall">
-                                        <Link to="/notifications">See All</Link>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li className="profile-menu">
-                                <a href="#" className="dropdown-button" data-constrainwidth="false" data-alignment="right" data-beloworigin="true" data-activates="profileDropdown"><img src="/assets/profile-image.jpg" alt="" className="rounded"/>
-                                    <span className="dropdown-icon fa fa-caret-down"></span>
-                                </a>
-                                <ul className="dropdown-content" id="profileDropdown">
-                                    <li>
-                                        <div className="user-detail clearfix">
-                                            <div className="profile-image">
-                                                <img src="assets/profile-image.jpg" alt=""/>
-                                            </div>
-                                            <div className="basic-detail">
-                                                <h5>User Name</h5>
-                                                <div className="username-email">hitesh.patoliya@botreetechnologies.com</div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="divider"></li>
-                                    <li>
-                                        <div className="profilemenu-bottom">
-                                            <div className="link">
-                                              <Link to="/profile">My Account</Link>
-                                              |
-                                              <Link to="request_leave">Request Leave</Link>
-                                            </div>
-                                            <div className="logout-btn">
-                                                <a href="#" onClick={this.logout} className="fa fa-power-off"></a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                        { menuLinks }
                     </div>
                 </div>
                 <div className="header-bottom">
@@ -173,18 +172,23 @@ class Header extends React.Component {
 
 Header.propTypes = {
   holidays: PropTypes.array.isRequired,
+  authUser: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps){
   return {
-      holidays: state.holidays
+      holidays: state.holidays,
+      authUser: state.auth_reducer
   };
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(HolidaysActions, dispatch)
-  };
+    actions: {
+        holidayActions: bindActionCreators(HolidaysActions, dispatch),
+        authActions: bindActionCreators(authActions, dispatch)
+      }
+  }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

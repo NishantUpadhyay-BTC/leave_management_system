@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import Header from './Header';
 import { connect } from 'react-redux'
 import * as LeaveTypeActions from './../actions/LeaveTypeActions';
+import { browserHistory } from 'react-router';
 
 class LeaveTypes extends React.Component {
   constructor(props, context) {
@@ -13,13 +14,17 @@ class LeaveTypes extends React.Component {
   }
 
   componentWillMount(){
-    this.props.actions.loadLeaveTypes();
+    if (!this.props.authUser.isLoggedIn){
+      browserHistory.push('/login')
+    }else{
+      this.props.actions.loadLeaveTypes();
+    }
   }
 
   addLeaveType(e){
     e.preventDefault();
     let noOfDays = this.refs.noOfDays.value;
-    let leaveType = this.refs.leaveTypeName.value;
+    let leaveType = this.refs.leaveTypeName.value;doLogout
     let description = this.refs.leaveTypeDescription.value;
     this.props.actions.addSignOffType({ no_of_days: noOfDays, description: description, sign_off_type_name: leaveType});
     $('.modal').modal('close');
@@ -106,12 +111,14 @@ class LeaveTypes extends React.Component {
 
 LeaveTypes.propTypes = {
   leave_types: PropTypes.array.isRequired,
+  authUser: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps){
   return {
-      leave_types: state.leave_types
+      leave_types: state.leave_types,
+      authUser: state.auth_reducer
   };
 }
 

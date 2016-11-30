@@ -17,7 +17,7 @@ class HolidaysApi {
     });
   }
 
-  static CallAddHoliday(holiday){
+  static callAddHoliday(holiday){
     return new Promise((resolve, reject) => {
       let options = {
         url: "http://localhost:3000/add_holiday/",

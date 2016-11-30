@@ -29,7 +29,7 @@ class SessionsController < Devise::SessionsController
     success = true if session.clear
     message = (success ? "You are logged out Successfully!" : "Unable to Logout.")
     respond_to do |format|
-      format.json do
+      format.all do
         render json: { success: success, message: message }
       end
     end

@@ -14,7 +14,6 @@ class LeaveDetails extends React.Component {
   }
 
   componentWillMount(){
-    console.log(this.props.params.leave_id)
     this.props.actions.fetchLeaveDetails(this.props.params.leave_id);
   }
 
@@ -148,7 +147,6 @@ LeaveDetails.propTypes = {
 };
 
 function mapStateToProps(state, ownProps){
-  console.log(state.active_request)
   return {
       active_request: state.active_request
   };

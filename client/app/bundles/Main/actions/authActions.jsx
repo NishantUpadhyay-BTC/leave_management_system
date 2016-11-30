@@ -12,7 +12,6 @@ export function doLogin(email, password){
 }
 
 export function doLoginSuccess(userData){
-  console.log(userData)
 	return {
 		type: types.DO_LOGIN_SUCCESS,
 		user_data: userData
@@ -24,4 +23,19 @@ export function doLoginFailure(errors){
 		type: types.DO_LOGIN_FAILURE,
 		errors: errors
 	};
+}
+
+export function doLogout(){
+	return function(dispatch){
+		localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('accessToken');
+		dispatch(doLogoutSuccess());
+	}
+}
+
+export function doLogoutSuccess(){
+	return{
+		type: types.DO_LOGOUT_SUCCESS,
+		success: true
+	}
 }
