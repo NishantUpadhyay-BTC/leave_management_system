@@ -5,10 +5,10 @@ class SignOffsController < ApplicationController
     respond_to do |format|
       format.json do
         render json: {
-          leaves_for_approval: current_user.request_for_approval,
-          pending_requests: current_user.pending_requests,
-          approved_requests: current_user.approved_requests,
-          rejected_requests: current_user.rejected_requests
+          leaves_for_approval: current_user.request_for_approval.try(:reverse),
+          pending_requests: current_user.pending_requests.try(:reverse),
+          approved_requests: current_user.approved_requests.try(:reverse),
+          rejected_requests: current_user.rejected_requests.try(:reverse)
         }
       end
     end
@@ -21,7 +21,7 @@ class SignOffsController < ApplicationController
   end
 
   def new
-    @users = User.select(:email, :id)
+    @users = User.select(:email, :id).where.not(id: current_user.id)
     @sign_off_types = SignOffType.select(:id, :sign_off_type_name)
     @sign_off = SignOff.new
     respond_to do |format|
@@ -82,7 +82,8 @@ class SignOffsController < ApplicationController
       leave_days: @sign_off.leave_days,
       leave_type: @sign_off.sign_off_type.sign_off_type_name,
       reason: @sign_off.reason,
-      description: @sign_off.description
+      description: @sign_off.description,
+      approved_rejected_by: @sign_off.approved_or_rejected_by
     }
 
     respond_to do |format|
@@ -97,6 +98,7 @@ class SignOffsController < ApplicationController
 
   def change_sign_off_status
     @sign_off.sign_off_status = params[:sign_off][:status]
+    @sign_off.approved_rejected_by_id = params[:sign_off][:approved_rejected_by_id]
     notify_on_save = @sign_off.changes.keys.include?('sign_off_status')
     if @sign_off.save
       if notify_on_save

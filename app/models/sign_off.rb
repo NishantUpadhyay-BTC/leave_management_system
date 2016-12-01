@@ -24,6 +24,10 @@ class SignOff < ActiveRecord::Base
     end
   end
 
+  def approved_or_rejected_by
+    approved_rejected_by_id.present? ? User.find(approved_rejected_by_id).name.titleize : ''
+  end
+
   def comments_with_user_data
     commets_with_users = comments.includes(:user)
     final_comments = []
