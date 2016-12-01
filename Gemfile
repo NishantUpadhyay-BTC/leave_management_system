@@ -34,6 +34,7 @@ gem 'toastr-rails'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+gem 'fcm'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

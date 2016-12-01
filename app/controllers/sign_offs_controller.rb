@@ -41,6 +41,7 @@ class SignOffsController < ApplicationController
     if @sign_off.save
       requestee_ids =  params[:sign_off][:requestee_ids] if params[:sign_off].present?
       requested_user_ids = requestee_ids.split(',').uniq
+      send_leave_request_push_notification(requested_user_ids,@sign_off)
       requested_user_ids.each do |uid|
         SignOffRequester.create(user_id: uid, sign_off_id: @sign_off.id)
         Notification.create(user_id: uid, sign_off_id: @sign_off.id, notification_type: 'LeaveRequest')
@@ -102,6 +103,7 @@ class SignOffsController < ApplicationController
     notify_on_save = @sign_off.changes.keys.include?('sign_off_status')
     if @sign_off.save
       if notify_on_save
+        send_leave_status_push_notification(@sign_off)
         requested_tos = @sign_off.sign_off_requesters.includes(:user).map(&:user) || []
         main_user = @sign_off.user
         request_send_to = requested_tos.push(main_user) - [current_user]
@@ -148,6 +150,38 @@ class SignOffsController < ApplicationController
   end
 
   private
+
+  def send_leave_status_push_notification(sign_off)
+    registration_ids = [sign_off.user.fcm_token]
+    options = {data: {
+          title: "#{sign_off.reason.titleize}",
+          body: "Your Leave is #{sign_off.sign_off_status.titleize} by #{sign_off.approved_or_rejected_by}",
+          priority: "high",
+          show_in_foreground: true,
+          local: true
+        }}
+    fcm_data(registration_ids, options)
+  end
+
+  def send_leave_request_push_notification(ids,sign_off)
+    registration_ids = []
+    ids.each do |id|
+      registration_ids << User.find(id).fcm_token
+    end
+    options = {data: {
+          title: "#{sign_off.reason.titleize}",
+          body: "Leave Requested By #{sign_off.user.name.titleize}",
+          priority: "high",
+          show_in_foreground: true,
+          local: true
+        }}
+    fcm_data(registration_ids, options)
+  end
+
+  def fcm_data(registration_ids,options)
+    fcm = FCM.new(Settings.fcm_key.api_key)
+    fcm.send(registration_ids, options)
+  end
 
   def set_sign_off
     @sign_off = SignOff.find(params[:id])
