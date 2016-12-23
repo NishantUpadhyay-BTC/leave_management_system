@@ -6,6 +6,7 @@ export default function authReducer(state = initialState.authUser, action) {
     case types.DO_LOGIN_SUCCESS:
       localStorage.setItem( 'isLoggedIn', true );
       localStorage.setItem('accessToken', action.user_data.access_token)
+      localStorage.setItem('user_id', action.user_data.id)
       return Object.assign({}, state, {
         isLoggedIn: true,
         userData: action.user_data

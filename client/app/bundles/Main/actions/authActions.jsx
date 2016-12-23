@@ -29,6 +29,7 @@ export function doLogout(){
 	return function(dispatch){
 		localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('accessToken');
+		localStorage.removeItem('user_id');
 		dispatch(doLogoutSuccess());
 	}
 }

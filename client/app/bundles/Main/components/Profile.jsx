@@ -1,9 +1,29 @@
 import React, { PropTypes } from 'react';
 import UserDetails from './UserDetails';
 import UserDetailsEditForm from './UserDetailsEditForm';
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux'
+import * as ProfileActions from './../actions/ProfileActions';
+import { browserHistory } from 'react-router';
 
-export default class Profile extends React.Component {
+
+class Profile extends React.Component {
+  constructor(props, context){
+    super(props, context);
+  }
+
+  componentWillMount(){
+    this.props.actions.fetchProfile(localStorage.getItem('user_id'))
+  }
+
   render(){
+    let content;
+    if(this.props.profile.profile != undefined){
+      content = (<UserDetails data={this.props.profile.profile} />)
+    }else{
+      content = (<p> Please Wait </p> );
+    }
+
     return(
       <div className="content">
       	<div className="container">
@@ -27,7 +47,7 @@ export default class Profile extends React.Component {
       							<strong>Taken Leave</strong>: 5
       						</div>
       					</div>
-      					<UserDetailsEditForm />
+                  { content }
       				</div>
       			</div>
       	</div>
@@ -35,3 +55,23 @@ export default class Profile extends React.Component {
     );
   }
 }
+
+Profile.propTypes = {
+  profile: PropTypes.object.isRequired,
+  authUser: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
+}
+
+function mapStateToProps(state, ownProps){
+  return {
+      profile: state.profile_reducer,
+      authUser: state.auth_reducer
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(ProfileActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

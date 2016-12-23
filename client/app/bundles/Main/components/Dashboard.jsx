@@ -24,7 +24,7 @@ class Dashboard extends React.Component {
       this.props.actions.loadAllRequests();
     }
   }
-  
+
   componentDidUpdate(){
     if (!this.props.authUser.isLoggedIn){
       browserHistory.push('/login')

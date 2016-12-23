@@ -6,5 +6,6 @@ export default {
 	active_request: {},
 	authUser: { isLoggedIn: loggedIn,
               userData: null
-            }
+            },
+	profile_reducer: { pofile: {}, leave_counts: {}, user: {}}
 };

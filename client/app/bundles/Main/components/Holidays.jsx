@@ -25,7 +25,7 @@ class Holidays extends React.Component {
   prepare_holiday(holiday, index){
     return <HolidayBox key={holiday.id} data = {holiday} />
   }
-  
+
   componentDidUpdate() {
     if (!this.props.authUser.isLoggedIn){
       browserHistory.push('/login')
