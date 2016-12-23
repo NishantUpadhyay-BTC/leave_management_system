@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125103036) do
+ActiveRecord::Schema.define(version: 20161201101422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,12 +106,13 @@ ActiveRecord::Schema.define(version: 20161125103036) do
     t.date     "date_from"
     t.date     "date_to"
     t.string   "reason"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.string   "sign_off_status"
     t.string   "half_full_leave"
     t.integer  "sign_off_type_id"
     t.text     "description"
+    t.integer  "approved_rejected_by_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -140,6 +141,7 @@ ActiveRecord::Schema.define(version: 20161125103036) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "access_token"
+    t.text     "fcm_token"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
