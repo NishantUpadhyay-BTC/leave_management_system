@@ -7,6 +7,7 @@ class SessionsController < Devise::SessionsController
     if resource.valid_password?(params[:user][:password])
       sign_in("user", resource)
       session[:access_token] = resource.access_token
+      resource.update_attribute(:fcm_token, params[:user][:fcm_token])
       render json: { :success=>true,
           user: { id: resource.id,
             :email=>resource.email,

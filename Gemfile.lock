@@ -72,6 +72,9 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.7.0)
+    fcm (0.0.2)
+      httparty
+      json
     font-awesome-rails (4.7.0.0)
       railties (>= 3.2, < 5.1)
     foreman (0.82.0)
@@ -82,6 +85,8 @@ GEM
       momentjs-rails (>= 2.9.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -115,6 +120,7 @@ GEM
     momentjs-rails (2.15.1)
       railties (>= 3.1)
     multi_json (1.12.1)
+    multi_xml (0.5.5)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
@@ -220,6 +226,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   config
   devise
+  fcm
   font-awesome-rails
   fullcalendar-rails
   jbuilder (~> 2.0)

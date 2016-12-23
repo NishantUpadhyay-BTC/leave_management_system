@@ -24,16 +24,34 @@ class SignOff < ActiveRecord::Base
     end
   end
 
+  def approved_or_rejected_by
+    approved_rejected_by_id.present? ? User.find(approved_rejected_by_id).name.titleize : ''
+  end
+
   def comments_with_user_data
     commets_with_users = comments.includes(:user)
     final_comments = []
     if commets_with_users.present?
       commets_with_users.each do |comment|
-        comment_obj = comment.as_json
-        comment_obj[:user_name] = comment.user.name
+        comment_obj={}
+        comment_obj[:_id] = comment.id
+        comment_obj[:text] = comment.message
+        comment_obj[:createdAt] = comment.created_at
+        comment_obj[:user]= comments_user(comment)
         final_comments << comment_obj
       end
     end
     final_comments
+  end
+
+  def comments_user(comment)
+    user={}
+    user[:_id] = comment.user.id
+    user[:name] = comment.user.name
+    user
+  end
+
+  def requestee_name
+    sign_off_requesters.map{|s| s.user.name }.join(', ').titleize
   end
 end

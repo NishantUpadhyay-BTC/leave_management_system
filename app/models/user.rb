@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
     rejected_requests_count = rejected_requests.present? ? rejected_requests.count : 0
     pending_requests_count = pending_requests.present? ? pending_requests.count : 0
     {
-      remaingin_leaves: leave_balance,
+      remaingin_leaves: (leave_balance - approved_requests_count),
       laves_taken: total_approved_request_count_till_now,
       pending_request_counts: pending_requests_count,
       approved_request_counts: approved_requests_count,
