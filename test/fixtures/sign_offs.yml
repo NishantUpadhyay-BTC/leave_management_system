@@ -7,7 +7,6 @@ sign_one:
   half_full_leave: full
   sign_off_type: one
   description: This is description
-  approved_rejected_by_id: 980190962
 
 sign_two:
   user: one
@@ -18,7 +17,6 @@ sign_two:
   half_full_leave: full
   sign_off_type: two
   description: This is description
-  approved_rejected_by_id: 980190962
 
 sign_three:
   user: one
@@ -29,7 +27,6 @@ sign_three:
   half_full_leave: full
   sign_off_type: two
   description: This is description
-  approved_rejected_by_id: 980190962
 
 sign_four:
   user: one
@@ -40,4 +37,4 @@ sign_four:
   half_full_leave: full
   sign_off_type: two
   description: This is description
-  approved_rejected_by_id: 980190962
+  approved_rejected_by_id: 298486374

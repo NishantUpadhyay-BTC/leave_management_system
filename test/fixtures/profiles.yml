@@ -1,11 +1,27 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one:
+  user: one
+  joining_date: 11-07-2016
+  probation_period: 3
+  confirmation_status: true
+  skills: management
+  current_address: ahmedabad
+  permanent_address: ahmedabad
+  phone_number: 73224223
+  emergency_contact_number: 758239823
+  personal_email_id: john@gmail.com
+  qualification: degree
+  education_institute: abcd
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+two:
+  user: two
+  joining_date: 11-07-2016
+  probation_period: 3
+  confirmation_status: true
+  skills: management
+  current_address: ahmedabad
+  permanent_address: ahmedabad
+  phone_number: 73224223
+  emergency_contact_number: 758239823
+  personal_email_id: john@gmail.com
+  qualification: degree
+  education_institute: abcd

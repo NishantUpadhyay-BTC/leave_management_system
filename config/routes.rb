@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   delete '/delete_holiday/:id' => 'holidays#destroy'
 
   resources :sign_off_types, except: :show
-
+  resources :holidays
   resources :sign_offs do
     resources :comments
     member do

@@ -1,14 +1,12 @@
 require 'test_helper'
 
 class RoleTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
   def setup
     @role = roles(:admin)
   end
-  
-  test "valid user role" do 
+
+  test "valid user role" do
     assert @role.valid?
   end
 
@@ -17,5 +15,4 @@ class RoleTest < ActiveSupport::TestCase
     assert @role.invalid?
     assert_match "Name can't be blank", @role.errors.full_messages.first
   end
-
 end

@@ -107,7 +107,7 @@ class SignOffsController < ApplicationController
         send_leave_status_push_notification(@sign_off)
         requested_tos = @sign_off.sign_off_requesters.includes(:user).map(&:user) || []
         main_user = @sign_off.user
-        request_send_to = requested_tos.push(main_user) - [current_user]
+        request_send_to = (requested_tos.push(main_user) - [current_user]).compact
         request_send_to.each do |receiver|
           Notification.create(user_id: receiver.id, sign_off_id: @sign_off.id, notification_type: 'LeaveRequest')
           SignOffsMailer.request_status_change_notification(receiver, @sign_off, current_user).deliver_now

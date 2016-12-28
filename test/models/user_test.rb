@@ -53,11 +53,6 @@ class UserTest < ActiveSupport::TestCase
 
   test 'own requests notifications' do
     own_requests_notifications = @user.own_requests_notifications
-    assert_equal 2, own_requests_notifications.count
+    assert_equal @user.notifications.count, own_requests_notifications.count
   end
-
-  # test 'others requests notifications' do
-  #   others_requests_notifications = @user.others_requests_notifications
-  #   binding.pry
-  # end
 end

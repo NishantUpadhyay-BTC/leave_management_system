@@ -1,23 +1,27 @@
 one:
-  sign_off: sign_two 
+  sign_off: sign_two
   user: one
   sender_id: 2
   receiver_id: 1
+  message: 'hello'
 
 two:
   sign_off: sign_two
   user: one
   sender_id: 1
   receiver_id: 2
+  message: 'hii'
 
 three:
   sign_off: sign_two
   user: one
   sender_id: 2
   receiver_id: 1
+  message: 'heyy'
 
 four:
   sign_off: sign_one
   user: two
   sender_id: 2
   receiver_id: 1
+  message: 'hii!!'

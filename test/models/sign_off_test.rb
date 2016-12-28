@@ -1,10 +1,7 @@
 require 'test_helper'
 
 class SignOffTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-  def setup
+  setup do
     @sign_off = sign_offs(:sign_one)
   end
 
@@ -12,7 +9,7 @@ class SignOffTest < ActiveSupport::TestCase
     assert @sign_off.valid?
   end
 
-  test 'invalid sign off' do 
+  test 'invalid sign off' do
     @sign_off.sign_off_type_id = nil
     @sign_off.date_from = nil
     assert @sign_off.invalid?
@@ -31,16 +28,16 @@ class SignOffTest < ActiveSupport::TestCase
   end
 
   test 'leave days' do
-    assert_equal 3, @sign_off.leave_days  
+    assert_equal 3, @sign_off.leave_days
   end
 
-  test 'mark notification as read' do 
+  test 'mark notification as read' do
     @sign_off.mark_notification_as_read(users(:one))
     assert_empty @sign_off.notifications
   end
 
   test 'approved or rejected by' do
-    assert_match 'John', @sign_off.approved_or_rejected_by
+    assert_match 'Came', sign_offs(:sign_four).approved_or_rejected_by
   end
 
   test 'comments with user data' do

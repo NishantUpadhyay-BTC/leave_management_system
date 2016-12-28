@@ -13,3 +13,7 @@ three:
 four:
   user: one
   sign_off: sign_two
+
+five:
+  user: two
+  sign_off: sign_one
