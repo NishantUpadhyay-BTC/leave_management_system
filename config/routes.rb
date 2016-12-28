@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     member do
       post 'change_status' => 'sign_offs#change_sign_off_status'
     end
+    collection do
+      get 'search' => 'sign_offs#search'
+    end
   end
 
   resources :profiles

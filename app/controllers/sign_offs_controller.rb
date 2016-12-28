@@ -2,6 +2,7 @@ class SignOffsController < ApplicationController
   before_action :set_sign_off, only: [:edit, :update, :show, :destroy, :change_sign_off_status]
 
   def index
+    @sign_offs = SignOff.all.order(sort_column + ' ' + sort_direction)
     respond_to do |format|
       format.all do
         render json: {
@@ -146,6 +147,13 @@ class SignOffsController < ApplicationController
           logger.debug "SignOff::::mark_all_notifications_as_read >>> #{@notifications.errros}"
         end
       end
+    end
+  end
+
+  def search
+    @sign_offs = SignOff.where(sign_off_status: params[:search])
+    respond_to do |format|
+      format.all { render json: @sign_offs}
     end
   end
 

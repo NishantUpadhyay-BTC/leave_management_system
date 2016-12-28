@@ -10,20 +10,18 @@
 # two: {}
 #  column: value
 
-valid:
+one:
   name: john
   email: john@gmail.com
   designation: developer
   gender: male
   date_of_joining: 2016-07-11
   date_of_birth: 1994-08-12
-  role_id: 1
 
-valid_one:
+two:
   name: came
   email: came@gmail.com
   designation: designer
   gender: male
   date_of_joining: 2016-07-28
   date_of_birth: 1993-08-22
-  role_id: 2

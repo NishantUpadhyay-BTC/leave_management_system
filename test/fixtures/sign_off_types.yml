@@ -1,11 +1,9 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one:
+  sign_off_type_name: sick
+  no_of_days: 5
+  description: sick leave description
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+two:
+  sign_off_type_name: casual
+  no_of_days: 3
+  description: casual leave description
