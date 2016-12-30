@@ -10,6 +10,7 @@ class SignOffTypesControllerTest < ActionController::TestCase
     xhr :get, :index
     assert_response 200
     assert_equal SignOffType.count, assigns(:sign_off_types).count
+    assert_equal SignOffType.all.sort, assigns(:sign_off_types).sort
   end
 
   test 'sign off type create' do
@@ -18,6 +19,7 @@ class SignOffTypesControllerTest < ActionController::TestCase
     end
     sign_off_type_response = JSON.parse(response.body)
     assert_equal true, sign_off_type_response['success']
+    assert_equal SignOffType.last, assigns(:sign_off_type)
   end
 
   test 'sign off type should not create' do
@@ -26,10 +28,12 @@ class SignOffTypesControllerTest < ActionController::TestCase
     end
     sign_off_type_response = JSON.parse(response.body)
     assert_equal false, sign_off_type_response['success']
+    assert_equal ["can't be blank"], sign_off_type_response['errors']['no_of_days']
   end
 
   test 'sign off type update' do
     put :update, id: @sign_off_type, sign_off_type: {no_of_days: 5}
+    assert_equal @sign_off_type, assigns(:sign_off_type)
     assert_redirected_to sign_off_types_path
   end
 
@@ -39,5 +43,7 @@ class SignOffTypesControllerTest < ActionController::TestCase
     end
     sign_off_type_response = JSON.parse(response.body)
     assert_equal true, sign_off_type_response['success']
+    assert_equal @sign_off_type.id, sign_off_type_response['leave_type_id'].to_i
+    assert_equal @sign_off_type, assigns(:sign_off_type)
   end
 end

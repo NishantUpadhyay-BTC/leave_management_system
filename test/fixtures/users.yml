@@ -5,8 +5,7 @@ one:
   gender: male
   date_of_joining: 2016-07-11
   date_of_birth: 1994-08-12
-  encrypted_password: <%= User.new.send(:password_digest, 'john@123') %>
-  access_token: <%= SecureRandom.hex(10) %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'john@123') %>
 
 two:
   name: came
@@ -15,5 +14,4 @@ two:
   gender: male
   date_of_joining: 2016-07-28
   date_of_birth: 1993-08-22
-  encrypted_password: <%= User.new.send(:password_digest, 'came@123') %>
-  access_token: <%= SecureRandom.hex(10) %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'came@123') %>

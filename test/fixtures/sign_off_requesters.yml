@@ -17,3 +17,7 @@ four:
 five:
   user: two
   sign_off: sign_one
+
+six:
+  user: one
+  sign_off: sign_five

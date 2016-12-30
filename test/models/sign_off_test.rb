@@ -43,9 +43,16 @@ class SignOffTest < ActiveSupport::TestCase
   test 'comments with user data' do
     sign_off_comments = @sign_off.comments_with_user_data
     assert_equal @sign_off.comments.count, sign_off_comments.count
+    assert_equal @sign_off.comments.first.id, sign_off_comments[0][:_id]
+    assert_equal @sign_off.comments.first.user_id, sign_off_comments[0][:user][:_id]
+  end
+
+  test 'comments user' do
+    comments_user = @sign_off.comments_user(@sign_off.comments.first)
+    assert_equal @sign_off.comments.first.user_id, comments_user[:_id]
   end
 
   test 'requestee name' do
-    assert_match 'John', @sign_off.requestee_name
+    assert_match 'John, Came', @sign_off.requestee_name
   end
 end

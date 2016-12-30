@@ -12,6 +12,8 @@ class CommentsControllerTest < ActionController::TestCase
     end
     comment_response = JSON.parse(response.body)
     assert_equal true, comment_response['success']
+    assert_equal @sign_off, assigns(:sign_off)
+    assert_equal Comment.last, assigns(:comment)
   end
 
   test 'should not create comment' do
@@ -20,5 +22,6 @@ class CommentsControllerTest < ActionController::TestCase
     end
     comment_response = JSON.parse(response.body)
     assert_equal false, comment_response['success']
+    assert_equal ["can't be blank"], comment_response['errors']['message']
   end
 end

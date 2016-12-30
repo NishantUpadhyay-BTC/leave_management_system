@@ -18,6 +18,7 @@ class SessionsControllerTest < ActionController::TestCase
   test 'should not create session' do
     xhr :post, :create, user: { email: @user.email }
     session_response = JSON.parse(response.body)
+    assert_response 401
     assert_equal false, session_response['success']
     assert_equal 'Error with your login or password', session_response['message']
   end
@@ -25,5 +26,6 @@ class SessionsControllerTest < ActionController::TestCase
   test 'destroy session' do
     xhr :delete, :destroy
     assert_response 200
+    assert_equal false, session.any?
   end
 end
