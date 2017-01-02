@@ -27,16 +27,17 @@ class SignOffTest < ActiveSupport::TestCase
     assert_equal 1, @sign_off.comments.size
   end
 
-  test 'leave days' do
+  test 'leave days of sign off' do
     assert_equal 3, @sign_off.leave_days
   end
 
   test 'mark notification as read' do
+    assert_not_empty @sign_off.notifications
     @sign_off.mark_notification_as_read(users(:one))
     assert_empty @sign_off.notifications
   end
 
-  test 'approved or rejected by' do
+  test 'sign off approved or rejected by' do
     assert_match 'Came', sign_offs(:sign_four).approved_or_rejected_by
   end
 
@@ -47,12 +48,12 @@ class SignOffTest < ActiveSupport::TestCase
     assert_equal @sign_off.comments.first.user_id, sign_off_comments[0][:user][:_id]
   end
 
-  test 'comments user' do
+  test 'comments user of sign_off' do
     comments_user = @sign_off.comments_user(@sign_off.comments.first)
     assert_equal @sign_off.comments.first.user_id, comments_user[:_id]
   end
 
-  test 'requestee name' do
+  test 'sign off requestee name' do
     assert_match 'John, Came', @sign_off.requestee_name
   end
 end

@@ -9,31 +9,34 @@ class SignOffsControllerTest < ActionController::TestCase
     sign_in @user
   end
 
-  test 'index for all' do
+  test 'show all sign offs' do
     xhr :get, :index
-    assert_response 200
-    assert_equal @sign_offs.count, assigns(:sign_offs).count
-    assert_equal @sign_offs.sort, assigns(:sign_offs).sort
+    assert_response 200, 'success'
+    assert sign_offs = assigns(:sign_offs)
+    assert_equal @sign_offs.count, sign_offs.count
+    assert_equal @sign_offs.sort, sign_offs.sort
   end
 
   test 'searching for sign off status' do
     get :search, search: 'pending'
-    assert_equal 2, assigns(:sign_offs).count
+    assert sign_offs = assigns(:sign_offs)
+    assert_equal 2, sign_offs.count
   end
 
-  test 'sorting column' do
+  test 'sorting columns of all sign offs' do
     get :index
-    assert_equal SignOff.all.order('id' + ' ' + 'asc'), assigns(:sign_offs)
+    assert sign_offs = assigns(:sign_offs)
+    assert_equal SignOff.all.order('id' + ' ' + 'asc'), sign_offs
   end
 
-  test 'pending requests count' do
+  test 'pending requests count of user' do
     xhr :get, :pending_requests_count
     count = JSON.parse(response.body)
-    assert_response 200
+    assert_response 200, 'Successfully count pending requestes'
     assert_equal @user.pending_requests.count, count['pending_requests_count']
   end
 
-  test 'create sign off' do
+  test 'create sign off with valid deatils' do
     sign_off_requester_count = SignOffRequester.count
     notification_count = Notification.count
     assert_difference('SignOff.count', 1) do
@@ -43,10 +46,11 @@ class SignOffsControllerTest < ActionController::TestCase
     assert_equal true, sign_off_response['success']
     assert_equal sign_off_requester_count + 1, SignOffRequester.count
     assert_equal notification_count + 1, Notification.count
+    assert sign_off = assigns(:sign_off)
     assert_equal SignOff.last, assigns(:sign_off)
   end
 
-  test 'sign off should not create' do
+  test 'sign off should not be created with invalid details' do
     sign_off_requester_count = SignOffRequester.count
     notification_count = Notification.count
     assert_no_difference 'SignOff.count' do
@@ -56,44 +60,53 @@ class SignOffsControllerTest < ActionController::TestCase
     assert_equal false, sign_off_response['success']
     assert_equal sign_off_requester_count, SignOffRequester.count
     assert_equal notification_count, Notification.count
-    assert_equal ["can't be blank"], sign_off_response['error']['date_from']
-    assert_equal ["can't be blank"], sign_off_response['error']['date_to']
+    assert_match "can't be blank", sign_off_response['error']['date_from'].to_s
+    assert_match "can't be blank", sign_off_response['error']['date_to'].to_s
   end
 
-  test 'update sign off' do
+  test 'update sign off with valid details' do
+    assert_match 'This is reason', @sign_offs.first.reason
     put :update, id: @sign_offs.first, user_id: @user, sign_off: { reason: 'suffering from fever' }
-    assert_match 'suffering from fever', assigns(:sign_off).reason
-    assert_equal @sign_offs.first, assigns(:sign_off)
+    assert sign_off = assigns(:sign_off)
+    assert_match 'suffering from fever', sign_off.reason
+    assert_equal @sign_offs.first, sign_off
     assert_redirected_to sign_offs_path
   end
 
-  test 'show sign off' do
+  test 'show sign off details' do
     xhr :get, :show, id: @sign_offs.first
     assert assigns(:sign_off_data)
-    assert_equal @sign_offs.first, assigns(:sign_off)
+    assert sign_off = assigns(:sign_off)
+    assert_equal @sign_offs.first, sign_off
     sign_off_response = JSON.parse(response.body)
-    assert_equal @user.name, sign_off_response['user_name']
-    assert_equal @sign_offs.first.requestee_name, sign_off_response['requestee_name']
+    assert_match @user.name, sign_off_response['user_name']
+    assert_match @sign_offs.first.requestee_name, sign_off_response['requestee_name']
   end
 
   test 'destroy sign off' do
     sign_off_count = SignOff.count
     delete :destroy, id: @sign_offs.first
     assert_equal sign_off_count - 1, SignOff.count
-    assert_equal @sign_offs.first, assigns(:sign_off)
+    assert sign_off = assigns(:sign_off)
+    assert_equal @sign_offs.first, sign_off
     assert_redirected_to sign_offs_path
+    assert_equal false, SignOff.all.include?(@sign_offs.first)
   end
 
-  test 'change sign off status' do
+  test 'change sign off status of user' do
+    assert_match 'pending', @sign_offs.first.sign_off_status
     xhr :post, :change_sign_off_status, id: @sign_offs.first, sign_off: { status: 'approved', approved_rejected_by_id: users(:two)}
-    assert_equal 'approved', assigns(:sign_off).sign_off_status
-    assert_equal @sign_offs.first, assigns(:sign_off)
-    assert_equal users(:two).id, assigns(:sign_off).approved_rejected_by_id
+    assert sign_off = assigns(:sign_off)
+    assert_match 'approved', sign_off.sign_off_status
+    assert_equal @sign_offs.first, sign_off
+    assert_equal users(:two).id, sign_off.approved_rejected_by_id
   end
 
-  test 'mark all notifications as read' do
+  test 'mark all notifications as read of user' do
+    assert_equal 1, @sign_offs.first.notifications.count
     xhr :get, :mark_all_notifications_as_read
-    assert_equal @user.notifications.count, assigns(:notifications).count
-    assert_equal @user.notifications, assigns(:notifications)
+    assert notifications = assigns(:notifications)
+    assert_equal 0, notifications.count
+    assert_equal @user.notifications, notifications
   end
 end

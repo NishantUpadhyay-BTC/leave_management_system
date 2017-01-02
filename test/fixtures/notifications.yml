@@ -16,4 +16,4 @@ three:
 four:
   user: one
   sign_off: sign_five
-  notification_type: sick
+  notification_type: casual
