@@ -100,13 +100,29 @@ class SignOffsControllerTest < ActionController::TestCase
     assert_match 'approved', sign_off.sign_off_status
     assert_equal @sign_offs.first, sign_off
     assert_equal users(:two).id, sign_off.approved_rejected_by_id
+    status_response = JSON.parse(response.body)
+    assert status_response['success']
   end
 
-  test 'mark all notifications as read of user' do
-    assert_equal 1, @sign_offs.first.notifications.count
+  test 'mark all notifications of user as read' do
+    assert_equal 3, @user.notifications.count
     xhr :get, :mark_all_notifications_as_read
     assert notifications = assigns(:notifications)
     assert_equal 0, notifications.count
     assert_equal @user.notifications, notifications
+  end
+
+  test 'fetch new notifications' do
+    assert_equal 3, @user.notifications.count
+    xhr :get, :fetch_new_notifications
+    notifications = JSON.parse(response.body)
+    assert_equal 2, notifications['own_requests_notifications'].count
+    assert_equal 1, notifications['others_requests_notifications'].count
+    sign_off = SignOff.create(user: users(:two), date_from: Date.today + 2, date_to: Date.today + 4, reason: 'reason', sign_off_status: 'pending', half_full_leave: 'full', sign_off_type: sign_off_types(:one))
+    SignOffRequester.create(user: users(:one), sign_off: sign_off)
+    Notification.create(user: users(:one), sign_off: sign_off, notification_type: sign_off_types(:one).sign_off_type_name)
+    xhr :get, :fetch_new_notifications
+    notifications = JSON.parse(response.body)
+    assert_equal 2, notifications['others_requests_notifications'].count
   end
 end

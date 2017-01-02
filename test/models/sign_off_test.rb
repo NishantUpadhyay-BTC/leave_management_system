@@ -38,7 +38,9 @@ class SignOffTest < ActiveSupport::TestCase
   end
 
   test 'sign off approved or rejected by' do
-    assert_match 'Came', sign_offs(:sign_four).approved_or_rejected_by
+    assert_match '', @sign_off.approved_or_rejected_by
+    @sign_off.update(sign_off_status: 'approved', approved_rejected_by_id: users(:two).id)
+    assert_match 'Came', @sign_off.approved_or_rejected_by
   end
 
   test 'comments with user data' do
@@ -54,6 +56,6 @@ class SignOffTest < ActiveSupport::TestCase
   end
 
   test 'sign off requestee name' do
-    assert_match 'John, Came', @sign_off.requestee_name
+    assert_match 'Came', @sign_off.requestee_name
   end
 end

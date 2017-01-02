@@ -47,6 +47,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'user is admin' do
     assert users(:two).is_admin?
+    assert_equal false, @user.is_admin?
   end
 
   test 'total approved request count till now' do
@@ -100,5 +101,24 @@ class UserTest < ActiveSupport::TestCase
     pending_sign_offs.first.sign_off.update(sign_off_status: 'rejected')
     assert_equal 0, pending_sign_offs.count
     assert_equal 1, rejected_sign_offs.count
+  end
+
+  test 'pending sign off requests' do
+    pending_sign_offs = @user.pending_requests
+    assert_equal 2, pending_sign_offs.count
+    sign_off = SignOff.create(user: @user, date_from: Date.today + 2, date_to: Date.today + 4, reason: 'reason', sign_off_status: 'pending', half_full_leave: 'full', sign_off_type: sign_off_types(:one))
+    assert_equal 3, @user.pending_requests.count
+  end
+
+  test 'approved sign off requests' do
+    assert_equal 1, @user.approved_requests.count
+    @user.sign_offs.last.update(sign_off_status: 'approved')
+    assert_equal 2, @user.approved_requests.count
+  end
+
+  test 'rejected sign off requests' do
+    assert_equal 1, @user.rejected_requests.count
+    @user.sign_offs.last.update(sign_off_status: 'rejected')
+    assert_equal 2, @user.rejected_requests.count
   end
 end
