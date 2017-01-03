@@ -14,6 +14,15 @@ class SignOffTypesControllerTest < ActionController::TestCase
     assert_equal SignOffType.all.sort, sign_off_types.sort
   end
 
+  test 'sort columns of sign off types' do
+    xhr :get, :index, sort: :sign_off_type_name, direction: :acs
+    assert sign_off_type = assigns(:sign_off_types)
+    assert_equal sign_off_types(:two), sign_off_type.first
+    xhr :get, :index, sort: :no_of_days, direction: :decs
+    assert sign_off_type = assigns(:sign_off_types)
+    assert_equal sign_off_types(:two), sign_off_type.first
+  end
+
   test 'sign off type create with valid details' do
     assert_difference('SignOffType.count', 1) do
       xhr :post, :create, sign_off_type: { sign_off_type_name: 'optional', no_of_days: 4, description: 'additional'}

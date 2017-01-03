@@ -2,7 +2,13 @@ class SignOffsController < ApplicationController
   before_action :set_sign_off, only: [:edit, :update, :show, :destroy, :change_sign_off_status]
 
   def index
-    @sign_offs = SignOff.all.order(sort_column + ' ' + sort_direction)
+    if params[:filter_by].blank?
+      @sign_offs = SignOff.all.order(sort_column + ' ' + sort_direction)
+    elsif params[:column_name] == 'sign_off_type_name'
+      @sign_offs = SignOffType.find_by(params[:column_name] => params[:filter_by]).sign_offs
+    else
+      @sign_offs = SignOff.where(params[:column_name] => params[:filter_by]).order(sort_column + ' ' + sort_direction)
+    end
     respond_to do |format|
       format.all do
         render json: {

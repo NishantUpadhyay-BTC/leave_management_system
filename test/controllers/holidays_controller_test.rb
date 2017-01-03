@@ -14,6 +14,13 @@ class HolidaysControllerTest < ActionController::TestCase
     assert current_year_holidays.include?(holidays(:one))
   end
 
+  test 'sorting by date' do
+    get :index, sort: :date, direction: :desc
+    assert holidays = assigns(:current_year_holidays)
+    assert_equal holidays(:two), holidays.first
+    assert_equal holidays(:one), holidays.last
+  end
+
   test 'create holiday with valid details' do
     assert_difference('Holiday.count', 1) do
       xhr :post, :create, holiday: { date: Date.today + 2 }
