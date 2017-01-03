@@ -37,8 +37,7 @@ class SignOffsControllerTest < ActionController::TestCase
   test 'filter by sign_off_status column' do
     xhr :get, :index, column_name: :sign_off_status, filter_by: :approved
     assert sign_offs = assigns(:sign_offs)
-    assert_equal sign_offs(:sign_four), sign_offs.first
-    assert_equal sign_offs(:sign_five), sign_offs.last
+    assert_equal [sign_offs(:sign_four),sign_offs(:sign_five)], sign_offs
     xhr :get, :index, column_name: :sign_off_status, filter_by: :approved, sort: :date_from, direction: :desc
     assert sign_offs = assigns(:sign_offs)
     assert_equal sign_offs(:sign_four), sign_offs.first
@@ -48,8 +47,7 @@ class SignOffsControllerTest < ActionController::TestCase
   test 'filter by date_from column' do
     xhr :get, :index, column_name: :date_from, filter_by: '10-nov-2016'
     assert sign_offs = assigns(:sign_offs)
-    assert_equal sign_offs(:sign_four), sign_offs.first
-    assert_equal sign_offs(:sign_five), sign_offs.last
+    assert_equal [sign_offs(:sign_four), sign_offs(:sign_two), sign_offs(:sign_three), sign_offs(:sign_five)], sign_offs
     xhr :get, :index, column_name: :date_from, filter_by: '10-nov-2016', sort: :date_to, direction: :desc
     assert sign_offs_sort = assigns(:sign_offs)
     assert_equal sign_offs(:sign_four), sign_offs.first
@@ -59,8 +57,7 @@ class SignOffsControllerTest < ActionController::TestCase
   test 'filter by date_to column' do
     xhr :get, :index, column_name: :date_to, filter_by: '12-nov-2016'
     assert sign_offs = assigns(:sign_offs)
-    assert_equal sign_offs(:sign_four), sign_offs.first
-    assert_equal sign_offs(:sign_five), sign_offs.last
+    assert_equal [sign_offs(:sign_four), sign_offs(:sign_two), sign_offs(:sign_three), sign_offs(:sign_five)], sign_offs
     xhr :get, :index, column_name: :date_to, filter_by: '12-nov-2016', sort: :date_from, direction: :desc
     assert sign_offs = assigns(:sign_offs)
     assert_equal sign_offs(:sign_two), sign_offs.first
@@ -70,8 +67,7 @@ class SignOffsControllerTest < ActionController::TestCase
   test 'filter by sign off type name' do
     xhr :get, :index, column_name: :sign_off_type_name, filter_by: 'casual'
     assert sign_offs = assigns(:sign_offs)
-    assert_equal sign_offs(:sign_four), sign_offs.first
-    assert_equal sign_offs(:sign_five), sign_offs.last
+    assert_equal [sign_offs(:sign_two), sign_offs(:sign_three), sign_offs(:sign_four), sign_offs(:sign_five)], sign_offs
   end
 
   test 'pending requests count of user' do
