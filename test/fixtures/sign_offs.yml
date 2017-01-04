@@ -1,7 +1,7 @@
 sign_one:
   user: one
-  date_from: 2016-12-10
-  date_to: 2016-12-12
+  date_from: 10/12/2016
+  date_to: 12/12/2016
   reason: This is reason
   sign_off_status: pending
   half_full_leave: full
@@ -10,8 +10,8 @@ sign_one:
 
 sign_two:
   user: one
-  date_from: 2016-11-10
-  date_to: 2016-11-12
+  date_from: 10/11/2016
+  date_to: 12/11/2016
   reason: This is reason
   sign_off_status: pending
   half_full_leave: full
@@ -20,8 +20,8 @@ sign_two:
 
 sign_three:
   user: one
-  date_from: 2016-11-10
-  date_to: 2016-11-12
+  date_from: 10/11/2016
+  date_to: 12/11/2016
   reason: This is reason
   sign_off_status: rejected
   half_full_leave: full
@@ -31,8 +31,8 @@ sign_three:
 
 sign_four:
   user: one
-  date_from: 2016-11-10
-  date_to: 2016-11-12
+  date_from: 10/11/2016
+  date_to: 12/11/2016
   reason: This is reason
   sign_off_status: approved
   half_full_leave: full
@@ -42,8 +42,8 @@ sign_four:
 
 sign_five:
   user: two
-  date_from: 2016-11-10
-  date_to: 2016-11-12
+  date_from: 10/11/2016
+  date_to: 12/11/2016
   reason: This is reason
   sign_off_status: approved
   half_full_leave: full

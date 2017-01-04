@@ -1,6 +1,6 @@
 one:
   user: one
-  joining_date: 11-07-2016
+  joining_date: 11/07/2016
   probation_period: 3
   confirmation_status: true
   skills: management
@@ -14,7 +14,7 @@ one:
 
 two:
   user: two
-  joining_date: 11-07-2016
+  joining_date: 11/07/2016
   probation_period: 3
   confirmation_status: true
   skills: management

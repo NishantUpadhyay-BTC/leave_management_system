@@ -27,7 +27,7 @@ class SignOffsControllerTest < ActionController::TestCase
     xhr :get, :index, sort: :sign_off_status, direction: :desc
     assert sign_offs = assigns(:sign_offs)
     assert_equal sign_offs(:sign_three), sign_offs.first
-    assert_equal sign_offs(:sign_four), sign_offs.last
+    assert_equal sign_offs(:sign_five), sign_offs.last
     get :index, sort: :date_from, direction: :asc
     assert sign_offs = assigns(:sign_offs)
     assert_equal sign_offs(:sign_two), sign_offs.first
@@ -46,22 +46,22 @@ class SignOffsControllerTest < ActionController::TestCase
   end
 
   test 'filter by date_from column' do
-    xhr :get, :index, column_name: :date_from, filter_by: '10-nov-2016'
+    xhr :get, :index, column_name: :date_from, filter_by: '10/11/2016'
     assert sign_offs = assigns(:sign_offs)
-    sign_offs_expected = SignOff.where(date_from: '10-nov-2016')
+    sign_offs_expected = SignOff.where(date_from: '10/11/2016')
     assert_equal sign_offs_expected.sort, sign_offs.sort
-    xhr :get, :index, column_name: :date_from, filter_by: '10-nov-2016', sort: :date_to, direction: :desc
+    xhr :get, :index, column_name: :date_from, filter_by: '10/11/2016', sort: :date_to, direction: :desc
     assert sign_offs_sort = assigns(:sign_offs)
     assert_equal sign_offs(:sign_four), sign_offs.first
     assert_equal sign_offs(:sign_five), sign_offs.last
   end
 
   test 'filter by date_to column' do
-    xhr :get, :index, column_name: :date_to, filter_by: '12-nov-2016'
+    xhr :get, :index, column_name: :date_to, filter_by: '12/11/2016'
     assert sign_offs = assigns(:sign_offs)
-    sign_offs_expected = SignOff.where(date_to: '12-nov-2016')
+    sign_offs_expected = SignOff.where(date_to: '12/11/2016')
     assert_equal sign_offs_expected.sort, sign_offs.sort
-    xhr :get, :index, column_name: :date_to, filter_by: '12-nov-2016', sort: :date_from, direction: :desc
+    xhr :get, :index, column_name: :date_to, filter_by: '12/11/2016', sort: :date_from, direction: :desc
     assert sign_offs = assigns(:sign_offs)
     assert_equal sign_offs(:sign_two), sign_offs.first
     assert_equal sign_offs(:sign_three), sign_offs.second
@@ -70,7 +70,7 @@ class SignOffsControllerTest < ActionController::TestCase
   test 'filter by sign off type name' do
     xhr :get, :index, column_name: :sign_off_type_name, filter_by: 'casual'
     assert sign_offs = assigns(:sign_offs)
-    sign_offs_expected = SignOff.where(date_to: '12-nov-2016')
+    sign_offs_expected = SignOff.where(date_to: '12/11/2016')
     assert_equal sign_offs_expected.sort, sign_offs.sort
   end
 
@@ -169,5 +169,17 @@ class SignOffsControllerTest < ActionController::TestCase
     xhr :get, :fetch_new_notifications
     notifications = JSON.parse(response.body)
     assert_equal 2, notifications['others_requests_notifications'].count
+  end
+
+  test 'pagination for sign offs' do
+    xhr :get, :index, page: 1
+    sign_offs = assigns(:sign_offs)
+    sign_offs_expected = SignOff.page(1).per(Settings.pagination.default)
+    assert_equal sign_offs_expected.sort, sign_offs
+    Settings.pagination.default = 5
+    xhr :get, :index, page: 1
+    sign_offs = assigns(:sign_offs)
+    sign_offs_expected = SignOff.page(1).per(Settings.pagination.default)
+    assert_equal sign_offs_expected.sort, sign_offs
   end
 end
