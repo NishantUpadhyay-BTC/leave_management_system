@@ -30,7 +30,7 @@ class SignOffsControllerTest < ActionController::TestCase
     assert_equal sign_offs(:sign_five), sign_offs.last
     get :index, sort: :date_from, direction: :asc
     assert sign_offs = assigns(:sign_offs)
-    assert_equal sign_offs(:sign_two), sign_offs.first
+    assert_equal sign_offs(:sign_three), sign_offs.first
     assert_equal sign_offs(:sign_one), sign_offs.last
   end
 
@@ -52,7 +52,7 @@ class SignOffsControllerTest < ActionController::TestCase
     assert_equal sign_offs_expected.sort, sign_offs.sort
     xhr :get, :index, column_name: :date_from, filter_by: '10/11/2016', sort: :date_to, direction: :desc
     assert sign_offs_sort = assigns(:sign_offs)
-    assert_equal sign_offs(:sign_four), sign_offs.first
+    assert_equal sign_offs(:sign_two), sign_offs.first
     assert_equal sign_offs(:sign_five), sign_offs.last
   end
 
@@ -64,13 +64,13 @@ class SignOffsControllerTest < ActionController::TestCase
     xhr :get, :index, column_name: :date_to, filter_by: '12/11/2016', sort: :date_from, direction: :desc
     assert sign_offs = assigns(:sign_offs)
     assert_equal sign_offs(:sign_two), sign_offs.first
-    assert_equal sign_offs(:sign_three), sign_offs.second
+    assert_equal sign_offs(:sign_five), sign_offs.second
   end
 
   test 'filter by sign off type name' do
     xhr :get, :index, column_name: :sign_off_type_name, filter_by: 'casual'
     assert sign_offs = assigns(:sign_offs)
-    sign_offs_expected = SignOff.where(date_to: '12/11/2016')
+    sign_offs_expected = SignOffType.find_by(sign_off_type_name: 'casual').sign_offs
     assert_equal sign_offs_expected.sort, sign_offs.sort
   end
 
