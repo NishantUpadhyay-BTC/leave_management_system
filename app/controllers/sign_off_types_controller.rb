@@ -2,11 +2,10 @@ class SignOffTypesController < ApplicationController
   before_action :set_sign_off_type, only: [:edit, :update, :destroy]
 
   def index
-    @sign_off_types = SignOffType.all.order(:id).page(params[:page])
+    @sign_off_types = SignOffType.all.order(sort_column + ' ' + sort_direction)
     respond_to do |format|
       format.all { render json: { sign_off_types: @sign_off_types } }
     end
-
   end
 
   def new

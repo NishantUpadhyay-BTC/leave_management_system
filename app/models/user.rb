@@ -94,8 +94,8 @@ class User < ActiveRecord::Base
   end
 
   def own_requests_notifications
-     new_own_notifications = notifications.includes(sign_off: :sign_off_type).where("sign_offs.user_id" => id)
-     prepare_leave_data_as_json(new_own_notifications) if new_own_notifications.present?
+    new_own_notifications = notifications.includes(sign_off: :sign_off_type).where("sign_offs.user_id" => id)
+    prepare_leave_data_as_json(new_own_notifications) if new_own_notifications.present?
   end
 
   def others_requests_notifications

@@ -11,13 +11,18 @@ Rails.application.routes.draw do
   get '/current_year_holidays' => 'holidays#index'
   post '/add_holiday' => 'holidays#create'
   delete '/delete_holiday/:id' => 'holidays#destroy'
+  get '/generate_report' => 'reports#generate_report'
+  get '/comparision_report' => 'reports#comparision_report'
 
   resources :sign_off_types, except: :show
-
+  resources :holidays
   resources :sign_offs do
     resources :comments
     member do
       post 'change_status' => 'sign_offs#change_sign_off_status'
+    end
+    collection do
+      get 'search' => 'sign_offs#search'
     end
   end
 

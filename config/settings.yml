@@ -1,4 +1,8 @@
 magic_number:
   fifteen: 15
-fcm_key:
-  api_key: "AIzaSyCHwrA13MsqGNWj3IQtZOLt1JDJsU_Otgc"
+pagination:
+  default: 10
+date:
+  month: "%B"
+sign_off_type:
+  default: 1

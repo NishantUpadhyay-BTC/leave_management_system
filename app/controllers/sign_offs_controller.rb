@@ -2,6 +2,13 @@ class SignOffsController < ApplicationController
   before_action :set_sign_off, only: [:edit, :update, :show, :destroy, :change_sign_off_status]
 
   def index
+    @sign_offs =  if params[:filter_by].blank?
+                    SignOff.all.order(sort_column + ' ' + sort_direction).page(params[:page]).per(Settings.pagination.default)
+                  elsif params[:column_name] == 'sign_off_type_name'
+                    SignOffType.find_by(params[:column_name] => params[:filter_by]).sign_offs
+                  else
+                    SignOff.where(params[:column_name] => params[:filter_by]).order(sort_column + ' ' + sort_direction)
+                  end
     respond_to do |format|
       format.all do
         render json: {
@@ -106,7 +113,7 @@ class SignOffsController < ApplicationController
         send_leave_status_push_notification(@sign_off)
         requested_tos = @sign_off.sign_off_requesters.includes(:user).map(&:user) || []
         main_user = @sign_off.user
-        request_send_to = requested_tos.push(main_user) - [current_user]
+        request_send_to = (requested_tos.push(main_user) - [current_user]).compact
         request_send_to.each do |receiver|
           Notification.create(user_id: receiver.id, sign_off_id: @sign_off.id, notification_type: 'LeaveRequest')
           SignOffsMailer.request_status_change_notification(receiver, @sign_off, current_user).deliver_now
@@ -149,6 +156,13 @@ class SignOffsController < ApplicationController
     end
   end
 
+  def search
+    @sign_offs = SignOff.where(sign_off_status: params[:search])
+    respond_to do |format|
+      format.all { render json: @sign_offs}
+    end
+  end
+
   private
 
   def send_leave_status_push_notification(sign_off)
@@ -179,7 +193,7 @@ class SignOffsController < ApplicationController
   end
 
   def fcm_data(registration_ids,options)
-    fcm = FCM.new(Settings.fcm_key.api_key)
+    fcm = FCM.new(ENV['fcm_key'])
     fcm.send(registration_ids, options)
   end
 

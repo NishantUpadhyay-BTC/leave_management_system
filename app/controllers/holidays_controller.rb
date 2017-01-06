@@ -2,7 +2,7 @@ class HolidaysController < ApplicationController
   before_action :set_holiday, only: [:edit, :update, :destroy]
 
   def index
-    @current_year_holidays = Holiday.current_year_holidays
+    @current_year_holidays = Holiday.order(sort_column + ' ' + sort_direction).current_year_holidays
     respond_to do |format|
       format.html{  render json: {holidays: @current_year_holidays } }
       format.json { render json: {holidays: @current_year_holidays } }

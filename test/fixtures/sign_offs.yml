@@ -1,25 +1,52 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-# one: {}
-# column: value
-#
-# two: {}
-#  column: value
-
 sign_one:
-  user_id: 1
-  leave_type: sick
-  date_from: 2016-12-10
-  date_to: 2016-12-12
+  user: one
+  date_from: 10/12/2016
+  date_to: 12/12/2016
+  reason: This is reason
+  sign_off_status: pending
   half_full_leave: full
+  sign_off_type: one
+  description: This is description
 
 sign_two:
-  user_id: 1
-  leave_type: sick
-  date_from: 2016-11-10
-  date_to: 2016-11-12
+  user: one
+  date_from: 10/11/2016
+  date_to: 12/11/2016
+  reason: This is reason
+  sign_off_status: pending
   half_full_leave: full
+  sign_off_type: two
+  description: This is description
+
+sign_three:
+  user: one
+  date_from: 09/11/2016
+  date_to: 11/11/2016
+  reason: This is reason
+  sign_off_status: rejected
+  half_full_leave: full
+  sign_off_type: two
+  description: This is description
+  approved_rejected_by_id: 298486374
+
+sign_four:
+  user: one
+  date_from: 23/11/2016
+  date_to: 25/11/2016
+  reason: This is reason
+  sign_off_status: approved
+  half_full_leave: full
+  sign_off_type: two
+  description: This is description
+  approved_rejected_by_id: 298486374
+
+sign_five:
+  user: two
+  date_from: 10/11/2016
+  date_to: 12/11/2016
+  reason: This is reason
+  sign_off_status: approved
+  half_full_leave: full
+  sign_off_type: two
+  description: This is description
+  approved_rejected_by_id: 980190962
