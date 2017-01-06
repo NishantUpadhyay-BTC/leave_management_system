@@ -7,10 +7,10 @@ module Reports
       sign_offs_data = Hash.new
       sign_offs_of_year.each do |sign_off|
         sign_off_date = sign_off.date_from
-        if sign_offs_data.has_key?(sign_off_date.strftime("%B"))
-          sign_offs_data[sign_off_date.strftime("%B")].store(sign_off_date, sign_off_type_data(sign_off))
+        if sign_offs_data.has_key?(sign_off_date.strftime(Settings.date.month))
+          sign_offs_data[sign_off_date.strftime(Settings.date.month)].store(sign_off_date, sign_off_type_data(sign_off))
         else
-          sign_offs_data[sign_off_date.strftime("%B")] = {sign_off_date => sign_off_type_data(sign_off)}
+          sign_offs_data[sign_off_date.strftime(Settings.date.month)] = {sign_off_date => sign_off_type_data(sign_off)}
         end
       end
       return sign_offs_data
@@ -26,12 +26,12 @@ module Reports
           sign_off_user = user.name
           if sign_offs_data.has_key?(sign_off_user)
             if sign_offs_data[sign_off_user].has_key?(sign_off_type_data(sign_off))
-              sign_offs_data[sign_off_user][sign_off_type_data(sign_off)] += 1
+              sign_offs_data[sign_off_user][sign_off_type_data(sign_off)] += Settings.sign_off_type.default
             else
-              sign_offs_data[sign_off_user].store(sign_off_type_data(sign_off), 1)
+              sign_offs_data[sign_off_user].store(sign_off_type_data(sign_off), Settings.sign_off_type.default)
             end
           else
-            sign_offs_data[sign_off_user] = { sign_off_type_data(sign_off) => 1 }
+            sign_offs_data[sign_off_user] = { sign_off_type_data(sign_off) => Settings.sign_off_type.default }
           end
         end 
       end

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get '/current_year_holidays' => 'holidays#index'
   post '/add_holiday' => 'holidays#create'
   delete '/delete_holiday/:id' => 'holidays#destroy'
+  get '/generate_report' => 'reports#generate_report'
+  get '/comparision_report' => 'reports#comparision_report'
 
   resources :sign_off_types, except: :show
   resources :holidays
