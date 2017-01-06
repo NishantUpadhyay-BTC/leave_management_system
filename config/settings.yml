@@ -1,7 +1,5 @@
 magic_number:
   fifteen: 15
-fcm_key:
-  api_key: "AIzaSyCHwrA13MsqGNWj3IQtZOLt1JDJsU_Otgc"
 pagination:
   default: 10
 date:

@@ -193,7 +193,7 @@ class SignOffsController < ApplicationController
   end
 
   def fcm_data(registration_ids,options)
-    fcm = FCM.new(Settings.fcm_key.api_key)
+    fcm = FCM.new(ENV['fcm_key'])
     fcm.send(registration_ids, options)
   end
 
