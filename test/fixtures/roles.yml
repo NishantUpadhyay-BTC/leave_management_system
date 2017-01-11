@@ -1,7 +1,0 @@
-admin:
-  name: admin
-  user: two
-
-employee:
-  name: employee
-  user: one

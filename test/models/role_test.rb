@@ -3,7 +3,7 @@ require 'test_helper'
 class RoleTest < ActiveSupport::TestCase
 
   def setup
-    @role = roles(:admin)
+    @role = create(:role)
   end
 
   test "valid user role" do

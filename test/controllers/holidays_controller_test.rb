@@ -3,27 +3,29 @@ require 'test_helper'
 class HolidaysControllerTest < ActionController::TestCase
 
   setup do
-    @holiday = holidays(:one)
+    @user = create(:user)
+    @holiday = create(:holiday)
+    @holiday_other = create(:holiday, :xmas)
   end
 
   test 'current year holidays' do
-    xhr :get, :index
+    xhr :get, :index, access_token: @user.access_token
     assert_response 200, 'success'
     assert current_year_holidays = assigns(:current_year_holidays)
     assert_equal 2, current_year_holidays.count
-    assert current_year_holidays.include?(holidays(:one))
+    assert current_year_holidays.include?(@holiday)
   end
 
   test 'sorting by date' do
-    get :index, sort: :date, direction: :desc
+    get :index, sort: :date, direction: :desc, access_token: @user.access_token
     assert holidays = assigns(:current_year_holidays)
-    assert_equal holidays(:two), holidays.first
-    assert_equal holidays(:one), holidays.last
+    assert_equal @holiday_other, holidays.first
+    assert_equal @holiday, holidays.last
   end
 
   test 'create holiday with valid details' do
     assert_difference('Holiday.count', 1) do
-      xhr :post, :create, holiday: { date: Date.today + 2 }
+      xhr :post, :create, holiday: { date: Date.today + 2 }, access_token: @user.access_token
     end
     holiday_response = JSON.parse(response.body)
     assert_equal true, holiday_response['success']
@@ -33,7 +35,7 @@ class HolidaysControllerTest < ActionController::TestCase
 
   test 'should not be created holiday without date' do
     assert_no_difference('Holiday.count') do
-      xhr :post, :create, holiday: { date: nil }
+      xhr :post, :create, holiday: { date: nil }, access_token: @user.access_token
     end
     holiday_response = JSON.parse(response.body)
     assert_equal false, holiday_response['success']
@@ -42,7 +44,7 @@ class HolidaysControllerTest < ActionController::TestCase
 
   test 'update holiday with valid details' do
     assert_equal nil, @holiday.name
-    xhr :put, :update, id: @holiday, holiday: { name: 'sunday' }
+    xhr :put, :update, id: @holiday, holiday: { name: 'sunday' }, access_token: @user.access_token
     holiday_response = JSON.parse(response.body)
     assert_equal true, holiday_response['success']
     assert holiday = assigns(:holiday)
@@ -51,7 +53,7 @@ class HolidaysControllerTest < ActionController::TestCase
   end
 
   test 'should not be updated holiday with incorrect/nil date' do
-    xhr :put, :update, id: @holiday, holiday: { date: nil }
+    xhr :put, :update, id: @holiday, holiday: { date: nil }, access_token: @user.access_token
     holiday_response = JSON.parse(response.body)
     assert_equal false, holiday_response['success']
     assert_match "can't be blank", holiday_response['errors']['date'].to_s
@@ -59,7 +61,7 @@ class HolidaysControllerTest < ActionController::TestCase
 
   test 'destroy holiday' do
     assert_difference('Holiday.count', -1) do
-      xhr :delete, :destroy, id: @holiday
+      xhr :delete, :destroy, id: @holiday, access_token: @user.access_token
     end
     holiday_response = JSON.parse(response.body)
     assert_equal true, holiday_response['success']

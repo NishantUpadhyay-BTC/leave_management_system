@@ -35,6 +35,7 @@ gem 'toastr-rails'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'fcm'
+gem 'factory_girl_rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
