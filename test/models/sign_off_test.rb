@@ -2,7 +2,8 @@ require 'test_helper'
 
 class SignOffTest < ActiveSupport::TestCase
   setup do
-    @sign_off = sign_offs(:sign_one)
+    @user = FactoryGirl.create(:user_with_sign_off)
+    @sign_off = @user.sign_offs.first
   end
 
   test 'valid sign off' do
@@ -33,14 +34,14 @@ class SignOffTest < ActiveSupport::TestCase
 
   test 'mark notification as read' do
     assert_not_empty @sign_off.notifications
-    @sign_off.mark_notification_as_read(users(:one))
+    @sign_off.mark_notification_as_read(@user)
     assert_empty @sign_off.notifications
   end
 
   test 'sign off approved or rejected by' do
     assert_match '', @sign_off.approved_or_rejected_by
-    @sign_off.update(sign_off_status: 'approved', approved_rejected_by_id: users(:two).id)
-    assert_match 'Came', @sign_off.approved_or_rejected_by
+    @sign_off.update(sign_off_status: 'approved', approved_rejected_by_id: @user.id)
+    assert_match 'Johnna', @sign_off.approved_or_rejected_by
   end
 
   test 'comments with user data' do
@@ -56,6 +57,6 @@ class SignOffTest < ActiveSupport::TestCase
   end
 
   test 'sign off requestee name' do
-    assert_match 'Came', @sign_off.requestee_name
+    assert_match 'Johnna', @sign_off.requestee_name
   end
 end

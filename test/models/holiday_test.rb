@@ -3,7 +3,7 @@ require 'test_helper'
 class HolidayTest < ActiveSupport::TestCase
 
   def setup
-    @holiday = holidays(:one)
+    @holiday = FactoryGirl.create(:holiday)
   end
 
   test 'valid holiday' do

@@ -3,7 +3,7 @@ require 'test_helper'
 class CommentTest < ActiveSupport::TestCase
 
   def setup
-    @comment = comments(:one)
+    @comment = FactoryGirl.create(:user_with_sign_off).sign_offs.first.comments.first
   end
 
   test 'valid comment' do

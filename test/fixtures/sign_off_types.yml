@@ -1,9 +1,0 @@
-one:
-  sign_off_type_name: sick
-  no_of_days: 5
-  description: sick leave description
-
-two:
-  sign_off_type_name: casual
-  no_of_days: 3
-  description: casual leave description
