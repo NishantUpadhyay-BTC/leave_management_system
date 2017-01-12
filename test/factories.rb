@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  
+
   factory :user do
     name "johnna"
     email "john12@gmail.com"
@@ -18,12 +18,12 @@ FactoryGirl.define do
       name "john"
       email "prina123@gmail.com"
     end
-    
+
     trait :user_for_test do
-      email "prina@gmail.com"  
+      email "prina@gmail.com"
     end
-    
-    factory :user_with_sign_off do 
+
+    factory :user_with_sign_off do
       transient do
         comments_count 1
         approved_sign_offs_count 2
@@ -47,10 +47,10 @@ FactoryGirl.define do
         end 
         create_list(:profile, evaluator.profile_count, user: user)
         create_list(:profile, evaluator.profile_count, user: FactoryGirl.create(:user, :user_for_sign_off))
-        sign_off = create_list(:sign_off, evaluator.count, user: FactoryGirl.create(:user, :user_for_notification), sign_off_type: FactoryGirl.create(:sign_off_type), sign_off_status: 'approved') 
+        sign_off = create_list(:sign_off, evaluator.count, user: FactoryGirl.create(:user, :user_for_notification), sign_off_type: FactoryGirl.create(:sign_off_type), sign_off_status: 'approved')
         create_list(:notification, evaluator.count, sign_off: sign_off[0], user: user)
       end
-    end    
+    end
   end
 
   factory :sign_off_type do
@@ -74,11 +74,11 @@ FactoryGirl.define do
     sign_off_type
     association :user, strategy: :build
   end
-  
+
   factory :sign_off_requester do
-    
+
   end
-  
+
   factory :notification do
     association :user, strategy: :build
   end

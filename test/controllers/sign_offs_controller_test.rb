@@ -8,6 +8,7 @@ class SignOffsControllerTest < ActionController::TestCase
     @test_user = FactoryGirl.create(:user, :user_for_test)
     @sign_offs = SignOff.all
     @sign_off_type = FactoryGirl.create(:sign_off_type)
+    @date = '10/11/2016'
     sign_in @user
   end
   
@@ -56,11 +57,11 @@ class SignOffsControllerTest < ActionController::TestCase
   test 'filter by date_from column' do
     prepare_sorting_data
     user = User.first
-    xhr :get, :index, column_name: :date_from, filter_by: '10/11/2016', access_token: user.access_token
+    xhr :get, :index, column_name: :date_from, filter_by: @date, access_token: user.access_token
     assert sign_offs = assigns(:sign_offs)
-    sign_offs_expected = SignOff.where(date_from: '10/11/2016')
+    sign_offs_expected = SignOff.where(date_from: @date)
     assert_equal sign_offs_expected.sort, sign_offs.sort
-    xhr :get, :index, column_name: :date_from, filter_by: '10/11/2016', sort: :date_to, direction: :desc, access_token: @user.access_token
+    xhr :get, :index, column_name: :date_from, filter_by: @date, sort: :date_to, direction: :desc, access_token: @user.access_token
     assert sign_offs_sort = assigns(:sign_offs)
     assert_equal 'approved', sign_offs.first.sign_off_status
     assert_equal 'rejected', sign_offs.last.sign_off_status
@@ -69,11 +70,12 @@ class SignOffsControllerTest < ActionController::TestCase
   test 'filter by date_to column' do
     prepare_sorting_data
     user = User.first
-    xhr :get, :index, column_name: :date_to, filter_by: '12/11/2016', access_token: user.access_token
+    date = '12/11/2016'
+    xhr :get, :index, column_name: :date_to, filter_by: date, access_token: user.access_token
     assert sign_offs = assigns(:sign_offs)
-    sign_offs_expected = SignOff.where(date_to: '12/11/2016')
+    sign_offs_expected = SignOff.where(date_to: date)
     assert_equal sign_offs_expected.sort, sign_offs.sort
-    xhr :get, :index, column_name: :date_to, filter_by: '12/11/2016', sort: :date_from, direction: :desc, access_token: @user.access_token
+    xhr :get, :index, column_name: :date_to, filter_by: date, sort: :date_from, direction: :desc, access_token: @user.access_token
     assert sign_offs = assigns(:sign_offs)
     assert_equal 'approved', sign_offs.first.sign_off_status
     assert_equal 'rejected', sign_offs.last.sign_off_status
@@ -186,7 +188,7 @@ class SignOffsControllerTest < ActionController::TestCase
   test 'pagination for sign offs' do
     xhr :get, :index, page: 1, access_token: @user.access_token
     sign_offs = assigns(:sign_offs)
-    sign_offs_expected = SignOff.page(1).per(10)
+    sign_offs_expected = SignOff.page(1).per(Settings.pagination.default)
     assert_equal sign_offs_expected.sort, sign_offs
   end
 

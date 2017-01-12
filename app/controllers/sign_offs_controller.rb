@@ -3,7 +3,7 @@ class SignOffsController < ApplicationController
 
   def index
     @sign_offs =  if params[:filter_by].blank?
-                    SignOff.all.order(sort_column + ' ' + sort_direction).page(params[:page]).per(10)
+                    SignOff.all.order(sort_column + ' ' + sort_direction).page(params[:page]).per(Settings.pagination.default)
                   elsif params[:column_name] == 'sign_off_type_name'
                     SignOffType.find_by(params[:column_name] => params[:filter_by]).sign_offs
                   else

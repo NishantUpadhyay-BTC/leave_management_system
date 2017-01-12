@@ -8,7 +8,7 @@ class ReportsControllerTest < ActionController::TestCase
   end
 
   test 'generate report for employee leaves' do
-    report_data
+    create_sign_off(@user)
     xhr :get, :generate_report, user_id: @user.id, year: @year, access_token: @user.access_token
     assert sign_offs_report = assigns(:sign_offs_report)
     report_response = JSON.parse(response.body)
@@ -38,18 +38,5 @@ class ReportsControllerTest < ActionController::TestCase
     report_response = JSON.parse(response.body)
     assert_equal false, report_response['success']
     assert_equal "Couldn't find without year", report_response['error']
-  end
-
-  private
-
-  def report_data
-    SignOff.destroy_all
-    date = Date.parse('1/11/2016')
-    3.times do
-      create(:sign_off, sign_off_type: create(:sign_off_type), date_from: date, user: @user )
-      date += 1
-      create(:sign_off, sign_off_type: create(:sign_off_type, :casual), date_from: date, user: @user )
-      date += 1
-    end    
   end
 end
